@@ -1,0 +1,27 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-box {
+  width: 500px;
+  /* height: 600px; */
+  padding: 40px;
+  background-color: rgb(228, 228, 228);
+  border-radius: 10px;
+}
+
+.span-text {
+  margin: 20px 0;
+  display: inline-block;
+}
+
+.form-input-item {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
