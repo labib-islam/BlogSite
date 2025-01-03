@@ -1,6 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
+import { ChakraProvider, Theme } from "@chakra-ui/react";
+import { ThemeProvider } from "@emotion/react";
 import "./index.css";
 import App from "./App.jsx";
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import "./Login.css";
 import { Link } from "react-router";
@@ -13,9 +14,17 @@ const Login = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        inputs
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err.response.data);
+    }
   };
 
   return (
