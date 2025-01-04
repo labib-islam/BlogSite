@@ -3,12 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  margin-top: 50px;
 }
 
 .auth-box {
   width: 500px;
-  /* height: 600px; */
   padding: 40px;
   background-color: rgb(228, 228, 228);
   border-radius: 10px;

@@ -1,0 +1,5 @@
+.blog-list__container {
+  display: flex;
+  margin: 40px;
+  gap: var(--default-spacing);
+}

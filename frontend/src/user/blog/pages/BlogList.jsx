@@ -1,27 +1,29 @@
-import React from "react";
-import { Table } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 
 import "./BlogList.css";
+import axios from "axios";
+import { Link } from "react-router";
+import BlogCard from "../components/BlogCard";
 
 const BlogList = () => {
+  const [loadedBlogs, setLoadedBlogs] = useState();
+
+  const fetchBlogs = async () => {
+    try {
+      const responseData = await axios.get(`http://localhost:5000/api/blogs/`);
+      setLoadedBlogs(responseData.data.blogs);
+      console.log(responseData.data.blogs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Author</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Image</td>
-            <td>Title</td>
-            <td>Author</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="blog-list__container">
+      {loadedBlogs && loadedBlogs.map((blog) => <BlogCard item={blog} />)}
     </div>
   );
 };

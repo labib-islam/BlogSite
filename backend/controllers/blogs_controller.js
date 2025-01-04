@@ -3,10 +3,36 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 const Blog = require("../models/blog");
 
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate("author", "username");
+    res.json({ blogs: blogs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getBlogById = async (req, res) => {
+  const bid = req.params.bid;
+
+  let blog;
+
+  try {
+    blog = await Blog.findById(bid).populate("author", "username");
+    res.json({
+      blog: blog,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const createBlog = async (req, res) => {
   try {
     const { title, image, content, category } = req.body;
-
+    console.log(req.body);
     const newBlog = new Blog({
       title,
       content,
@@ -33,3 +59,5 @@ const createBlog = async (req, res) => {
 };
 
 exports.createBlog = createBlog;
+exports.getBlogs = getBlogs;
+exports.getBlogById = getBlogById;

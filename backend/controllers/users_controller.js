@@ -105,5 +105,46 @@ const login = async (req, res) => {
   }
 };
 
+const logout = (req, res) => {
+  res
+    .cookie("access_token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    })
+    .send();
+};
+
+const isLoggedIn = (req, res) => {
+  const nonVerifiedData = {
+    verified: false,
+    username: null,
+    userId: null,
+    role: null,
+  };
+
+  try {
+    const token = req.cookies.access_token;
+
+    if (!token) {
+      return res.json(nonVerifiedData);
+    }
+
+    const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+    const verifiedData = {
+      verified: true,
+      username: verifiedToken.username,
+      userId: verifiedToken.userId,
+      role: verifiedToken.role,
+    };
+
+    res.send(verifiedData);
+  } catch (err) {
+    res.json(nonVerifiedData);
+  }
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.logout = logout;
+exports.isLoggedIn = isLoggedIn;

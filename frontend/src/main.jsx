@@ -5,11 +5,14 @@ import { ChakraProvider, Theme } from "@chakra-ui/react";
 import { ThemeProvider } from "@emotion/react";
 import "./index.css";
 import App from "./App.jsx";
+import { AuthContextProvider } from "./user/shared/contexts/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter>
   </StrictMode>
 );

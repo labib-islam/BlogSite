@@ -1,18 +1,36 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import JoditEditor from "jodit-react";
 
 const AddBlog = () => {
   const [inputs, setInputs] = useState({
     title: "",
     image: "",
     content: "",
-    category: "",
+    category: "tech",
   });
+
+  const editor = useRef(null);
+
+  const config = useMemo(
+    () => ({
+      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+      placeholder: "Start typing...",
+    }),
+    []
+  );
 
   const handleChange = (e) => {
     if (e.target.name === "image")
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
     else setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleEditorChange = (newContent) => {
+    setInputs((prev) => ({
+      ...prev,
+      content: newContent,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -45,10 +63,13 @@ const AddBlog = () => {
           <label htmlFor="">Image</label>
           <input type="file" name="image" onChange={handleChange} />
         </div>
-        <div>
-          <label htmlFor="">Content</label>
-          <input type="text" name="content" onChange={handleChange} />
-        </div>
+        <JoditEditor
+          ref={editor}
+          value={inputs.content}
+          config={config}
+          tabIndex={1} // tabIndex of textarea
+          onChange={handleEditorChange}
+        />
         <div>
           <label htmlFor="">Category</label>
 
