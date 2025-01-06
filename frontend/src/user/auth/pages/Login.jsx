@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import "./Login.css";
 import { Link } from "react-router";
+import AuthContext from "../../shared/contexts/AuthContext";
 
 const Login = () => {
+  const { getLoggedIn } = useContext(AuthContext);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -21,7 +23,7 @@ const Login = () => {
         "http://localhost:5000/api/auth/login",
         inputs
       );
-      console.log(res);
+      getLoggedIn();
     } catch (err) {
       console.log(err.response.data);
     }

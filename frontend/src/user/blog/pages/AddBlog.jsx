@@ -53,7 +53,7 @@ const AddBlog = () => {
   };
 
   return (
-    <div>
+    <div className="page-margin">
       <form>
         <div>
           <label htmlFor="">Title</label>

@@ -12,6 +12,8 @@ import AddBlog from "./user/blog/pages/AddBlog";
 import BlogItem from "./user/blog/pages/BlogItem";
 import Layout from "./user/shared/components/Layout";
 import BlogCard from "./user/blog/components/BlogCard";
+import Test from "./Test";
+import { UpdateBlog } from "./user/blog/pages/UpdateBlog";
 
 axios.defaults.withCredentials = true;
 
@@ -25,7 +27,9 @@ function App() {
         <Route path="blogs" element={<BlogList />} />
         <Route path="temp" element={<BlogCard />} />
         <Route path="blogs/new" element={<AddBlog />} />
+        <Route path="blogs/:bid/edit" element={<UpdateBlog />} />
         <Route path="blogs/:bid" element={<BlogItem />} />
+        <Route path="test" element={<Test />} />
       </Route>
     </Routes>
   );

@@ -23,7 +23,8 @@ const BlogList = () => {
   }, []);
   return (
     <div className="blog-list__container">
-      {loadedBlogs && loadedBlogs.map((blog) => <BlogCard item={blog} />)}
+      {loadedBlogs &&
+        loadedBlogs.map((blog) => <BlogCard item={blog} key={blog._id} />)}
     </div>
   );
 };

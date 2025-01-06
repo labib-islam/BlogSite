@@ -5,7 +5,7 @@ const Blog = require("../models/blog");
 
 const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().populate("author", "username");
+    const blogs = await Blog.find().populate("author", "username imageUrl");
     res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
@@ -19,7 +19,7 @@ const getBlogById = async (req, res) => {
   let blog;
 
   try {
-    blog = await Blog.findById(bid).populate("author", "username");
+    blog = await Blog.findById(bid).populate("author", "username imageUrl");
     res.json({
       blog: blog,
     });
@@ -58,6 +58,30 @@ const createBlog = async (req, res) => {
   }
 };
 
+const updateBlog = async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const bid = req.params.bid;
+
+    const blog = await Blog.findById(bid);
+
+    if (blog.author.toString() !== req.userId) {
+      res.json({ message: "You are not allowed to edit this product." });
+    }
+
+    blog.title = title;
+    blog.content = content;
+
+    await blog.save();
+
+    res.json(blog);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 exports.createBlog = createBlog;
 exports.getBlogs = getBlogs;
 exports.getBlogById = getBlogById;
+exports.updateBlog = updateBlog;

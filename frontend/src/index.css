@@ -34,3 +34,7 @@ li {
   margin-left: 20px; /* Adjust left padding for proper alignment */
   text-align: left;   /* Ensure the text aligns to the left */
 }
+
+.page-margin {
+  margin: 40px;
+}

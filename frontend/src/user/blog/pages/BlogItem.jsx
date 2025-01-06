@@ -1,39 +1,51 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
+import UserAvatar from "../../user/components/UserAvatar";
 
 const BlogItem = () => {
   const { userId } = useContext(AuthContext);
-  const [loadedBlogs, setLoadedBlogs] = useState();
+  const [loadedBlog, setLoadedBlog] = useState();
   const bid = useParams().bid;
 
-  const fetchBlogs = async () => {
+  const fetchBlog = async () => {
     try {
       const responseData = await axios.get(
         `http://localhost:5000/api/blogs/${bid}`
       );
 
-      setLoadedBlogs(responseData.data.blog);
+      setLoadedBlog(responseData.data.blog);
+      console.log(responseData.data.blog);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    fetchBlogs();
+    fetchBlog();
   }, []);
 
   return (
-    <div>
-      {loadedBlogs && (
+    <div className="page-margin">
+      {loadedBlog && (
         <>
-          <h2>{loadedBlogs.title}</h2>
-          <span>{loadedBlogs.author.username}</span>
-          <div dangerouslySetInnerHTML={{ __html: loadedBlogs.content }} />
-          {userId === loadedBlogs.author._id && (
+          <h2>{loadedBlog.title}</h2>
+          <div className="blog-image__container">
+            <img
+              src={`http://localhost:5000/${loadedBlog.imageUrl}`}
+              alt="Blog Image"
+              className="blog-image"
+            />
+          </div>
+          <UserAvatar
+            author={loadedBlog.author.username}
+            image={loadedBlog.author.imageUrl}
+          />
+          <div dangerouslySetInnerHTML={{ __html: loadedBlog.content }} />
+          {userId === loadedBlog.author._id && (
             <>
-              <button>Edit</button>
+              <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>
               <button>Delete</button>
             </>
           )}

@@ -30,6 +30,7 @@ const signup = async (req, res) => {
     const newUser = new User({
       username,
       email,
+      imageUrl: req.file.path,
       password: hashedPassword,
       role: "user",
       blogs: [],
@@ -42,6 +43,7 @@ const signup = async (req, res) => {
       {
         username: savedUser.username,
         userId: savedUser._id,
+        image: savedUser.imageUrl,
         role: savedUser.role,
       },
       process.env.JWT_SECRET
@@ -88,6 +90,7 @@ const login = async (req, res) => {
       {
         username: existingUser.username,
         userId: existingUser._id,
+        image: existingUser.imageUrl,
         role: existingUser.role,
       },
       process.env.JWT_SECRET
@@ -119,6 +122,7 @@ const isLoggedIn = (req, res) => {
     verified: false,
     username: null,
     userId: null,
+    image: null,
     role: null,
   };
 
@@ -135,6 +139,7 @@ const isLoggedIn = (req, res) => {
       verified: true,
       username: verifiedToken.username,
       userId: verifiedToken.userId,
+      image: verifiedToken.image,
       role: verifiedToken.role,
     };
 

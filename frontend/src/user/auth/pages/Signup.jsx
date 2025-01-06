@@ -1,26 +1,36 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router";
 import axios from "axios";
+import AuthContext from "../../shared/contexts/AuthContext";
 
 const Signup = () => {
+  const { getLoggedIn } = useContext(AuthContext);
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
+    image: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (e.target.name === "image")
+      setInputs((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
+    else setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("username", inputs.username);
+      formData.append("email", inputs.email);
+      formData.append("image", inputs.image);
+      formData.append("password", inputs.password);
       const res = await axios.post(
         "http://localhost:5000/api/auth/signup",
-        inputs
+        formData
       );
-      console.log(res.data);
+      getLoggedIn();
     } catch (err) {
       console.log(err.response.data);
     }
@@ -42,6 +52,10 @@ const Signup = () => {
           <div className="form-input-item">
             <label htmlFor="">Password</label>
             <input type="password" name="password" onChange={handleChange} />
+          </div>
+          <div className="form-input-item">
+            <label htmlFor="">Image</label>
+            <input type="file" name="image" onChange={handleChange} />
           </div>
           <button onClick={handleSubmit}>Signup</button>
         </form>

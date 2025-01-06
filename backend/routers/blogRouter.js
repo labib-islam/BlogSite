@@ -12,5 +12,6 @@ router.post(
   fileUpload.single("image"),
   blogsController.createBlog
 );
+router.patch("/:bid", auth, blogsController.updateBlog);
 
 module.exports = router;

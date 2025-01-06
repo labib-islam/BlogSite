@@ -1,0 +1,26 @@
+.user-avatar__container {
+  background-color: white;
+  height: 25px;
+  width: fit-content;
+  padding-right: 15px;
+  /* width: 100px; */
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.5); */
+}
+
+.user-avatar__image {
+  height: 100%;
+  aspect-ratio: 1/1;
+  width: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+.user-avatar__author {
+  font-size: 0.8rem;
+  font-weight: 600;
+}

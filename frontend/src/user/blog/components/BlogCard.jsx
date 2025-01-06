@@ -4,29 +4,29 @@ import avatarImage from "../../../assets/user.jpg";
 
 import "./BlogCard.css";
 import { Link } from "react-router";
+import UserAvatar from "../../user/components/UserAvatar";
 
 const BlogCard = (props) => {
   return (
     <Link to={`/blogs/${props.item._id}`}>
-      <div class="blog-card__container">
+      <div key={props.item._id} className="blog-card__container">
         <div className="blog-card__image">
           <img
             src={`http://localhost:5000/${props.item.imageUrl}`}
             alt="Blog Image"
-            class="blog-image"
           />
         </div>
-        <div class="blog-card__content">
-          <h2 class="blog-card__title">{props.item.title}</h2>
-          <div
-            class="blog-card__preview"
+        <div className="blog-card__content">
+          <h2 className="blog-card__title">{props.item.title}</h2>
+          {/* <div
+            className="blog-card__preview"
             dangerouslySetInnerHTML={{ __html: props.item.content }}
-          />
-          <div class="blog-card__footer">
-            <div className="blog-card__avatar-image">
-              <img src={avatarImage} alt="Blog Image" class="blog-image" />
-            </div>
-            <span class="blog-card__author">{props.item.author.username}</span>
+          /> */}
+          <div className="blog-card__avatar-container">
+            <UserAvatar
+              author={props.item.author.username}
+              image={props.item.author.imageUrl}
+            />
           </div>
         </div>
       </div>
