@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
 import UserAvatar from "../../user/components/UserAvatar";
 
@@ -8,6 +8,19 @@ const BlogItem = () => {
   const { userId } = useContext(AuthContext);
   const [loadedBlog, setLoadedBlog] = useState();
   const bid = useParams().bid;
+
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      const responseData = await axios.delete(
+        `http://localhost:5000/api/blogs/${bid}`
+      );
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchBlog = async () => {
     try {
@@ -46,7 +59,7 @@ const BlogItem = () => {
           {userId === loadedBlog.author._id && (
             <>
               <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>
-              <button>Delete</button>
+              <button onClick={handleDelete}>Delete</button>
             </>
           )}
         </>

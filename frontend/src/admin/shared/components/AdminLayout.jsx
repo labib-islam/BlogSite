@@ -12,7 +12,7 @@ const AdminLayout = () => {
     },
     {
       name: "Blogs",
-      path: "/blogs",
+      path: "/admin/blogs",
     },
   ];
 

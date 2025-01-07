@@ -13,5 +13,6 @@ router.post(
   blogsController.createBlog
 );
 router.patch("/:bid", auth("user"), blogsController.updateBlog);
+router.delete("/:bid", auth("user"), blogsController.deleteBlog);
 
 module.exports = router;
