@@ -7,6 +7,12 @@ const blogSchema = new mongoose.Schema({
   category: { type: String, required: true },
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   publication_date: { type: Date, required: true },
+  status: {
+    type: String,
+    required: true,
+    enum: ["draft", "pending", "published", "rejected"],
+  },
+  feedback: { type: String },
 });
 
 const Blog = mongoose.model("Blog", blogSchema);

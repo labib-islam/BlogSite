@@ -37,3 +37,4 @@ app.use(
 // Routes
 app.use("/api/auth", require("./routers/userRouter"));
 app.use("/api/blogs", require("./routers/blogRouter"));
+app.use("/api/admin", require("./routers/adminRouter"));

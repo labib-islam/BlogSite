@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Routes, Route } from "react-router";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -14,13 +14,19 @@ import Layout from "./user/shared/components/Layout";
 import BlogCard from "./user/blog/components/BlogCard";
 import Test from "./Test";
 import { UpdateBlog } from "./user/blog/pages/UpdateBlog";
+import AuthContext from "./user/shared/contexts/AuthContext";
+import { AdminSignup } from "./admin/auth/AdminSignup";
+import AdminLayout from "./admin/shared/components/AdminLayout";
+import Blogs from "./admin/blog/pages/Blogs";
 
 axios.defaults.withCredentials = true;
 
 function App() {
+  const { loggedIn, role } = useContext(AuthContext);
+
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={role === "admin" ? <AdminLayout /> : <Layout />}>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
@@ -30,6 +36,9 @@ function App() {
         <Route path="blogs/:bid/edit" element={<UpdateBlog />} />
         <Route path="blogs/:bid" element={<BlogItem />} />
         <Route path="test" element={<Test />} />
+
+        <Route path="admin/signup" element={<AdminSignup />} />
+        {role === "admin" && <Route path="admin/blogs" element={<Blogs />} />}
       </Route>
     </Routes>
   );

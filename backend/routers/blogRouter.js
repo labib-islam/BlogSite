@@ -8,10 +8,10 @@ router.get("/", blogsController.getBlogs);
 router.get("/:bid", blogsController.getBlogById);
 router.post(
   "/new",
-  auth,
+  auth("user"),
   fileUpload.single("image"),
   blogsController.createBlog
 );
-router.patch("/:bid", auth, blogsController.updateBlog);
+router.patch("/:bid", auth("user"), blogsController.updateBlog);
 
 module.exports = router;
