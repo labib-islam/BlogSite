@@ -89,8 +89,11 @@ const BlogItem = () => {
           {role === "admin" && (
             <>
               <button onClick={() => handleStatus("archived")}>Archive</button>
+              <button onClick={() => handleStatus("published")}>Publish</button>
+
               <textarea
                 name="feedback"
+                value={loadedBlog.feedback}
                 onChange={(e) => setFeedback(e.target.value)}
                 rows={5}
               />

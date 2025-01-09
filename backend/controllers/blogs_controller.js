@@ -117,6 +117,10 @@ const setBlogStatus = async (req, res) => {
     const { bid, status } = req.params;
     const blog = await Blog.findById(bid);
 
+    if (status == "published") {
+      blog.set("feedback", undefined, { strict: false });
+    }
+
     blog.status = status;
 
     await blog.save();
