@@ -2,4 +2,5 @@
   display: flex;
   margin: 40px;
   gap: var(--default-spacing);
+  flex-wrap: wrap;
 }

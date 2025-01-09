@@ -84,6 +84,8 @@ const BlogItem = () => {
             <>
               <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>
               <button onClick={handleDelete}>Delete</button>
+              <h3>Status: {loadedBlog.status}</h3>
+              <span>Feedback: {loadedBlog.feedback}</span>
             </>
           )}
           {role === "admin" && (

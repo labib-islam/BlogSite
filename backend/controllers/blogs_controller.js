@@ -73,6 +73,7 @@ const updateBlog = async (req, res) => {
 
     blog.title = title;
     blog.content = content;
+    blog.status = "pending";
 
     await blog.save();
 
