@@ -112,8 +112,46 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const setBlogStatus = async (req, res) => {
+  try {
+    const { bid, status } = req.params;
+    const blog = await Blog.findById(bid);
+
+    blog.status = status;
+
+    await blog.save();
+
+    res.json(blog);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+// -- Admin Controller
+const setBlogFeedback = async (req, res) => {
+  try {
+    const { feedback } = req.body;
+    const bid = req.params.bid;
+    console.log(req.body);
+    const blog = await Blog.findById(bid);
+
+    blog.feedback = feedback;
+    blog.status = "rejected";
+
+    await blog.save();
+
+    res.json(blog);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 exports.createBlog = createBlog;
 exports.getBlogs = getBlogs;
 exports.getBlogById = getBlogById;
 exports.updateBlog = updateBlog;
 exports.deleteBlog = deleteBlog;
+exports.setBlogFeedback = setBlogFeedback;
+exports.setBlogStatus = setBlogStatus;

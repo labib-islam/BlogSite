@@ -5,7 +5,8 @@ import AuthContext from "../../shared/contexts/AuthContext";
 import UserAvatar from "../../user/components/UserAvatar";
 
 const BlogItem = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, role } = useContext(AuthContext);
+  const [feedback, setFeedback] = useState();
   const [loadedBlog, setLoadedBlog] = useState();
   const bid = useParams().bid;
 
@@ -22,6 +23,30 @@ const BlogItem = () => {
     }
   };
 
+  const handleStatus = async (status) => {
+    try {
+      const responseData = await axios.patch(
+        `http://localhost:5000/api/blogs/status/${bid}/${status}`
+      );
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleFeedback = async () => {
+    try {
+      console.log(feedback);
+      const responseData = await axios.patch(
+        `http://localhost:5000/api/blogs/feedback/${bid}`,
+        { feedback }
+      );
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchBlog = async () => {
     try {
       const responseData = await axios.get(
@@ -29,7 +54,6 @@ const BlogItem = () => {
       );
 
       setLoadedBlog(responseData.data.blog);
-      console.log(responseData.data.blog);
     } catch (err) {
       console.error(err);
     }
@@ -60,6 +84,17 @@ const BlogItem = () => {
             <>
               <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>
               <button onClick={handleDelete}>Delete</button>
+            </>
+          )}
+          {role === "admin" && (
+            <>
+              <button onClick={() => handleStatus("archived")}>Archive</button>
+              <textarea
+                name="feedback"
+                onChange={(e) => setFeedback(e.target.value)}
+                rows={5}
+              />
+              <button onClick={handleFeedback}>Submit Feedback</button>
             </>
           )}
         </>

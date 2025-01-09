@@ -5,6 +5,15 @@ const fileUpload = require("../middlewares/file_upload");
 const blogsController = require("../controllers/blogs_controller");
 
 router.get("/", blogsController.getBlogs);
+
+// -- Admin Routes
+router.patch("/feedback/:bid", auth("admin"), blogsController.setBlogFeedback);
+
+router.patch(
+  "/status/:bid/:status",
+  auth("admin"),
+  blogsController.setBlogStatus
+);
 router.get("/:bid", blogsController.getBlogById);
 router.post(
   "/new",
