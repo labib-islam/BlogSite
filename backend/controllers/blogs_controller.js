@@ -36,7 +36,7 @@ const createBlog = async (req, res) => {
     const { title, image, content, category } = req.body;
     const newBlog = new Blog({
       title,
-      content,
+      content: JSON.parse(content),
       imageUrl: req.file.path,
       category,
       author: req.userId,

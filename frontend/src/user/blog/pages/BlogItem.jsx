@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
 import UserAvatar from "../../user/components/UserAvatar";
+import { Editor } from "../components/Editor";
 
 const BlogItem = () => {
   const { userId, role } = useContext(AuthContext);
@@ -64,7 +65,7 @@ const BlogItem = () => {
   }, []);
 
   return (
-    <div className="page-margin">
+    <div className="page-margin add-blog__container">
       {loadedBlog && (
         <>
           <h2>{loadedBlog.title}</h2>
@@ -79,7 +80,7 @@ const BlogItem = () => {
             author={loadedBlog.author.username}
             image={loadedBlog.author.imageUrl}
           />
-          <div dangerouslySetInnerHTML={{ __html: loadedBlog.content }} />
+          <Editor readOnly={true} content={loadedBlog.content.blocks} />
           {userId === loadedBlog.author._id && (
             <>
               <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>

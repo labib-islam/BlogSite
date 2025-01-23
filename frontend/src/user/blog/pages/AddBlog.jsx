@@ -1,16 +1,19 @@
 import axios from "axios";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
+import { Editor } from "../components/Editor";
+
+import "./AddBlog.css";
 
 const AddBlog = () => {
   const [inputs, setInputs] = useState({
     title: "",
     image: "",
-    content: "",
+    content: {},
     category: "tech",
   });
 
-  const editor = useRef(null);
+  const editorr = useRef(null);
 
   const config = useMemo(
     () => ({
@@ -35,12 +38,11 @@ const AddBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
     try {
       const formData = new FormData();
       formData.append("title", inputs.title);
       formData.append("image", inputs.image);
-      formData.append("content", inputs.content);
+      formData.append("content", JSON.stringify(inputs.content));
       formData.append("category", inputs.category);
       const res = await axios.post(
         "http://localhost:5000/api/blogs/new",
@@ -53,7 +55,7 @@ const AddBlog = () => {
   };
 
   return (
-    <div className="page-margin">
+    <div className="page-margin add-blog__container">
       <form>
         <div>
           <label htmlFor="">Title</label>
@@ -63,13 +65,14 @@ const AddBlog = () => {
           <label htmlFor="">Image</label>
           <input type="file" name="image" onChange={handleChange} />
         </div>
-        <JoditEditor
-          ref={editor}
+        {/* <JoditEditor
+          ref={editorr}
           value={inputs.content}
           config={config}
           tabIndex={1} // tabIndex of textarea
           onChange={handleEditorChange}
-        />
+        /> */}
+        <Editor handleChange={handleEditorChange} />
         <div>
           <label htmlFor="">Category</label>
 

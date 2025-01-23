@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import JoditEditor from "jodit-react";
 
 import "./UpdateBlog.css";
+import { Editor } from "../components/Editor";
 
 export const UpdateBlog = () => {
   const { userId } = useContext(AuthContext);
@@ -13,18 +14,8 @@ export const UpdateBlog = () => {
 
   const [inputs, setInputs] = useState({
     title: "",
-    content: "",
+    content: {},
   });
-
-  const editor = useRef(null);
-
-  const config = useMemo(
-    () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: "Start typing...",
-    }),
-    []
-  );
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -90,12 +81,10 @@ export const UpdateBlog = () => {
                 className="blog-image"
               />
             </div>
-            <JoditEditor
-              ref={editor}
-              value={inputs.content}
-              config={config}
-              tabIndex={1} // tabIndex of textarea
-              onChange={handleEditorChange}
+            <Editor
+              handleChange={handleEditorChange}
+              // readOnly={true}
+              content={inputs.content.blocks}
             />
             <div>
               <label htmlFor="">Category: {loadedBlog.category}</label>
