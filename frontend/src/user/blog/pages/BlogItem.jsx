@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
 import UserAvatar from "../../user/components/UserAvatar";
 import { Editor } from "../components/Editor";
+import { format } from "date-fns";
 
 const BlogItem = () => {
   const { userId, role } = useContext(AuthContext);
@@ -65,10 +66,25 @@ const BlogItem = () => {
   }, []);
 
   return (
-    <div className="page-margin add-blog__container">
+    <div className="page-margin blog__container">
       {loadedBlog && (
-        <>
-          <h2>{loadedBlog.title}</h2>
+        <div className="blog">
+          <h2 className="blog-title">{loadedBlog.title}</h2>
+          <hr />
+          <div className="avatar-date__container">
+            <UserAvatar
+              author={loadedBlog.author.username}
+              image={loadedBlog.author.imageUrl}
+            />
+            <span className="date">
+              {format(loadedBlog.publication_date, "MMM d, yyyy")}
+            </span>
+          </div>
+
+          <hr />
+          <div className="category__container">
+            <span className="category">{loadedBlog.category}</span>
+          </div>
           <div className="blog-image__container">
             <img
               src={`http://localhost:5000/${loadedBlog.imageUrl}`}
@@ -76,17 +92,23 @@ const BlogItem = () => {
               className="blog-image"
             />
           </div>
-          <UserAvatar
-            author={loadedBlog.author.username}
-            image={loadedBlog.author.imageUrl}
-          />
           <Editor readOnly={true} content={loadedBlog.content.blocks} />
+          <hr />
           {userId === loadedBlog.author._id && (
             <>
-              <Link to={`/blogs/${loadedBlog._id}/edit`}>Edit</Link>
-              <button onClick={handleDelete}>Delete</button>
               <h3>Status: {loadedBlog.status}</h3>
-              <span>Feedback: {loadedBlog.feedback}</span>
+              {loadedBlog.feedback && (
+                <span>Feedback: {loadedBlog.feedback}</span>
+              )}
+              <button
+                className="edit__button"
+                onClick={() => navigate(`/blogs/${loadedBlog._id}/edit`)}
+              >
+                Edit
+              </button>
+              <button className="delete__button" onClick={handleDelete}>
+                Delete
+              </button>
             </>
           )}
           {role === "admin" && (
@@ -103,7 +125,7 @@ const BlogItem = () => {
               <button onClick={handleFeedback}>Submit Feedback</button>
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );

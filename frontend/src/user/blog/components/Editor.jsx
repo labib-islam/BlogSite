@@ -1,14 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
+import Header from "@editorjs/header";
+import EditorjsList from "@editorjs/list";
 
 export const Editor = ({ handleChange, content, readOnly = false }) => {
   const isReady = useRef(false);
 
   const config = {
-    placeholder: "Let's write an awesome story!",
+    placeholder: "Let's write an awesome blog!",
     autofocus: !readOnly,
     data: content ? { blocks: content } : {},
     readOnly: readOnly,
+
+    tools: {
+      header: Header,
+      list: EditorjsList,
+    },
 
     onChange: async (api, event) => {
       // console.log("Now I know that Editor's content changed!", event);

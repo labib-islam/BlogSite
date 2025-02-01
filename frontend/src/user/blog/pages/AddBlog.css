@@ -1,3 +1,116 @@
-.add-blog__container {
+.blog__container {
   width: 650px;
 }
+
+.add-blog__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.blog {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.blog-image__container {
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.blog-title {
+  line-height: 1.3;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 2.5rem;
+  font-weight: 800;
+  width: 100%;
+  resize: none;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+
+.blog-title::placeholder {
+  color: rgb(179, 179, 179);
+}
+
+.category__container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.category__container select {
+  padding: 2px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(233, 233, 233);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.category {
+  margin-top: -5px;
+  padding: 0px 10px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  background-color: rgb(179, 220, 228);
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+.avatar-date__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+
+
+
+.codex-editor__redactor {
+  padding-bottom: 50px !important;
+}
+
+.form-submit__button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.05rem;
+  background-color: var(--secondary-green);
+  cursor: pointer;
+}
+
+.edit__button {
+  height: 40px;
+  border: 2px solid rgb(245, 208, 45);
+  border-radius: 5px;
+  color: rgb(245, 208, 45);
+  font-size: 1.05rem;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+}
+
+.delete__button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 500;
+  background-color: rgb(238, 34, 68);
+  cursor: pointer;
+}
+

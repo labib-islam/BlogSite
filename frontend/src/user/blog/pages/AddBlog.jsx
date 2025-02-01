@@ -1,32 +1,33 @@
 import axios from "axios";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { Editor } from "../components/Editor";
+import { format } from "date-fns";
 
 import "./AddBlog.css";
+import DragDropImageUploader from "../components/DragDropImageUploader";
+import AuthContext from "../../shared/contexts/AuthContext";
+import UserAvatar from "../../user/components/UserAvatar";
 
 const AddBlog = () => {
+  const { username, image: userImage } = useContext(AuthContext);
+
   const [inputs, setInputs] = useState({
     title: "",
-    image: "",
     content: {},
     category: "tech",
   });
 
-  const editorr = useRef(null);
-
-  const config = useMemo(
-    () => ({
-      readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-      placeholder: "Start typing...",
-    }),
-    []
-  );
+  const [image, setImage] = useState();
 
   const handleChange = (e) => {
-    if (e.target.name === "image")
+    if (e.target.name === "title") {
+      setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+      e.target.style.height = "auto"; // Reset height to recalculate
+      e.target.style.height = event.target.scrollHeight + "px"; // Set new height
+    } else if (e.target.name === "image") {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
-    else setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    } else setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleEditorChange = (newContent) => {
@@ -41,7 +42,7 @@ const AddBlog = () => {
     try {
       const formData = new FormData();
       formData.append("title", inputs.title);
-      formData.append("image", inputs.image);
+      formData.append("image", image.file);
       formData.append("content", JSON.stringify(inputs.content));
       formData.append("category", inputs.category);
       const res = await axios.post(
@@ -55,26 +56,26 @@ const AddBlog = () => {
   };
 
   return (
-    <div className="page-margin add-blog__container">
-      <form>
-        <div>
-          <label htmlFor="">Title</label>
-          <input type="text" name="title" onChange={handleChange} />
+    <div className="page-margin blog__container">
+      <form className="add-blog__form">
+        <div className="blog-title__container">
+          <textarea
+            className="blog-title"
+            type="text"
+            name="title"
+            onChange={handleChange}
+            placeholder="Title"
+            rows={1}
+          />
         </div>
-        <div>
-          <label htmlFor="">Image</label>
-          <input type="file" name="image" onChange={handleChange} />
+        <hr />
+        <div className="avatar-date__container">
+          <UserAvatar author={username} image={userImage} />
+          <span className="date">{format(new Date(), "MMM d, yyyy")}</span>
         </div>
-        {/* <JoditEditor
-          ref={editorr}
-          value={inputs.content}
-          config={config}
-          tabIndex={1} // tabIndex of textarea
-          onChange={handleEditorChange}
-        /> */}
-        <Editor handleChange={handleEditorChange} />
-        <div>
-          <label htmlFor="">Category</label>
+        <hr />
+        <div className="category__container">
+          <label htmlFor="">Category: </label>
 
           <select name="category" id="category" onChange={handleChange}>
             <option value="tech">Tech</option>
@@ -83,7 +84,14 @@ const AddBlog = () => {
             <option value="travel">Travel</option>
           </select>
         </div>
-        <button onClick={handleSubmit}>Create</button>
+        <div>
+          <DragDropImageUploader image={image} setImage={setImage} />
+        </div>
+        <Editor handleChange={handleEditorChange} />
+
+        <button className="form-submit__button" onClick={handleSubmit}>
+          Create
+        </button>
       </form>
     </div>
   );
