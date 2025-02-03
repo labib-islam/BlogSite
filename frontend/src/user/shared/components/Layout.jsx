@@ -37,12 +37,14 @@ const Layout = () => {
             {loggedIn && (
               <>
                 <li className="nav-item">
-                  <NavLink to="/" onClick={getLoggedOut}>
+                  <NavLink to="/login" onClick={getLoggedOut}>
                     Logout
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <UserAvatar author={username} image={image} />
+                  <NavLink to="/user/dashboard">
+                    <UserAvatar author={username} image={image} />
+                  </NavLink>
                 </li>
               </>
             )}

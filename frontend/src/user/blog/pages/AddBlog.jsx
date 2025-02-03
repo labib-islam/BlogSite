@@ -8,6 +8,7 @@ import "./AddBlog.css";
 import DragDropImageUploader from "../components/DragDropImageUploader";
 import AuthContext from "../../shared/contexts/AuthContext";
 import UserAvatar from "../../user/components/UserAvatar";
+import { useNavigate } from "react-router";
 
 const AddBlog = () => {
   const { username, image: userImage } = useContext(AuthContext);
@@ -19,6 +20,8 @@ const AddBlog = () => {
   });
 
   const [image, setImage] = useState();
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.name === "title") {
@@ -49,7 +52,7 @@ const AddBlog = () => {
         "http://localhost:5000/api/blogs/new",
         formData
       );
-      console.log(res);
+      navigate("/user/dashboard");
     } catch (err) {
       console.log(err);
     }

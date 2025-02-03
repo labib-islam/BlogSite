@@ -19,7 +19,7 @@ const BlogItem = () => {
       const responseData = await axios.delete(
         `http://localhost:5000/api/blogs/${bid}`
       );
-      navigate("/");
+      navigate("/blogs");
     } catch (err) {
       console.error(err);
     }

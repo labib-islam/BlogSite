@@ -18,6 +18,8 @@ import AuthContext from "./user/shared/contexts/AuthContext";
 import { AdminSignup } from "./admin/auth/AdminSignup";
 import AdminLayout from "./admin/shared/components/AdminLayout";
 import Blogs from "./admin/blog/pages/Blogs";
+import Dashboard from "./user/user/pages/Dashboard";
+import MyBlogList from "./user/blog/pages/MyBlogList";
 
 axios.defaults.withCredentials = true;
 
@@ -35,6 +37,12 @@ function App() {
         <Route path="blogs/new" element={<AddBlog />} />
         <Route path="blogs/:bid/edit" element={<UpdateBlog />} />
         <Route path="blogs/:bid" element={<BlogItem />} />
+        <Route path="user/dashboard" element={<Dashboard />} />
+        <Route path="user/blogs/:status" element={<MyBlogList />} />
+        <Route path="user/pending-blogs" element={<Dashboard />} />
+        <Route path="user/rejected-blogs" element={<Dashboard />} />
+        <Route path="user/drafts" element={<Dashboard />} />
+
         <Route path="test" element={<Test />} />
 
         <Route path="admin/signup" element={<AdminSignup />} />

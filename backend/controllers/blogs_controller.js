@@ -31,6 +31,33 @@ const getBlogById = async (req, res) => {
   }
 };
 
+const getBlogsByUserId = async (req, res) => {
+  const userId = req.params.userId;
+  const status = req.params.status;
+  let userWithBlogs;
+
+  try {
+    const filter = status && status !== "all" ? { status: status } : {};
+
+    userWithBlogs = await User.findById(userId).populate({
+      path: "blogs",
+      match: filter, // 👈 Only filter if status is NOT "all"
+      populate: {
+        path: "author",
+        select: "username imageUrl",
+      },
+    });
+
+    console.log(userWithBlogs);
+    res.json({
+      blogs: userWithBlogs.blogs,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const createBlog = async (req, res) => {
   try {
     const { title, image, content, category } = req.body;
@@ -156,6 +183,7 @@ const setBlogFeedback = async (req, res) => {
 exports.createBlog = createBlog;
 exports.getBlogs = getBlogs;
 exports.getBlogById = getBlogById;
+exports.getBlogsByUserId = getBlogsByUserId;
 exports.updateBlog = updateBlog;
 exports.deleteBlog = deleteBlog;
 exports.setBlogFeedback = setBlogFeedback;

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import "./Login.css";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
 
 const Login = () => {
@@ -11,6 +11,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,6 +26,7 @@ const Login = () => {
         inputs
       );
       getLoggedIn();
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
     }

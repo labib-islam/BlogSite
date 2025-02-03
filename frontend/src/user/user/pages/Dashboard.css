@@ -1,0 +1,19 @@
+.dashboard__container {
+  width: 300px;
+  margin-top: var(--default-spacing);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--default-spacing)/2);
+}
+
+.dashboard-link {
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--default-spacing);
+  background-color: black;
+  color: white;
+}
