@@ -21,7 +21,7 @@ const Layout = () => {
   return (
     <div>
       <header className="navigation-container">
-        <h1>Blog App: {username}</h1>
+        <h1>Blog App</h1>
         <nav>
           <ul>
             {navItems.map((navItem) => (

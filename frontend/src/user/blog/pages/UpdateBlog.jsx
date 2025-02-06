@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import AuthContext from "../../shared/contexts/AuthContext";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import JoditEditor from "jodit-react";
 
 import "./UpdateBlog.css";
 import { Editor } from "../components/Editor";
+import UserAvatar from "../../user/components/UserAvatar";
+import { format } from "date-fns";
 
 export const UpdateBlog = () => {
   const { userId } = useContext(AuthContext);
@@ -16,6 +18,8 @@ export const UpdateBlog = () => {
     title: "",
     content: {},
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -36,7 +40,7 @@ export const UpdateBlog = () => {
         `http://localhost:5000/api/blogs/${bid}`,
         inputs
       );
-      console.log(res);
+      navigate("/blogs");
     } catch (err) {
       console.log(err);
     }
@@ -64,15 +68,33 @@ export const UpdateBlog = () => {
     <>
       {loadedBlog && (
         <div className="page-margin">
-          <form>
-            <div>
-              <label htmlFor="">Title</label>
-              <input
+          <form className="add-blog__form">
+            <span className="edit-icon">Editing Mode</span>
+
+            <div className="blog-title__container">
+              <textarea
+                className="blog-title"
                 type="text"
                 name="title"
-                value={inputs.title}
                 onChange={handleChange}
+                placeholder="Title"
+                value={inputs.title}
               />
+            </div>
+            <hr />
+            <div className="avatar-date__container">
+              <UserAvatar
+                author={loadedBlog.author.username}
+                image={loadedBlog.author.imageUrl}
+              />
+              <span className="date">
+                {format(loadedBlog.publication_date, "MMM d, yyyy")}
+              </span>
+            </div>
+
+            <hr />
+            <div className="category__container">
+              <span className="category">{loadedBlog.category}</span>
             </div>
             <div className="blog-image__container">
               <img
@@ -86,10 +108,10 @@ export const UpdateBlog = () => {
               // readOnly={true}
               content={inputs.content.blocks}
             />
-            <div>
-              <label htmlFor="">Category: {loadedBlog.category}</label>
-            </div>
-            <button onClick={handleSubmit}>Update</button>
+
+            <button className="form-submit__button" onClick={handleSubmit}>
+              Update
+            </button>
           </form>
         </div>
       )}
