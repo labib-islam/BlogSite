@@ -21,7 +21,9 @@ const Dashboard = () => {
       <Link to="/user/blogs/rejected" className="dashboard-link">
         Rejected Blogs
       </Link>
-      <Link className="dashboard-link">Drafts</Link>
+      <Link to="/user/blogs/draft" className="dashboard-link">
+        Drafts
+      </Link>
     </div>
   );
 };

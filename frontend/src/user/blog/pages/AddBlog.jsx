@@ -40,7 +40,7 @@ const AddBlog = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, status) => {
     e.preventDefault();
     try {
       const formData = new FormData();
@@ -49,7 +49,7 @@ const AddBlog = () => {
       formData.append("content", JSON.stringify(inputs.content));
       formData.append("category", inputs.category);
       const res = await axios.post(
-        "http://localhost:5000/api/blogs/new",
+        `http://localhost:5000/api/blogs/new?status=${status}`,
         formData
       );
       navigate("/user/dashboard");
@@ -92,8 +92,17 @@ const AddBlog = () => {
         </div>
         <Editor handleChange={handleEditorChange} />
 
-        <button className="form-submit__button" onClick={handleSubmit}>
+        <button
+          className="form-submit__button"
+          onClick={(e) => handleSubmit(e, "pending")}
+        >
           Create
+        </button>
+        <button
+          className="form-submit-outline__button"
+          onClick={(e) => handleSubmit(e, "draft")}
+        >
+          Save as draft
         </button>
       </form>
     </div>

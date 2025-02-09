@@ -32,12 +32,12 @@ export const UpdateBlog = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, status) => {
     e.preventDefault();
     console.log(inputs);
     try {
       const res = await axios.patch(
-        `http://localhost:5000/api/blogs/${bid}`,
+        `http://localhost:5000/api/blogs/${bid}?status=${status}`,
         inputs
       );
       navigate("/blogs");
@@ -105,12 +105,20 @@ export const UpdateBlog = () => {
             </div>
             <Editor
               handleChange={handleEditorChange}
-              // readOnly={true}
               content={inputs.content.blocks}
             />
 
-            <button className="form-submit__button" onClick={handleSubmit}>
-              Update
+            <button
+              className="form-submit__button"
+              onClick={(e) => handleSubmit(e, "pending")}
+            >
+              Update & Send For Reviews
+            </button>
+            <button
+              className="form-submit-outline__button"
+              onClick={(e) => handleSubmit(e, "draft")}
+            >
+              Save as draft
             </button>
           </form>
         </div>

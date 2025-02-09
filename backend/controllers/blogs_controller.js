@@ -5,9 +5,24 @@ const Blog = require("../models/blog");
 
 const fs = require("fs");
 
+const getPublishedBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find({ status: "published" }).populate(
+      "author",
+      "username imageUrl"
+    );
+
+    res.json({ blogs: blogs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().populate("author", "username imageUrl");
+
     res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
@@ -34,10 +49,20 @@ const getBlogById = async (req, res) => {
 const getBlogsByUserId = async (req, res) => {
   const userId = req.params.userId;
   const status = req.params.status;
+  const search = req.query.search;
+  const category = req.query.cat;
   let userWithBlogs;
 
+  console.log(search, category);
+
   try {
-    const filter = status && status !== "all" ? { status: status } : {};
+    // const filter = status && status !== "all" ? { status: status } : {};
+
+    const filter = {
+      ...(status && status !== "all" && { status }),
+      ...(category && category !== "all" && { category }),
+      ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
+    };
 
     userWithBlogs = await User.findById(userId).populate({
       path: "blogs",
@@ -68,7 +93,7 @@ const createBlog = async (req, res) => {
       category,
       author: req.userId,
       publication_date: Date.now(),
-      status: "pending",
+      status: req.query.status,
     });
 
     const user = await User.findById(req.userId);
@@ -100,7 +125,7 @@ const updateBlog = async (req, res) => {
 
     blog.title = title;
     blog.content = content;
-    blog.status = "pending";
+    blog.status = req.query.status;
 
     await blog.save();
 
@@ -188,3 +213,4 @@ exports.updateBlog = updateBlog;
 exports.deleteBlog = deleteBlog;
 exports.setBlogFeedback = setBlogFeedback;
 exports.setBlogStatus = setBlogStatus;
+exports.getPublishedBlogs = getPublishedBlogs;

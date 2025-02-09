@@ -6,6 +6,8 @@ import UserAvatar from "../../user/components/UserAvatar";
 import { Editor } from "../components/Editor";
 import { format } from "date-fns";
 
+import "./BlogItem.css";
+
 const BlogItem = () => {
   const { userId, role } = useContext(AuthContext);
   const [feedback, setFeedback] = useState();
@@ -56,6 +58,7 @@ const BlogItem = () => {
       );
 
       setLoadedBlog(responseData.data.blog);
+      setFeedback(responseData.data.blog.feedback);
     } catch (err) {
       console.error(err);
     }
@@ -113,16 +116,28 @@ const BlogItem = () => {
           )}
           {role === "admin" && (
             <>
-              <button onClick={() => handleStatus("archived")}>Archive</button>
-              <button onClick={() => handleStatus("published")}>Publish</button>
+              <button
+                className="default__button"
+                onClick={() => handleStatus("archived")}
+              >
+                Archive
+              </button>
+              <button
+                className="default__button"
+                onClick={() => handleStatus("published")}
+              >
+                Publish
+              </button>
 
-              <textarea
-                name="feedback"
-                value={loadedBlog.feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                rows={5}
-              />
-              <button onClick={handleFeedback}>Submit Feedback</button>
+              <div className="feedback-area">
+                <textarea
+                  name="feedback"
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  rows={4}
+                />
+                <button onClick={handleFeedback}>Submit Feedback</button>
+              </div>
             </>
           )}
         </div>

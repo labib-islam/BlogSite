@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import AuthContext from "../../shared/contexts/AuthContext";
 
@@ -11,6 +11,8 @@ const Signup = () => {
     image: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.name === "image")
@@ -31,6 +33,7 @@ const Signup = () => {
         formData
       );
       getLoggedIn();
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
     }

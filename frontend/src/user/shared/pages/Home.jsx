@@ -1,7 +1,8 @@
 import React from "react";
+import BlogList from "../../blog/pages/BlogList";
 
 const Home = () => {
-  return <div>home</div>;
+  return <BlogList />;
 };
 
 export default Home;

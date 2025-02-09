@@ -4,13 +4,16 @@ import "./BlogList.css";
 import axios from "axios";
 import { Link } from "react-router";
 import BlogCard from "../components/BlogCard";
+import BlogCards from "../components/BlogCards";
 
 const BlogList = () => {
   const [loadedBlogs, setLoadedBlogs] = useState();
 
   const fetchBlogs = async () => {
     try {
-      const responseData = await axios.get(`http://localhost:5000/api/blogs/`);
+      const responseData = await axios.get(
+        `http://localhost:5000/api/blogs/published`
+      );
       setLoadedBlogs(responseData.data.blogs);
       console.log(responseData.data.blogs);
     } catch (err) {
@@ -23,8 +26,7 @@ const BlogList = () => {
   }, []);
   return (
     <div className="blog-list__container">
-      {loadedBlogs &&
-        loadedBlogs.map((blog) => <BlogCard item={blog} key={blog._id} />)}
+      <BlogCards loadedBlogs={loadedBlogs} />
     </div>
   );
 };

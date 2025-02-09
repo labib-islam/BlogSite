@@ -4,7 +4,10 @@ const fileUpload = require("../middlewares/file_upload");
 
 const blogsController = require("../controllers/blogs_controller");
 
-router.get("/", blogsController.getBlogs);
+router.get("/published", blogsController.getPublishedBlogs);
+
+router.get("/", auth("admin"), blogsController.getBlogs);
+
 router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
 
 // -- Admin Routes

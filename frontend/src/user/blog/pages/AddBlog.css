@@ -92,6 +92,16 @@
   cursor: pointer;
 }
 
+.form-submit-outline__button {
+  height: 40px;
+  border: 2px solid var(--secondary-green);
+  border-radius: 5px;
+  color: var(--secondary-green);
+  font-size: 1.05rem;
+  background: transparent;
+  cursor: pointer;
+}
+
 .edit__button {
   height: 40px;
   border: 2px solid rgb(245, 208, 45);
@@ -111,6 +121,17 @@
   font-size: 1.05rem;
   font-weight: 500;
   background-color: rgb(238, 34, 68);
+  cursor: pointer;
+}
+
+.default__button {
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: black;
   cursor: pointer;
 }
 

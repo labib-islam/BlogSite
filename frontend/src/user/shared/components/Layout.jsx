@@ -21,7 +21,9 @@ const Layout = () => {
   return (
     <div>
       <header className="navigation-container">
-        <h1>Blog App</h1>
+        <Link to="/">
+          <h1>BlogSite</h1>{" "}
+        </Link>
         <nav>
           <ul>
             {navItems.map((navItem) => (
