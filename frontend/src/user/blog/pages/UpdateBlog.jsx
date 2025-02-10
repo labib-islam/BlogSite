@@ -8,10 +8,13 @@ import "./UpdateBlog.css";
 import { Editor } from "../components/Editor";
 import UserAvatar from "../../user/components/UserAvatar";
 import { format } from "date-fns";
+import CategoryCard from "../components/CategoryCard";
 
 export const UpdateBlog = () => {
   const { userId } = useContext(AuthContext);
   const [loadedBlog, setLoadedBlog] = useState();
+  const [loadedCategories, setLoadedCategories] = useState();
+
   const bid = useParams().bid;
 
   const [inputs, setInputs] = useState({
@@ -48,13 +51,15 @@ export const UpdateBlog = () => {
 
   const fetchBlog = async () => {
     try {
-      const responseData = await axios.get(
-        `http://localhost:5000/api/blogs/${bid}`
-      );
+      const [blogResponse, categoriesResponse] = await Promise.all([
+        axios.get(`http://localhost:5000/api/blogs/${bid}`), // Fetch blogs
+        axios.get(`http://localhost:5000/api/category`), // Fetch categories
+      ]);
 
-      setLoadedBlog(responseData.data.blog);
-      inputs.title = responseData.data.blog.title;
-      inputs.content = responseData.data.blog.content;
+      setLoadedBlog(blogResponse.data.blog);
+      setLoadedCategories(categoriesResponse.data.categories);
+      inputs.title = blogResponse.data.blog.title;
+      inputs.content = blogResponse.data.blog.content;
     } catch (err) {
       console.error(err);
     }
@@ -94,7 +99,10 @@ export const UpdateBlog = () => {
 
             <hr />
             <div className="category__container">
-              <span className="category">{loadedBlog.category}</span>
+              <CategoryCard
+                categoryList={loadedCategories}
+                category={loadedBlog.category}
+              />
             </div>
             <div className="blog-image__container">
               <img
