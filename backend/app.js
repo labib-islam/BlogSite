@@ -38,3 +38,4 @@ app.use(
 app.use("/api/auth", require("./routers/userRouter"));
 app.use("/api/blogs", require("./routers/blogRouter"));
 app.use("/api/admin", require("./routers/adminRouter"));
+app.use("/api/category", require("./routers/categoryRouter"));

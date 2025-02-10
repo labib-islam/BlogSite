@@ -6,7 +6,9 @@
   --secondary-white: rgb(247, 247, 247);
   --primary-green:  rgb(36, 134, 105);
   --secondary-green:  rgb(7, 189, 134);
+  --default-gray: #d3d3d3;
   --default-spacing: 40px;
+  --default-transition: all 0.3s ease 0s;
 }
 
 * {

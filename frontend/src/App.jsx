@@ -20,6 +20,7 @@ import AdminLayout from "./admin/shared/components/AdminLayout";
 import Blogs from "./admin/blog/pages/Blogs";
 import Dashboard from "./user/user/pages/Dashboard";
 import MyBlogList from "./user/blog/pages/MyBlogList";
+import Categories from "./admin/category/pages/Categories";
 
 axios.defaults.withCredentials = true;
 
@@ -46,7 +47,12 @@ function App() {
         <Route path="test" element={<Test />} />
 
         <Route path="admin/signup" element={<AdminSignup />} />
-        {role === "admin" && <Route path="admin/blogs" element={<Blogs />} />}
+        {role === "admin" && (
+          <>
+            <Route path="admin/blogs" element={<Blogs />} />
+            <Route path="admin/categories" element={<Categories />} />
+          </>
+        )}
       </Route>
     </Routes>
   );

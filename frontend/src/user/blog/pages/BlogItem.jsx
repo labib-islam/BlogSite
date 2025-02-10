@@ -7,11 +7,14 @@ import { Editor } from "../components/Editor";
 import { format } from "date-fns";
 
 import "./BlogItem.css";
+import CategoryCard from "../components/CategoryCard";
 
 const BlogItem = () => {
   const { userId, role } = useContext(AuthContext);
   const [feedback, setFeedback] = useState();
   const [loadedBlog, setLoadedBlog] = useState();
+  const [loadedCategories, setLoadedCategories] = useState();
+
   const bid = useParams().bid;
 
   const navigate = useNavigate();
@@ -53,12 +56,14 @@ const BlogItem = () => {
 
   const fetchBlog = async () => {
     try {
-      const responseData = await axios.get(
-        `http://localhost:5000/api/blogs/${bid}`
-      );
+      const [blogResponse, categoriesResponse] = await Promise.all([
+        axios.get(`http://localhost:5000/api/blogs/${bid}`), // Fetch blogs
+        axios.get(`http://localhost:5000/api/category`), // Fetch categories
+      ]);
 
-      setLoadedBlog(responseData.data.blog);
-      setFeedback(responseData.data.blog.feedback);
+      setLoadedBlog(blogResponse.data.blog);
+      setFeedback(blogResponse.data.blog.feedback);
+      setLoadedCategories(categoriesResponse.data.categories);
     } catch (err) {
       console.error(err);
     }
@@ -86,7 +91,10 @@ const BlogItem = () => {
 
           <hr />
           <div className="category__container">
-            <span className="category">{loadedBlog.category}</span>
+            <CategoryCard
+              categoryList={loadedCategories}
+              category={loadedBlog.category}
+            />
           </div>
           <div className="blog-image__container">
             <img

@@ -3,9 +3,11 @@ import React from "react";
 import "./AdminBlogList.css";
 import { Link, useNavigate } from "react-router";
 import UserAvatar from "../../../user/user/components/UserAvatar";
+import CategoryCard from "../../../user/blog/components/CategoryCard";
 
 const AdminBlogList = (props) => {
   const navigate = useNavigate();
+
   return (
     <div className="table-container v-center">
       <table className="content-table">
@@ -27,7 +29,12 @@ const AdminBlogList = (props) => {
                 />
               </td>
               <td>{blog.title}</td>
-              <td>{blog.category}</td>
+              <td>
+                <CategoryCard
+                  categoryList={props.categories}
+                  category={blog.category}
+                />
+              </td>
 
               <td>{blog.status}</td>
             </tr>

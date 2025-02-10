@@ -14,6 +14,10 @@ const AdminLayout = () => {
       name: "Blogs",
       path: "/admin/blogs",
     },
+    {
+      name: "Categories",
+      path: "/admin/categories",
+    },
   ];
 
   return (

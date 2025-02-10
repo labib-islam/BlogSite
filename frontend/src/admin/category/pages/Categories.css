@@ -1,0 +1,24 @@
+.category-list__container {
+  display: flex;
+  gap: 20px;
+}
+
+.single-category__container {
+  display: flex;
+  background-color: rgb(238, 238, 238);
+  border-radius: 5px;
+  align-items: center;
+  
+}
+
+.delete-category__button {
+  color: rgb(199, 199, 199);
+  font-size: 1.5rem;
+  padding: 0 7px;
+  cursor: pointer;
+}
+
+.delete-category__button:hover {
+  color: red;
+  transition: var(--default-transition);
+}
