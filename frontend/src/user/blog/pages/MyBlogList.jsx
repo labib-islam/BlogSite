@@ -18,16 +18,6 @@ const MyBlogList = () => {
     category: "all",
   });
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(inputs);
-  };
-
-  const handleClear = () => {
-    setInputs({ searchText: "", category: "all" });
-    fetchBlogs();
-  };
-
   const fetchBlogs = async (e) => {
     if (e) e.preventDefault();
     try {
@@ -50,9 +40,7 @@ const MyBlogList = () => {
         <FilterBar
           inputs={inputs}
           setInputs={setInputs}
-          handleChange={handleChange}
           fetchBlogs={fetchBlogs}
-          handleClear={handleClear}
         />
         <BlogCards loadedBlogs={loadedBlogs} />
       </div>

@@ -6,8 +6,17 @@ const Blog = require("../models/blog");
 const fs = require("fs");
 
 const getPublishedBlogs = async (req, res) => {
+  const search = req.query.search;
+  const category = req.query.cat;
+
   try {
-    const blogs = await Blog.find({ status: "published" }).populate(
+    const filter = {
+      status: "published", // Ensure we always filter by published status
+      ...(category && category !== "all" && { category }), // Add category filter if it's not "all"
+      ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
+    };
+
+    const blogs = await Blog.find(filter).populate(
       "author",
       "username imageUrl"
     );

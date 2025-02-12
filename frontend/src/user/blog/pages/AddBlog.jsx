@@ -12,11 +12,12 @@ import { useNavigate } from "react-router";
 
 const AddBlog = () => {
   const { username, image: userImage } = useContext(AuthContext);
+  const [loadedCategoryList, setLoadedCategoryList] = useState();
 
   const [inputs, setInputs] = useState({
     title: "",
     content: {},
-    category: "tech",
+    category: "",
   });
 
   const [image, setImage] = useState();
@@ -58,6 +59,26 @@ const AddBlog = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const responseData = await axios.get(
+        `http://localhost:5000/api/category`
+      );
+      setLoadedCategoryList(responseData.data.categories);
+      console.log(responseData.data.categories);
+      setInputs((prev) => ({
+        ...prev,
+        category: responseData.data.categories[0].category,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
     <div className="page-margin blog__container">
       <form className="add-blog__form">
@@ -81,10 +102,12 @@ const AddBlog = () => {
           <label htmlFor="">Category: </label>
 
           <select name="category" id="category" onChange={handleChange}>
-            <option value="tech">Tech</option>
-            <option value="business">Business</option>
-            <option value="science">Science</option>
-            <option value="travel">Travel</option>
+            {loadedCategoryList &&
+              loadedCategoryList.map((cat) => (
+                <option key={cat._id} value={cat.category}>
+                  {cat.category}
+                </option>
+              ))}
           </select>
         </div>
         <div>

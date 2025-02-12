@@ -2,13 +2,17 @@ import React from "react";
 
 import "./FilterBar.css";
 
-const FilterBar = ({
-  inputs,
-  setInputs,
-  fetchBlogs,
-  handleChange,
-  handleClear,
-}) => {
+const FilterBar = ({ inputs, setInputs, fetchBlogs }) => {
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(inputs);
+  };
+
+  const handleClear = () => {
+    setInputs({ searchText: "", category: "all" });
+    fetchBlogs();
+  };
+
   return (
     <form className="filter__container">
       <div className="search-box__container">

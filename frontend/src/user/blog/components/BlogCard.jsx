@@ -5,6 +5,7 @@ import avatarImage from "../../../assets/user.jpg";
 import "./BlogCard.css";
 import { Link } from "react-router";
 import UserAvatar from "../../user/components/UserAvatar";
+import CategoryCard from "./CategoryCard";
 
 const BlogCard = (props) => {
   return (
@@ -27,6 +28,7 @@ const BlogCard = (props) => {
               author={props.item.author.username}
               image={props.item.author.imageUrl}
             />
+            <CategoryCard category={props.item.category} />
           </div>
         </div>
       </div>
