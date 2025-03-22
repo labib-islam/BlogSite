@@ -12,6 +12,11 @@
   z-index: 10;
 }
 
+.navigation-container a h1 {
+  font-style: italic;
+  font-weight: 500;
+  font-family: 'Times New Roman', Times, serif;
+}
 
 
 .navigation-container nav ul {
