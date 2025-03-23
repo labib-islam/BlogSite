@@ -9,3 +9,4 @@
 - mongodb → `npm install mongodb`
 - mongoose → `npm install mongoose`
 - dotenv → `npm install dotenv`
+- cookie-parser → `npm install cookie-parser`
