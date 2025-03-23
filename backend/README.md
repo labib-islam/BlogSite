@@ -10,3 +10,7 @@
 - mongoose → `npm install mongoose`
 - dotenv → `npm install dotenv`
 - cookie-parser → `npm install cookie-parser`
+- jsonwebtoken → `npm install jsonwebtoken`
+- bcrypt → `npm install bcrypt`
+- multer → `npm install multer`
+- uuid → `npm install uuid`

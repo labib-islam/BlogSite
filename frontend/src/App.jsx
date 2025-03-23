@@ -1,9 +1,9 @@
-import Login from "./shared/pages/Login";
+import Auth from "./shared/pages/Auth";
 
 function App() {
   return (
     <>
-      <Login />
+      <Auth />
     </>
   );
 }

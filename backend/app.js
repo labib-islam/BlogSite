@@ -23,3 +23,6 @@ mongoose
 app.use(express.json()); // Parses incoming JSON requests
 app.use(cookieParser()); // Parses cookies from the request headers
 app.use("/public/images", express.static(path.join("public", "images"))); // Serves static files from 'public/images'
+
+// Routes
+app.use("/api/auth", require("./routers/authRouter"));

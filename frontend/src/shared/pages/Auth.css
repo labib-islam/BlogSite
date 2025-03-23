@@ -43,7 +43,7 @@
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--gap);
 }
 
 .auth-form input {
@@ -58,7 +58,7 @@
   height: 40px;
   border: none;
   border-radius: calc(var(--border-radius) / 2);
-  background-color: rgb(31, 138, 120);
+  background-color: var(--primary-green);
   color: white;
   font-size: 1rem;
 }
@@ -70,6 +70,12 @@
   padding-top: 20px;
 }
 
+.auth-footer span {
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--primary-green);
+}
+
 .auth-footer::before {
   content: "";
   position: absolute;
@@ -79,4 +85,80 @@
   width: 100px; /* Border width */
   height: 1px; /* Border thickness */
   background-color: gray; /* Border color */
+}
+
+/* ===========
+Signup Styling
+=========== */
+.image-username__container {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  gap: var(--gap);
+}
+
+.image-username__container .image__container {
+  width: 35%;
+}
+
+.image-username__container input {
+  width: 65%;
+}
+
+.image__container {
+  position: relative;
+  border: 1px solid gray;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: calc(var(--border-radius) / 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image__container:hover {
+  background-color: rgba(31, 138, 120, 0.2);
+  cursor: pointer;
+}
+
+.image__container input {
+  display: none;
+}
+
+.image__container .delete {
+  position: absolute;
+  font-size: 1.7rem;
+  top: -8px;
+  right: 3px;
+  color: rgb(192, 0, 0);
+  cursor: pointer;
+}
+
+.image__container .add {
+  position: absolute;
+  font-size: 1.3rem;
+  bottom: 2px;
+  right: 2px;
+  border-radius: 50px;
+  background-color: gray;
+  color: white;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-icon {
+  max-width: 100%; /* Icon scales within container */
+  max-height: 100%;
+  padding: 8px;
+  object-fit: contain; /* Keeps icon proportionate */
+}
+
+
+.user-icon path, 
+.user-icon circle {
+  fill: gray;
 }

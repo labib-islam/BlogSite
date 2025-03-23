@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 421 460" enable-background="new 0 0 421 460" xml:space="preserve">
+<g>
+	<g>
+		<circle cx="178" cy="105" r="105"/>
+		<path d="M225,233h-94C59,233,0,292,0,364v24c0,12.6,10.3,23,23,23h310c12.6,0,23-10.3,23-23v-24C356,292,297,233,225,233z"/>
+	</g>
+	<g>
+		<ellipse transform="matrix(0.9239 -0.3827 0.3827 0.9239 -119.7694 159.8805)" cx="342" cy="381" rx="74" ry="74"/>
+		<path fill="#FFFFFF" d="M342,312c38.1,0,69,30.9,69,69s-30.9,69-69,69s-69-30.9-69-69S303.9,312,342,312 M342,302
+			c-43.6,0-79,35.4-79,79s35.4,79,79,79s79-35.4,79-79S385.6,302,342,302L342,302z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 304.2963 418.1364)" fill="#FFFFFF" font-family="'MyriadPro-Regular'" font-size="126.5279px">+</text>
+</g>
+</svg>
