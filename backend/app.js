@@ -26,3 +26,4 @@ app.use("/public/images", express.static(path.join("public", "images"))); // Ser
 
 // Routes
 app.use("/api/auth", require("./routers/authRouter"));
+app.use("/api/category", require("./routers/categoryRouter"));

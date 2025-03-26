@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import homeImage from "../../assets/images/home-image.jpg";
 
 import "./Home.css";
+import axios from "axios";
 
 const Home = () => {
+  const [loadedCategories, setLoadedCategories] = useState();
+
+  const fetchCategories = async () => {
+    try {
+      const responseData = await axios.get(`/api/category`);
+      setLoadedCategories(responseData.data.categories);
+      console.log(responseData.data.categories);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   return (
     <main className="page-home">
       <section className="landing-page">
@@ -24,12 +41,12 @@ const Home = () => {
         <section className="category-page__content">
           <header>Categories</header>
           <ul>
-            <li>Tech</li>
-            <li>Science</li>
-            <li>Sport</li>
-            <li>Business</li>
-            <li>Travel</li>
-            <li>Food</li>
+            {loadedCategories &&
+              loadedCategories.map((cat) => (
+                <li style={{ "--hover-shadow-color": cat.color }}>
+                  {cat.category}
+                </li>
+              ))}
           </ul>
         </section>
       </section>
