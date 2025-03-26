@@ -126,6 +126,7 @@ const isLoggedIn = (req, res) => {
     image: null,
     role: null,
   };
+  console.log("t1");
 
   try {
     const token = req.cookies.access_token;
@@ -133,6 +134,7 @@ const isLoggedIn = (req, res) => {
     if (!token) {
       return res.json(nonVerifiedData);
     }
+    console.log("t2");
 
     const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -143,6 +145,7 @@ const isLoggedIn = (req, res) => {
       image: verifiedToken.image,
       role: verifiedToken.role,
     };
+    console.log("t3");
 
     res.send(verifiedData);
   } catch (err) {

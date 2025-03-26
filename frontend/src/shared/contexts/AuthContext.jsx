@@ -11,9 +11,7 @@ const AuthContextProvider = (props) => {
   const [role, setRole] = useState();
 
   const getLoggedIn = async () => {
-    const loggedInRes = await axios.get(
-      "http://localhost:5000/api/auth/loggedIn"
-    );
+    const loggedInRes = await axios.get("/api/auth/loggedIn");
 
     setLoggedIn(loggedInRes.data.verified);
     setUsername(loggedInRes.data.username);
@@ -23,7 +21,7 @@ const AuthContextProvider = (props) => {
   };
 
   const getLoggedOut = async () => {
-    await axios.get("http://localhost:5000/api/auth/logout");
+    await axios.get("/api/auth/logout");
     getLoggedIn();
   };
 
