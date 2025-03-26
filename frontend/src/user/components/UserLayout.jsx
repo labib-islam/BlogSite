@@ -1,15 +1,23 @@
 import React from "react";
 
 import "./UserLayout.css";
+import { Outlet } from "react-router";
 
 const UserLayout = () => {
   return (
-    <nav className="user-navigation">
-      <header></header>
-      <ul>
-        <li></li>
-      </ul>
-    </nav>
+    <div className="layout__container">
+      <nav className="user-navigation">
+        <header>BlogSite</header>
+        <ul className="nav-list__container">
+          <li>Home</li>
+          <li>Blogs</li>
+          <li>Dashboard</li>
+        </ul>
+      </nav>
+      <main>
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

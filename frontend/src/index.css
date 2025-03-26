@@ -12,9 +12,13 @@
 :root {
   --text-gray:  rgb(60, 60, 60);
   --primary-green:  rgb(31, 138, 120);
+  --dark-green:  rgb(24, 102, 89);
 
+  --margin: 40px;
   --border-radius: 10px;
   --gap: 20px;
+  --navbar-height: 60px;
+  --button-height: 40px;
 }
 
 img {

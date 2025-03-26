@@ -55,7 +55,7 @@
 }
 
 .auth-form button {
-  height: 40px;
+  height: var(--button-height);
   border: none;
   border-radius: calc(var(--border-radius) / 2);
   background-color: var(--primary-green);

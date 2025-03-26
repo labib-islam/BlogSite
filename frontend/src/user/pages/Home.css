@@ -1,0 +1,120 @@
+.landing-page {
+  background-color: rgb(193, 223, 217);
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-page .landing-page__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  margin: var(--margin);
+  gap: calc(var(--gap) * 2);
+}
+
+.home-text__container {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.home-text__container h1 {
+  font-size: 2rem;
+  color: var(--text-gray);
+}
+
+.home-text__container button {
+  width: 300px;
+  height: var(--button-height);
+  border: none;
+  border-radius: calc(var(--border-radius)/2);
+  background-color: var(--primary-green);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.home-text__container button:hover {
+  background-color:  rgb(77, 161, 147);
+}
+
+.home-image__container {
+  max-width: 500px;
+  aspect-ratio: 1/1.1;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+
+.category-page {
+  width: 100%;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--margin);
+}
+
+.category-page__content {
+  
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 2);
+  box-sizing: border-box;
+}
+
+.category-page__content header {
+  position: relative;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-gray);
+}
+
+.category-page__content header::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 1px;
+  background-color: gray;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.category-page__content ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 180px);;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: center;
+}
+
+.category-page__content ul li {
+  color: rgb(83, 83, 83);
+  /* background-color: gray; */
+  font-size: 1.8rem;
+  font-weight: 800;
+  width: 180px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid rgb(196, 196, 196); */
+  border-radius: calc(var(--border-radius)/2);
+  box-shadow: 0px 1px 5px 1px rgb(187, 187, 187);
+  cursor: pointer;
+}
+
+.category-page__content ul li:hover {
+  background-color: rgb(233, 233, 233);
+}
