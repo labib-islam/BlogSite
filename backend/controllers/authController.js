@@ -27,7 +27,7 @@ const signup = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // save new user to the DB
+    // create and save new user to the DB
     const newUser = new User({
       username,
       email,

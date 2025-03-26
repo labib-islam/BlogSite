@@ -41,20 +41,27 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
+      let data;
       if (isSignup) {
+        const formData = new FormData();
         formData.append("username", inputs.username);
         formData.append("image", image.file);
+        formData.append("email", inputs.email);
+        formData.append("password", inputs.password);
+        data = formData;
+      } else {
+        data = {
+          email: inputs.email,
+          password: inputs.password,
+        };
       }
-      formData.append("email", inputs.email);
-      formData.append("password", inputs.password);
 
       const res = await axios.post(
         `/api/auth/${isSignup ? "signup" : "login"}`,
-        formData
+        data
       );
-      // getLoggedIn();
-      // navigate("/");
+      getLoggedIn();
+      navigate("/");
     } catch (err) {
       console.log(err.response.data);
     }
