@@ -20,7 +20,6 @@
   font-size: 1.5rem;
   font-style: italic;
   font-family: 'Times New Roman', Times, serif;
-  color: var(--dark-green);
 }
 
 .user-navigation .nav-list__container {
@@ -28,4 +27,26 @@
   display: flex;
   gap: var(--gap);
 }
+
+.user-navigation header a {
+  text-decoration: none;
+  color: var(--dark-green);
+}
+
+.user-navigation .nav-list__container a {
+  text-decoration: none;
+  color: var(--text-gray);
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+
+.user-navigation .nav-list__container a.active {
+  color: var(--primary-green);
+  border-bottom: 2px solid var(--primary-green);
+}
+
+.user-navigation .nav-list__container a:hover {
+  color: var(--primary-green);
+}
+
 

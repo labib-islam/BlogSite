@@ -6,6 +6,7 @@ import Home from "./user/pages/Home";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminLayout from "./admin/components/AdminLayout";
 import Auth from "./shared/pages/Auth";
+import Blogs from "./shared/pages/Blogs";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="auth" element={<Auth />} />
+          <Route path="blogs" element={<Blogs />} />
         </Route>
       )}
     </Routes>

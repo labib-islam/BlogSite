@@ -1,0 +1,107 @@
+.search-box__container {
+  /* border-bottom: 2px solid var(--text-gray); */
+  box-shadow: 0px 1px 5px 1px rgb(187, 187, 187);
+
+  padding: var(--margin);
+}
+
+.search-box__form {
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  height: var(--button-height);
+}
+
+.search-box__form input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0px 10px;
+  border: 1px solid var(--text-gray);
+  outline: none;
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+.search-box__form .select__container {
+  position: relative;
+  height: var(--button-height);
+}
+
+.select__container .down-arrow__container {
+  height: 100%;
+  aspect-ratio: 1/1;
+  /* background-color: gray; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: calc(var(--border-radius) / 2);
+  pointer-events: none;
+}
+
+.select__container .down-arrow__container .down-arrow {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.select__container .down-arrow__container .down-arrow path {
+  fill: var(--text-gray);
+}
+
+.select__container:hover .down-arrow__container .down-arrow path {
+  fill: var(--primary-green);
+}
+
+
+.search-box__form select {
+  height: 100%;
+  padding: 0px 100px 0px 10px;
+  border: 1px solid var(--text-gray);
+  outline: none;
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+  appearance: none;
+  text-transform: capitalize;
+}
+
+.search-icon__container,
+.cross-icon__container {
+  height: 100%;
+  aspect-ratio: 1/1;
+  border: 1px solid var(--text-gray);
+  border-radius: calc(var(--border-radius) / 2);
+  cursor: pointer;
+}
+
+.search-icon {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+}
+
+.cross-icon {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.search-icon path,
+.cross-icon path {
+  fill: var(--text-gray);
+}
+
+.search-icon__container:hover {
+  background-color: var(--text-gray);
+  border: 1px solid transparent;
+}
+
+.search-icon__container:hover .search-icon path {
+  fill: white;
+}
+
+.cross-icon__container:hover {
+  background-color: var(--primary-red);
+  border: 1px solid transparent;
+}
+
+.cross-icon__container:hover .cross-icon path {
+  fill: white;
+}

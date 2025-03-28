@@ -11,7 +11,6 @@ const Home = () => {
     try {
       const responseData = await axios.get(`/api/category`);
       setLoadedCategories(responseData.data.categories);
-      console.log(responseData.data.categories);
     } catch (err) {
       console.error(err);
     }
@@ -43,7 +42,10 @@ const Home = () => {
           <ul>
             {loadedCategories &&
               loadedCategories.map((cat) => (
-                <li style={{ "--hover-shadow-color": cat.color }}>
+                <li
+                  key={cat.category}
+                  style={{ "--hover-shadow-color": cat.color }}
+                >
                   {cat.category}
                 </li>
               ))}
