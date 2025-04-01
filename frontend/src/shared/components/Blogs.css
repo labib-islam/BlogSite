@@ -1,0 +1,14 @@
+.blogs__container {
+  /* border: 1px solid red; */
+  margin: var(--margin);
+  
+}
+
+.blogs__container > span {
+  padding: var(--margin);
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-gray);
+}

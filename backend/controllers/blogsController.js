@@ -44,17 +44,6 @@ const getBlogById = async (req, res) => {
   }
 };
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find().populate("author", "username imageUrl");
-
-    res.json({ blogs: blogs });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-};
-
 const getBlogsByUserId = async (req, res) => {
   const userId = req.params.userId;
   const status = req.params.status;
@@ -62,11 +51,13 @@ const getBlogsByUserId = async (req, res) => {
   const category = req.query.cat;
   let userWithBlogs;
 
-  console.log(search, category);
+  if (req.role !== "admin" && req.userId !== userId) {
+    return res
+      .status(401)
+      .json({ errorMessage: "You are not authorized to make this request" });
+  }
 
   try {
-    // const filter = status && status !== "all" ? { status: status } : {};
-
     const filter = {
       ...(status && status !== "all" && { status }),
       ...(category && category !== "all" && { category }),
@@ -82,10 +73,20 @@ const getBlogsByUserId = async (req, res) => {
       },
     });
 
-    console.log(userWithBlogs);
     res.json({
       blogs: userWithBlogs.blogs,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate("author", "username imageUrl");
+
+    res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();

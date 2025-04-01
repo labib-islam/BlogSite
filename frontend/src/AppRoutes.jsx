@@ -6,19 +6,23 @@ import Home from "./user/pages/Home";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminLayout from "./admin/components/AdminLayout";
 import Auth from "./shared/pages/Auth";
-import Blogs from "./shared/pages/Blogs";
+import Blogs from "./shared/components/Blogs";
 import BlogItem from "./shared/pages/BlogItem";
 import Dashboard from "./user/pages/Dashboard";
+import PublishedBlogs from "./shared/pages/PublishedBlogs";
+import UserBlogs from "./user/pages/UserBlogs";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
+
   return (
     <Routes>
       {role === "user" ? (
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="blogs" element={<Blogs />} />
+          <Route path="blogs" element={<PublishedBlogs />} />
+          <Route path="user/blogs/:status" element={<UserBlogs />} />
           <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>
       ) : role === "admin" ? (
@@ -29,7 +33,7 @@ const AppRoutes = () => {
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="auth" element={<Auth />} />
-          <Route path="blogs" element={<Blogs />} />
+          <Route path="blogs" element={<PublishedBlogs />} />
           <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>
       )}

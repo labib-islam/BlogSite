@@ -3,8 +3,13 @@ const router = require("express").Router();
 const fileUpload = require("../middleware/fileUpload");
 
 const blogsController = require("../controllers/blogsController");
+const auth = require("../middleware/auth");
 
 router.get("/published", blogsController.getPublishedBlogs);
+
+// -- Authorized Routes
+router.get("/user/:userId/:status", auth(), blogsController.getBlogsByUserId);
+
 router.get("/:bid", blogsController.getBlogById);
 
 // router.get("/", auth("admin"), blogsController.getBlogs);

@@ -143,7 +143,6 @@ const isLoggedIn = (req, res) => {
       image: verifiedToken.image,
       role: verifiedToken.role,
     };
-    console.log("t3");
 
     res.send(verifiedData);
   } catch (err) {
