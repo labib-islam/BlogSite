@@ -11,6 +11,7 @@
 
 :root {
   --text-gray:  rgb(60, 60, 60);
+  --light-gray: rgb(219, 219, 219);
   --primary-green:  rgb(31, 138, 120);
   --dark-green:  rgb(24, 102, 89);
   --primary-red: rgb(219, 0, 73);
