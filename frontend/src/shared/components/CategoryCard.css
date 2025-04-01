@@ -1,0 +1,12 @@
+.category-card {
+  height: 25px;
+  background-color: rgb(214, 159, 86);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+}

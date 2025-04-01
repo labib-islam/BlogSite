@@ -150,7 +150,7 @@ Signup Styling
   align-items: center;
 }
 
-.user-icon {
+.auth-form .user-icon {
   max-width: 100%; /* Icon scales within container */
   max-height: 100%;
   padding: 8px;
@@ -158,7 +158,7 @@ Signup Styling
 }
 
 
-.user-icon path, 
-.user-icon circle {
+.auth-form .user-icon path, 
+.auth-form .user-icon circle {
   fill: gray;
 }

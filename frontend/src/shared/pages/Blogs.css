@@ -3,3 +3,8 @@
   margin-top: calc(var(--margin) + var(--navbar-height)) !important; */
 }
 
+.blogs__container {
+  /* border: 1px solid red; */
+  margin: var(--margin);
+  
+}

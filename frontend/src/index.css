@@ -20,6 +20,7 @@
   --gap: 20px;
   --navbar-height: 60px;
   --button-height: 40px;
+  --primary-shadow: 0px 1px 5px 1px rgb(187, 187, 187);
 }
 
 img {

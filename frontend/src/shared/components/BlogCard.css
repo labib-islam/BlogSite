@@ -1,0 +1,46 @@
+.blog-card {
+  width: 350px;
+  height: 400px;
+  background-color: rgb(241, 241, 241);
+  border-radius: var(--border-radius);
+  box-shadow: var(--primary-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.blog-card > figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 180px;
+  background-color: rgb(114, 132, 148);
+}
+
+.blog-card section {
+  margin: calc(var(--margin) / 2);
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+}
+
+.blog-card section header {
+  color: var(--text-gray);
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card section footer {
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -13,7 +13,6 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
     try {
       const responseData = await axios.get(`/api/category`);
       setLoadedCategories(responseData.data.categories);
-      console.log(responseData.data.categories);
     } catch (err) {
       console.error(err);
     }
@@ -21,7 +20,6 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(inputs);
   };
 
   const handleClear = () => {

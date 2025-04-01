@@ -1,0 +1,6 @@
+.blogcards__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 350px);
+  gap: calc(var(--gap) * 2);
+  /* justify-content: center; */
+}

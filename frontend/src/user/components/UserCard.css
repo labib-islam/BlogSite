@@ -1,0 +1,43 @@
+.user-card {
+  height: 30px;
+  background-color: rgb(230, 230, 230);
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 15px;
+}
+
+.user-card > figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  aspect-ratio: 1/1;
+  background-color: rgb(197, 197, 197);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.user-card .user-icon {
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+}
+
+.user-card .user-icon path,
+.user-card .user-icon circle {
+  fill: rgb(145, 145, 145);
+}
+
+.user-card span {
+  max-width: 130px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

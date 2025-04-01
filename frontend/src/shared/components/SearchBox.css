@@ -1,6 +1,6 @@
 .search-box__container {
   /* border-bottom: 2px solid var(--text-gray); */
-  box-shadow: 0px 1px 5px 1px rgb(187, 187, 187);
+  box-shadow: var(--primary-shadow);
 
   padding: var(--margin);
 }
