@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./BlogItem.css";
 import UserCard from "../../user/components/UserCard";
@@ -7,8 +7,10 @@ import { useLocation, useParams } from "react-router";
 import { format } from "date-fns";
 import axios from "axios";
 import { Editor } from "../components/Editor";
+import AuthContext from "../contexts/AuthContext";
 
 const BlogItem = () => {
+  const { userId, role } = useContext(AuthContext);
   const [blog, setBlog] = useState();
   const bid = useParams().bid;
   const location = useLocation();
@@ -51,6 +53,24 @@ const BlogItem = () => {
             <img src={`/api/${blog.imageUrl}`} alt="" />
           </figure>
           <Editor readOnly={true} content={blog.content.blocks} />
+          {userId === blog.author._id && (
+            <div className="blog-buttons__container">
+              <button className="edit-button">Edit</button>
+              <button className="delete-button">Delete</button>
+            </div>
+          )}
+          {role === "admin" && (
+            <>
+              <div className="blog-buttons__container">
+                <button className="edit-button">Archive</button>
+                <button className="publish-button">Publish</button>
+              </div>
+              <form className="feedback-form">
+                <textarea name="" id="" placeholder="Write feedback here..." />
+                <button>Send Feedback</button>
+              </form>
+            </>
+          )}
         </section>
       )}
     </main>

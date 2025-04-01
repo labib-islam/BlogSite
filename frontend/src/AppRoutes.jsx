@@ -16,6 +16,8 @@ const AppRoutes = () => {
       {role === "user" ? (
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
+          <Route path="blogs" element={<Blogs />} />
+          <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>
       ) : role === "admin" ? (
         <Route path="/" element={<AdminLayout />}>

@@ -3,9 +3,10 @@ import React, { useContext } from "react";
 import "./UserLayout.css";
 import { Link, NavLink, Outlet } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
+import UserCard from "./UserCard";
 
 const UserLayout = () => {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, username, image, getLoggedOut } = useContext(AuthContext);
 
   return (
     <div className="layout__container">
@@ -21,9 +22,16 @@ const UserLayout = () => {
             <NavLink to="/blogs">Blogs</NavLink>
           </li>
           {loggedIn ? (
-            <li>
-              <NavLink to="/dashboard">dashboard</NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/dashboard">dashboard</NavLink>
+              </li>
+              <li>
+                <Link to="/" onClick={getLoggedOut}>
+                  Logout
+                </Link>
+              </li>
+            </>
           ) : (
             <li>
               <NavLink to="/auth">Login</NavLink>

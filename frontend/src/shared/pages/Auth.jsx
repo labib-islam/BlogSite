@@ -1,16 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
 import axios from "axios";
 
 import "./Auth.css";
+import { useNavigate } from "react-router";
+import AuthContext from "../contexts/AuthContext";
 
 const Auth = () => {
+  const { getLoggedIn } = useContext(AuthContext);
   const [isSignup, setIsSignup] = useState(false);
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [image, setImage] = useState();
   const imageInputRef = useRef(null);
@@ -63,7 +68,7 @@ const Auth = () => {
       getLoggedIn();
       navigate("/");
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
     }
   };
 
