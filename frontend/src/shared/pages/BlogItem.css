@@ -1,0 +1,40 @@
+.page-blog {
+  display: flex;
+  justify-content: center;
+}
+
+.blog__container {
+  /* background-color: rgb(189, 218, 243); */
+  max-width: 650px;
+  width: 100%;
+  margin: var(--margin);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.blog__container header {
+  color: var(--text-gray);
+  font-size: 2rem;
+  font-weight: 800;  
+}
+
+.user-date__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 10px 0px; */
+}
+
+.user-date__container .date{
+  font-style: italic;
+  color: var(--text-gray);
+  font-weight: 500;
+}
+
+.blog-image__container {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}

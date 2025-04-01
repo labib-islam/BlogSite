@@ -13,7 +13,7 @@ const UserCard = ({ name, image }) => {
           <UserIcon className="user-icon" />
         )}
       </figure>
-      <span>{name}</span>
+      <span>{name ? name : "Name Not Found"}</span>
     </article>
   );
 };

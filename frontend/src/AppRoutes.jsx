@@ -7,6 +7,7 @@ import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminLayout from "./admin/components/AdminLayout";
 import Auth from "./shared/pages/Auth";
 import Blogs from "./shared/pages/Blogs";
+import BlogItem from "./shared/pages/BlogItem";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -25,6 +26,7 @@ const AppRoutes = () => {
           <Route index element={<Home />} />
           <Route path="auth" element={<Auth />} />
           <Route path="blogs" element={<Blogs />} />
+          <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>
       )}
     </Routes>

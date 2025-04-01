@@ -14,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--margin);
+  z-index: 10;
 }
 
 .user-navigation header {

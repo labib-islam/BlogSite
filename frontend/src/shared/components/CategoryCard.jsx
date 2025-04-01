@@ -10,7 +10,7 @@ const CategoryCard = ({ category }) => {
     const category = loadedCategories.find(
       (cat) => cat.category === categoryName
     );
-    return category ? category.color : "#d3d3d3"; // Default color
+    return category ? category.color : "#e6e6e6"; // Default color
   };
 
   const fetchCategories = async () => {
@@ -33,7 +33,7 @@ const CategoryCard = ({ category }) => {
           className="category-card"
           style={{ backgroundColor: getCategoryColor(category) }}
         >
-          {category}
+          {category ? category : "Not Found"}
         </span>
       )}
     </>

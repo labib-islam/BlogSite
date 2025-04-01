@@ -1,6 +1,8 @@
 .user-card {
   height: 30px;
-  background-color: rgb(230, 230, 230);
+  width: fit-content;
+  background-color: rgb(235, 235, 235);
+  /* border: 1px solid gray; */
   border-radius: 50px;
   overflow: hidden;
   display: flex;

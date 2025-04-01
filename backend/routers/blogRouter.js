@@ -5,6 +5,7 @@ const fileUpload = require("../middleware/fileUpload");
 const blogsController = require("../controllers/blogsController");
 
 router.get("/published", blogsController.getPublishedBlogs);
+router.get("/:bid", blogsController.getBlogById);
 
 // router.get("/", auth("admin"), blogsController.getBlogs);
 
@@ -18,7 +19,7 @@ router.get("/published", blogsController.getPublishedBlogs);
 //   auth("admin"),
 //   blogsController.setBlogStatus
 // );
-// router.get("/:bid", blogsController.getBlogById);
+
 // router.post(
 //   "/new",
 //   auth("user"),
