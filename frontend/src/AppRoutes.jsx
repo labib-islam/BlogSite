@@ -12,6 +12,7 @@ import Dashboard from "./user/pages/Dashboard";
 import PublishedBlogs from "./shared/pages/PublishedBlogs";
 import UserBlogs from "./user/pages/UserBlogs";
 import AddBlog from "./user/pages/AddBlog";
+import UpdateBlog from "./user/pages/UpdateBlog";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -27,6 +28,7 @@ const AppRoutes = () => {
           <Route path="user/dashboard" element={<Dashboard />} />
           <Route path="blogs" element={<PublishedBlogs />} />
           <Route path="user/blogs/new" element={<AddBlog />} />
+          <Route path="user/blogs/edit/:bid" element={<UpdateBlog />} />
           <Route path="user/blogs/:status" element={<UserBlogs />} />
           <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>

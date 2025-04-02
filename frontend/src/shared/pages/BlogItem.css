@@ -45,16 +45,21 @@
   gap: var(--gap);
 }
 
-.blog-buttons__container > button {
+.blog-buttons__container > button,
+.blog-buttons__container > a {
   flex: 1;
   padding: 0px 10px;
-  /* width: 100%; */
   height: var(--button-height);
   border: none;
   border-radius: calc(var(--border-radius) / 2);
   font-size: 1rem;
   font-weight: 700;
   white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-gray);
 }
 
 .blog-buttons__container .yellow-button {

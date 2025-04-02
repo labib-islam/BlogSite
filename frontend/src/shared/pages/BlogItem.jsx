@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./BlogItem.css";
 import UserCard from "../../user/components/UserCard";
 import CategoryCard from "../components/CategoryCard";
-import { useLocation, useParams } from "react-router";
+import { Link, useLocation, useParams } from "react-router";
 import { format } from "date-fns";
 import axios from "axios";
 import { Editor } from "../components/Editor";
@@ -55,7 +55,13 @@ const BlogItem = () => {
           <Editor readOnly={true} content={blog.content.blocks} />
           {userId === blog.author._id && (
             <div className="blog-buttons__container">
-              <button className="yellow-button">Edit</button>
+              <Link
+                to={`/user/blogs/edit/${blog._id}`}
+                state={{ blog }}
+                className="yellow-button"
+              >
+                Edit
+              </Link>
               <button className="red-button">Delete</button>
             </div>
           )}

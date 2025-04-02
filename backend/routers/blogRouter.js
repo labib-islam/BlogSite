@@ -19,6 +19,8 @@ router.get("/user/:userId/:status", auth(), blogsController.getBlogsByUserId);
 
 router.get("/:bid", blogsController.getBlogById);
 
+router.patch("/user/:bid", auth("user"), blogsController.updateBlog);
+
 // router.get("/", auth("admin"), blogsController.getBlogs);
 
 // router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
@@ -32,7 +34,6 @@ router.get("/:bid", blogsController.getBlogById);
 //   blogsController.setBlogStatus
 // );
 
-// router.patch("/:bid", auth("user"), blogsController.updateBlog);
 // router.delete("/:bid", auth("user"), blogsController.deleteBlog);
 
 module.exports = router;

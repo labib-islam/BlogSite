@@ -111,17 +111,6 @@ const createBlog = async (req, res) => {
   }
 };
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find().populate("author", "username imageUrl");
-
-    res.json({ blogs: blogs });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-};
-
 const updateBlog = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -130,7 +119,7 @@ const updateBlog = async (req, res) => {
     const blog = await Blog.findById(bid);
 
     if (blog.author.toString() !== req.userId) {
-      res.json({ message: "You are not allowed to edit this product." });
+      res.json({ message: "You are not allowed to edit this blog." });
     }
 
     blog.title = title;
@@ -140,6 +129,17 @@ const updateBlog = async (req, res) => {
     await blog.save();
 
     res.json(blog);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate("author", "username imageUrl");
+
+    res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();

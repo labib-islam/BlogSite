@@ -27,7 +27,7 @@ const AddBlog = () => {
     if (e.target.name === "title") {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
       e.target.style.height = "auto"; // Reset height to recalculate
-      e.target.style.height = event.target.scrollHeight + "px"; // Set new height
+      e.target.style.height = e.target.scrollHeight + "px"; // Set new height
     } else if (e.target.name === "image") {
       setInputs((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
     } else if (e.target.name === "category") {
