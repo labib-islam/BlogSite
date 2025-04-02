@@ -18,7 +18,7 @@ const Dashboard = () => {
         <Link className="user-edit-button">Edit Profile</Link>
         <hr />
         <section className="dashboard-buttons__container">
-          <Link to="/blogs/new">New Blog</Link>
+          <Link to="/user/blogs/new">New Blog</Link>
           <Link to="/user/blogs/all">My Blogs</Link>
           <Link to="/user/blogs/published">Published Blogs</Link>
           <Link to="/user/blogs/pending">Pending Blogs</Link>

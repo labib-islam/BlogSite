@@ -11,17 +11,22 @@ import BlogItem from "./shared/pages/BlogItem";
 import Dashboard from "./user/pages/Dashboard";
 import PublishedBlogs from "./shared/pages/PublishedBlogs";
 import UserBlogs from "./user/pages/UserBlogs";
+import AddBlog from "./user/pages/AddBlog";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
+  if (role === undefined) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Routes>
       {role === "user" ? (
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="user/dashboard" element={<Dashboard />} />
           <Route path="blogs" element={<PublishedBlogs />} />
+          <Route path="user/blogs/new" element={<AddBlog />} />
           <Route path="user/blogs/:status" element={<UserBlogs />} />
           <Route path="blogs/:bid" element={<BlogItem />} />
         </Route>

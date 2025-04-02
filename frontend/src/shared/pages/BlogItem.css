@@ -4,7 +4,6 @@
 }
 
 .blog__container {
-  /* background-color: rgb(189, 218, 243); */
   max-width: 650px;
   width: 100%;
   margin: var(--margin);
@@ -42,40 +41,44 @@
 
 .blog-buttons__container {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--gap);
 }
 
 .blog-buttons__container > button {
-  width: 100%;
+  flex: 1;
+  padding: 0px 10px;
+  /* width: 100%; */
   height: var(--button-height);
   border: none;
   border-radius: calc(var(--border-radius) / 2);
   font-size: 1rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.blog-buttons__container .edit-button {
+.blog-buttons__container .yellow-button {
   background-color: rgb(248, 213, 137);
 }
 
-.blog-buttons__container .edit-button:hover {
+.blog-buttons__container .yellow-button:hover {
   background-color: rgb(226, 186, 99);
 }
 
-.blog-buttons__container .delete-button {
+.blog-buttons__container .red-button {
   background: transparent;
   border: 2px solid var(--primary-red);
   color: var(--primary-red);
 }
-.blog-buttons__container .delete-button:hover {
+.blog-buttons__container .red-button:hover {
   background-color: var(--primary-red);
   color: white;
 }
 
-.blog-buttons__container .publish-button {
+.blog-buttons__container .green-button {
   background-color: rgb(137, 230, 173);
 }
-.blog-buttons__container .publish-button:hover {
+.blog-buttons__container .green-button:hover {
   background-color: rgb(104, 190, 150);
 }
 

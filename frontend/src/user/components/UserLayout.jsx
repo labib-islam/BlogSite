@@ -24,7 +24,7 @@ const UserLayout = () => {
           {loggedIn ? (
             <>
               <li>
-                <NavLink to="/dashboard">dashboard</NavLink>
+                <NavLink to="/user/dashboard">dashboard</NavLink>
               </li>
               <li>
                 <Link to="/" onClick={getLoggedOut}>

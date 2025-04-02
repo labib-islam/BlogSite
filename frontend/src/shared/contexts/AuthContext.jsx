@@ -8,7 +8,7 @@ const AuthContextProvider = (props) => {
   const [userId, setUserId] = useState();
   const [username, setUsername] = useState();
   const [image, setImage] = useState();
-  const [role, setRole] = useState();
+  const [role, setRole] = useState(undefined);
 
   const getLoggedIn = async () => {
     const loggedInRes = await axios.get("/api/auth/loggedIn");

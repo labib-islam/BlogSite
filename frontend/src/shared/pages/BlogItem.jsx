@@ -55,15 +55,15 @@ const BlogItem = () => {
           <Editor readOnly={true} content={blog.content.blocks} />
           {userId === blog.author._id && (
             <div className="blog-buttons__container">
-              <button className="edit-button">Edit</button>
-              <button className="delete-button">Delete</button>
+              <button className="yellow-button">Edit</button>
+              <button className="red-button">Delete</button>
             </div>
           )}
           {role === "admin" && (
             <>
               <div className="blog-buttons__container">
-                <button className="edit-button">Archive</button>
-                <button className="publish-button">Publish</button>
+                <button className="yellow-button">Archive</button>
+                <button className="green-button">Publish</button>
               </div>
               <form className="feedback-form">
                 <textarea name="" id="" placeholder="Write feedback here..." />

@@ -8,6 +8,13 @@ const auth = require("../middleware/auth");
 router.get("/published", blogsController.getPublishedBlogs);
 
 // -- Authorized Routes
+router.post(
+  "/user/new",
+  auth("user"),
+  fileUpload.single("image"),
+  blogsController.createBlog
+);
+
 router.get("/user/:userId/:status", auth(), blogsController.getBlogsByUserId);
 
 router.get("/:bid", blogsController.getBlogById);
@@ -25,12 +32,6 @@ router.get("/:bid", blogsController.getBlogById);
 //   blogsController.setBlogStatus
 // );
 
-// router.post(
-//   "/new",
-//   auth("user"),
-//   fileUpload.single("image"),
-//   blogsController.createBlog
-// );
 // router.patch("/:bid", auth("user"), blogsController.updateBlog);
 // router.delete("/:bid", auth("user"), blogsController.deleteBlog);
 

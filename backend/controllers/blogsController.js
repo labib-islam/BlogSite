@@ -82,17 +82,6 @@ const getBlogsByUserId = async (req, res) => {
   }
 };
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find().populate("author", "username imageUrl");
-
-    res.json({ blogs: blogs });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-};
-
 const createBlog = async (req, res) => {
   try {
     const { title, image, content, category } = req.body;
@@ -116,6 +105,17 @@ const createBlog = async (req, res) => {
     await sess.commitTransaction();
 
     res.json({ blog: newBlog });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate("author", "username imageUrl");
+
+    res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();
