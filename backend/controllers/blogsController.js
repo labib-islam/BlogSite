@@ -119,7 +119,9 @@ const updateBlog = async (req, res) => {
     const blog = await Blog.findById(bid);
 
     if (blog.author.toString() !== req.userId) {
-      res.json({ message: "You are not allowed to edit this blog." });
+      res
+        .status(401)
+        .json({ message: "You are not allowed to edit this blog." });
     }
 
     blog.title = title;

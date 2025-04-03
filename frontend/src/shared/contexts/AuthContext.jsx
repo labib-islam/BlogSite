@@ -7,6 +7,7 @@ const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [userId, setUserId] = useState();
   const [username, setUsername] = useState();
+  const [userEmail, setUserEmail] = useState();
   const [image, setImage] = useState();
   const [role, setRole] = useState(undefined);
 
@@ -16,6 +17,7 @@ const AuthContextProvider = (props) => {
     setLoggedIn(loggedInRes.data.verified);
     setUsername(loggedInRes.data.username);
     setUserId(loggedInRes.data.userId);
+    setUserEmail(loggedInRes.data.userEmail);
     setImage(loggedInRes.data.image);
     setRole(loggedInRes.data.role);
   };
@@ -35,6 +37,7 @@ const AuthContextProvider = (props) => {
         loggedIn,
         userId,
         username,
+        userEmail,
         image,
         role,
         getLoggedIn,

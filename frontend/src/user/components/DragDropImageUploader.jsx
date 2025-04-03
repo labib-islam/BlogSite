@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 
 import "./DragDropImageUploader.css";
 
-const DragDropImageUploader = ({ image, setImage }) => {
+const DragDropImageUploader = ({ image, setImage, canDrag }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -61,12 +61,15 @@ const DragDropImageUploader = ({ image, setImage }) => {
       {isDragging ? (
         <span className="select">Drop Images Here</span>
       ) : (
-        <>
-          <span className="highlight">Drag & Drop Image here or</span>
-          <span className="select highlight" onClick={selectFiles}>
-            Browse
-          </span>
-        </>
+        !image && (
+          <>
+            <span className="highlight">Drag & Drop Image here</span>
+            <span>or</span>
+            <span className="select highlight" onClick={selectFiles}>
+              Browse
+            </span>
+          </>
+        )
       )}
 
       <input type="file" onChange={onFileSelect} ref={fileInputRef} />

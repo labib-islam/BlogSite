@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import AuthContext from "../../shared/contexts/AuthContext";
 
 const Dashboard = () => {
-  const { username, image } = useContext(AuthContext);
+  const { username, image, userEmail } = useContext(AuthContext);
   return (
     <main className="page-dashboard">
       <div className="dashboard__container">
@@ -13,9 +13,14 @@ const Dashboard = () => {
           <figure>
             <img src={`/api/${image}`} alt="" />
           </figure>
-          <header>{username}</header>
+          <article>
+            <header>{username}</header>
+            <span>{userEmail}</span>
+          </article>
         </section>
-        <Link className="user-edit-button">Edit Profile</Link>
+        <Link to="/user/edit-profile" className="user-edit-button">
+          Edit Profile
+        </Link>
         <hr />
         <section className="dashboard-buttons__container">
           <Link to="/user/blogs/new">New Blog</Link>

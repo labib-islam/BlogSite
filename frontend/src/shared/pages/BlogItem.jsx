@@ -64,18 +64,29 @@ const BlogItem = () => {
           </figure>
           <Editor readOnly={true} content={blog.content.blocks} />
           {userId === blog.author._id && (
-            <div className="blog-buttons__container">
-              <Link
-                to={`/user/blogs/edit/${blog._id}`}
-                state={{ blog }}
-                className="yellow-button"
-              >
-                Edit
-              </Link>
-              <button className="red-button" onClick={handleDelete}>
-                Delete
-              </button>
-            </div>
+            <>
+              <p className="blog-status">
+                Status: <span>{blog.status}</span>
+              </p>
+              {blog.feedback && (
+                <section className="feedback__container">
+                  <header>Feedback</header>
+                  <span>{blog.feedback}</span>
+                </section>
+              )}
+              <div className="blog-buttons__container">
+                <Link
+                  to={`/user/blogs/edit/${blog._id}`}
+                  state={{ blog }}
+                  className="yellow-button"
+                >
+                  Edit
+                </Link>
+                <button className="red-button" onClick={handleDelete}>
+                  Delete
+                </button>
+              </div>
+            </>
           )}
           {role === "admin" && (
             <>

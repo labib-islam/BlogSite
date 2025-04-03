@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../../shared/contexts/AuthContext";
 import { useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
@@ -77,7 +77,7 @@ const UpdateBlog = () => {
 
   return (
     <main className="page-add-blog">
-      {blog && (
+      {blog && blog.author._id === userId && (
         <form className="add-blog__container">
           <textarea
             type="text"
@@ -86,7 +86,6 @@ const UpdateBlog = () => {
             placeholder="Title"
             value={inputs.title}
             onChange={handleChange}
-            rows={1}
           />
           <hr />
           <div className="user-date__container">
@@ -107,6 +106,15 @@ const UpdateBlog = () => {
             handleChange={handleEditorChange}
             content={inputs.content.blocks}
           />
+          <p className="blog-status">
+            Status: <span>{blog.status}</span>
+          </p>
+          {blog.feedback && (
+            <section className="feedback__container">
+              <header>Feedback</header>
+              <span>{blog.feedback}</span>
+            </section>
+          )}
           <div className="blog-buttons__container">
             <button
               className="yellow-button"

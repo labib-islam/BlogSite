@@ -1,0 +1,31 @@
+.page-edit-profile {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-profile__container {
+  margin: var(--margin);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.user-info__container.edit > figure {
+  border: 2px dashed gray;
+}
+
+.edit-profile__container > .save-button {
+  padding: 0px 10px;
+  height: var(--button-height);
+  border: none;
+  border-radius: calc(var(--border-radius) / 2);
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  background-color: var(--primary-green);
+}

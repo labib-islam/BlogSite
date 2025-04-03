@@ -87,6 +87,36 @@
   background-color: rgb(104, 190, 150);
 }
 
+.blog-status {
+  background-color: var(--light-gray);
+  padding: 10px 15px;
+  text-transform: capitalize;
+  border-radius: var(--border-radius);
+  color: var(--text-gray);
+}
+
+.blog-status > span {
+  font-weight: bold;
+}
+
+.feedback__container {
+  background-color: rgb(236, 236, 236);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.feedback__container > header {
+  font-size: 1rem;
+  background-color: var(--light-gray);
+  padding: 10px 15px;
+}
+
+.feedback__container > span {
+  margin: 15px;
+  font-size: 1rem;
+  display: block;
+}
+
 .feedback-form {
   display: flex;
   align-items: center;

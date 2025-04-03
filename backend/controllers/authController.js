@@ -44,6 +44,7 @@ const signup = async (req, res) => {
       {
         username: savedUser.username,
         userId: savedUser._id,
+        userEmail: savedUser.email,
         image: savedUser.imageUrl,
         role: savedUser.role,
       },
@@ -91,6 +92,7 @@ const login = async (req, res) => {
       {
         username: existingUser.username,
         userId: existingUser._id,
+        userEmail: existingUser.email,
         image: existingUser.imageUrl,
         role: existingUser.role,
       },
@@ -123,6 +125,7 @@ const isLoggedIn = (req, res) => {
     verified: false,
     username: null,
     userId: null,
+    userEmail: null,
     image: null,
     role: null,
   };
@@ -140,6 +143,7 @@ const isLoggedIn = (req, res) => {
       verified: true,
       username: verifiedToken.username,
       userId: verifiedToken.userId,
+      userEmail: verifiedToken.userEmail,
       image: verifiedToken.image,
       role: verifiedToken.role,
     };

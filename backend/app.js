@@ -28,3 +28,4 @@ app.use("/api/public/images", express.static(path.join("public", "images"))); //
 app.use("/api/auth", require("./routers/authRouter"));
 app.use("/api/category", require("./routers/categoryRouter"));
 app.use("/api/blog", require("./routers/blogRouter"));
+app.use("/api/user", require("./routers/userRouter"));
