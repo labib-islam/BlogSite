@@ -21,6 +21,8 @@ router.get("/:bid", blogsController.getBlogById);
 
 router.patch("/user/:bid", auth("user"), blogsController.updateBlog);
 
+router.delete("/:bid", auth("user"), blogsController.deleteBlog);
+
 // router.get("/", auth("admin"), blogsController.getBlogs);
 
 // router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
@@ -33,7 +35,5 @@ router.patch("/user/:bid", auth("user"), blogsController.updateBlog);
 //   auth("admin"),
 //   blogsController.setBlogStatus
 // );
-
-// router.delete("/:bid", auth("user"), blogsController.deleteBlog);
 
 module.exports = router;

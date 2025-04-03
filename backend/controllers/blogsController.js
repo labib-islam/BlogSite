@@ -135,17 +135,6 @@ const updateBlog = async (req, res) => {
   }
 };
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find().populate("author", "username imageUrl");
-
-    res.json({ blogs: blogs });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-};
-
 const deleteBlog = async (req, res) => {
   try {
     const bid = req.params.bid;
@@ -169,6 +158,17 @@ const deleteBlog = async (req, res) => {
       console.error(err);
     });
     res.status(200).json({ message: "Blog Deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().populate("author", "username imageUrl");
+
+    res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();

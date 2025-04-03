@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./BlogItem.css";
 import UserCard from "../../user/components/UserCard";
 import CategoryCard from "../components/CategoryCard";
-import { Link, useLocation, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { format } from "date-fns";
 import axios from "axios";
 import { Editor } from "../components/Editor";
@@ -14,6 +14,16 @@ const BlogItem = () => {
   const [blog, setBlog] = useState();
   const bid = useParams().bid;
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      const responseData = await axios.delete(`/api/blog/${bid}`);
+      navigate("/user/dashboard");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchBlog = async () => {
     try {
@@ -62,7 +72,9 @@ const BlogItem = () => {
               >
                 Edit
               </Link>
-              <button className="red-button">Delete</button>
+              <button className="red-button" onClick={handleDelete}>
+                Delete
+              </button>
             </div>
           )}
           {role === "admin" && (
