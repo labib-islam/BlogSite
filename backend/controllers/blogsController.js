@@ -232,7 +232,6 @@ const getBlogsCountbyStatus = async (req, res) => {
       count: statusMap.get(status) || 0,
     }));
 
-    console.log(finalCounts);
     res.json({
       blogsCountbyStatus: finalCounts,
     });
