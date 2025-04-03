@@ -28,30 +28,33 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      {role === "user" ? (
-        <Route path="/" element={<UserLayout />}>
-          <Route index element={<Home />} />
-          <Route path="user/dashboard" element={<Dashboard />} />
-          <Route path="user/edit-profile" element={<EditProfile />} />
-          <Route path="blogs" element={<PublishedBlogs />} />
-          <Route path="user/blogs/new" element={<AddBlog />} />
-          <Route path="user/blogs/edit/:bid" element={<UpdateBlog />} />
-          <Route path="user/blogs/:status" element={<UserBlogs />} />
-          <Route path="blogs/:bid" element={<BlogItem />} />
-        </Route>
-      ) : role === "admin" ? (
-        <Route path="/" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="admin/blogs" element={<AdminBlogs />} />
-        </Route>
-      ) : (
-        <Route path="/" element={<UserLayout />}>
-          <Route index element={<Home />} />
-          <Route path="auth" element={<Auth />} />
-          <Route path="blogs" element={<PublishedBlogs />} />
-          <Route path="blogs/:bid" element={<BlogItem />} />
-        </Route>
-      )}
+      <Route
+        path="/"
+        element={role === "admin" ? <AdminLayout /> : <UserLayout />}
+      >
+        <Route
+          index
+          element={role === "admin" ? <AdminDashboard /> : <Home />}
+        />
+        <Route path="auth" element={<Auth />} />
+        <Route path="blogs" element={<PublishedBlogs />} />
+        <Route path="blogs/:bid" element={<BlogItem />} />
+
+        {role === "user" && (
+          <>
+            <Route path="user/dashboard" element={<Dashboard />} />
+            <Route path="user/edit-profile" element={<EditProfile />} />
+            <Route path="user/blogs/new" element={<AddBlog />} />
+            <Route path="user/blogs/edit/:bid" element={<UpdateBlog />} />
+            <Route path="user/blogs/:status?" element={<UserBlogs />} />
+          </>
+        )}
+        {role === "admin" && (
+          <>
+            <Route path="admin/blogs/:status?" element={<AdminBlogs />} />
+          </>
+        )}
+      </Route>
     </Routes>
   );
 };

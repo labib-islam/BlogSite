@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Blogs from "../../shared/components/Blogs";
+import { useParams } from "react-router";
 
 const AdminBlogs = () => {
   const [inputs, setInputs] = useState({
@@ -10,12 +11,13 @@ const AdminBlogs = () => {
   });
 
   const [loadedBlogs, setLoadedBlogs] = useState();
+  const { status } = useParams();
 
-  const fetchBlogs = async (e, status = "all") => {
+  const fetchBlogs = async (e) => {
     if (e) e.preventDefault();
     try {
       const responseData = await axios.get(
-        `/api/blog/admin/blogs?search=${inputs.searchText}&cat=${inputs.category}&status=${status}`
+        `/api/blog/admin/blogs?search=${inputs.searchText}&cat=${inputs.category}&status=${inputs.status}`
       );
       setLoadedBlogs(responseData.data.blogs);
     } catch (err) {
@@ -24,6 +26,10 @@ const AdminBlogs = () => {
   };
 
   useEffect(() => {
+    if (status) {
+      inputs.status = status;
+    }
+    console.log(status);
     fetchBlogs();
   }, []);
 

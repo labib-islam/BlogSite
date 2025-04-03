@@ -5,6 +5,7 @@ import SearchBox from "./SearchBox";
 import BlogCards from "./BlogCards";
 import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
+import { useNavigate } from "react-router";
 
 const Blogs = ({
   inputs,
@@ -14,6 +15,7 @@ const Blogs = ({
   showStatus = false,
 }) => {
   const { role } = useContext(AuthContext);
+  const navigate = useNavigate();
   const statusList = [
     "all",
     "published",
@@ -24,8 +26,12 @@ const Blogs = ({
   ];
 
   const handleStatus = (e, status) => {
-    setInputs((prev) => ({ ...prev, status: status }));
-    fetchBlogs(e, status);
+    // setInputs((prev) => ({ ...prev, status: status }));
+    inputs.status = status;
+
+    navigate(`/${role}/blogs/${status}`);
+
+    fetchBlogs();
   };
 
   return (

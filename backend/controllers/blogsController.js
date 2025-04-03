@@ -29,7 +29,9 @@ const getPublishedBlogs = async (req, res) => {
 };
 
 const getAllBlogs = async (req, res) => {
-  const { search, category, status } = req.query;
+  const search = req.query.search;
+  const category = req.query.cat;
+  const status = req.query.status;
 
   try {
     const filter = {

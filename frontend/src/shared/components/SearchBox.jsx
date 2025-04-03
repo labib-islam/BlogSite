@@ -23,7 +23,7 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
   };
 
   const handleClear = () => {
-    setInputs({ searchText: "", category: "all" });
+    setInputs((prev) => ({ ...prev, searchText: "", category: "all" }));
     fetchBlogs();
   };
 
