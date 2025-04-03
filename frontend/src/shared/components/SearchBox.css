@@ -28,7 +28,6 @@
 .select__container .down-arrow__container {
   height: 100%;
   aspect-ratio: 1/1;
-  /* background-color: gray; */
   position: absolute;
   top: 0;
   right: 0;
@@ -53,7 +52,7 @@
 
 .search-box__form select {
   height: 100%;
-  padding: 0px 100px 0px 10px;
+  padding: 0px 80px 0px 10px;
   border: 1px solid var(--text-gray);
   outline: none;
   border-radius: calc(var(--border-radius) / 2);

@@ -28,6 +28,32 @@ const getPublishedBlogs = async (req, res) => {
   }
 };
 
+const getAllBlogs = async (req, res) => {
+  const { search, category, status } = req.query;
+
+  try {
+    const filter = {
+      ...(status && status !== "all" && { status }), // Add status filter if it's not "all"
+      ...(category && category !== "all" && { category }), // Add category filter if it's not "all"
+      ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
+    };
+
+    if (status === "all") {
+      filter.status = { $ne: "draft" }; // Exclude "draft" status
+    }
+
+    const blogs = await Blog.find(filter).populate(
+      "author",
+      "username imageUrl"
+    );
+
+    res.json({ blogs: blogs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const getBlogById = async (req, res) => {
   const bid = req.params.bid;
 
@@ -166,6 +192,56 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const getBlogsCountbyStatus = async (req, res) => {
+  try {
+    const defaultStatuses = ["published", "pending", "rejected", "archived"];
+
+    const countsByStatus = await Blog.aggregate([
+      {
+        $group: {
+          _id: "$status",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $addFields: {
+          sortOrder: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$_id", "published"] }, then: 1 },
+                { case: { $eq: ["$_id", "pending"] }, then: 2 },
+                { case: { $eq: ["$_id", "rejected"] }, then: 3 },
+                { case: { $eq: ["$_id", "archived"] }, then: 4 },
+              ],
+              default: 999, // Assign a default order for unexpected statuses
+            },
+          },
+        },
+      },
+      { $sort: { sortOrder: 1 } },
+    ]);
+
+    // Ensure all statuses are present with default count = 0
+    const statusMap = new Map(
+      countsByStatus.map(({ _id, count }) => [_id, count])
+    );
+
+    // Add missing statuses with count = 0
+    const finalCounts = defaultStatuses.map((status) => ({
+      _id: status,
+      count: statusMap.get(status) || 0,
+    }));
+
+    console.log(finalCounts);
+    res.json({
+      blogsCountbyStatus: finalCounts,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().populate("author", "username imageUrl");
@@ -217,6 +293,8 @@ const setBlogFeedback = async (req, res) => {
   }
 };
 
+exports.getPublishedBlogs = getPublishedBlogs;
+exports.getAllBlogs = getAllBlogs;
 exports.createBlog = createBlog;
 exports.getBlogs = getBlogs;
 exports.getBlogById = getBlogById;
@@ -225,4 +303,4 @@ exports.updateBlog = updateBlog;
 exports.deleteBlog = deleteBlog;
 exports.setBlogFeedback = setBlogFeedback;
 exports.setBlogStatus = setBlogStatus;
-exports.getPublishedBlogs = getPublishedBlogs;
+exports.getBlogsCountbyStatus = getBlogsCountbyStatus;

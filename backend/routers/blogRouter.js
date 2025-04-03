@@ -23,6 +23,14 @@ router.patch("/user/:bid", auth("user"), blogsController.updateBlog);
 
 router.delete("/:bid", auth("user"), blogsController.deleteBlog);
 
+router.get("/admin/blogs", blogsController.getAllBlogs);
+
+router.get(
+  "/admin/count",
+  auth("admin"),
+  blogsController.getBlogsCountbyStatus
+);
+
 // router.get("/", auth("admin"), blogsController.getBlogs);
 
 // router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
