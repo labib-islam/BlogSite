@@ -1,0 +1,86 @@
+.admin-layout__container > main {
+  margin-left: var(--admin-navbar-width);
+}
+
+.admin-navigation {
+  background-color: white;
+  border-right: 1px solid rgb(202, 202, 202);
+  box-shadow: var(--primary-shadow);
+  height: 100%;
+  width: var(--admin-navbar-width);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  z-index: 10;
+}
+
+.admin-profile__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--margin);
+  width: 100%;
+  border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.admin-profile__container figure {
+  background-color: var(--light-gray);
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.admin-profile__container figure .user-icon {
+  width: 100%;
+  height: 100%;
+  padding: 25px;
+}
+
+.admin-profile__container figure .user-icon circle,
+.admin-profile__container figure .user-icon path {
+  fill: gray;
+}
+
+.admin-profile__container header {
+  font-weight: 500;
+  color: var(--text-gray);
+}
+
+.admin-nav-list__container {
+  width: 100%;
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) / 2);
+}
+
+.admin-nav-list__container li {
+  width: 100%;
+}
+
+.admin-nav-list__container a {
+  text-decoration: none;
+  color: var(--text-gray);
+  height: 50px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--primary-shadow);
+  display: flex;
+  align-items: center;
+  padding: 10px 40px;
+}
+
+.admin-nav-list__container a.active {
+  background-color: rgb(31, 138, 120);
+  color: white;
+}
+.admin-nav-list__container a:not(.active):hover {
+  background-color: rgba(31, 138, 120, 0.308);
+}
