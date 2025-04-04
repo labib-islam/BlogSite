@@ -29,7 +29,6 @@ const AdminBlogs = () => {
     if (status) {
       inputs.status = status;
     }
-    console.log(status);
     fetchBlogs();
   }, []);
 

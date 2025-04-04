@@ -29,7 +29,7 @@ const AdminLayout = () => {
             <NavLink to="/admin/blogs">Blogs</NavLink>
           </li>
           <li>
-            <NavLink to="/users">Users</NavLink>
+            <NavLink to="/admin/users">Users</NavLink>
           </li>
         </ul>
       </nav>

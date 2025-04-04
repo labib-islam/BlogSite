@@ -15,6 +15,7 @@ import AddBlog from "./user/pages/AddBlog";
 import UpdateBlog from "./user/pages/UpdateBlog";
 import EditProfile from "./user/pages/EditProfile";
 import AdminBlogs from "./admin/pages/AdminBlogs";
+import UserList from "./admin/pages/UserList";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -52,6 +53,7 @@ const AppRoutes = () => {
         {role === "admin" && (
           <>
             <Route path="admin/blogs/:status?" element={<AdminBlogs />} />
+            <Route path="admin/users" element={<UserList />} />
           </>
         )}
       </Route>
