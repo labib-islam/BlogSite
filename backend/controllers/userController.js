@@ -42,11 +42,28 @@ const updateProfileImage = async (req, res) => {
     .json({ message: "Profile Updated" });
 };
 
+const getUserById = async (req, res) => {
+  const uid = req.params.uid;
+  try {
+    const user = await User.findById(uid).select("-password");
+    res.json({
+      user: user,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 const getAllUsers = async (req, res) => {
+  const search = req.query.search;
   try {
     const users = await User.aggregate([
       {
-        $match: { role: "user" }, // Fetch only users with role 'user'
+        $match: {
+          role: "user",
+          ...(search && { username: { $regex: search, $options: "i" } }),
+        }, // Fetch only users with role 'user'
       },
       {
         $lookup: {
@@ -88,4 +105,5 @@ const getAllUsers = async (req, res) => {
 };
 
 exports.updateProfileImage = updateProfileImage;
+exports.getUserById = getUserById;
 exports.getAllUsers = getAllUsers;

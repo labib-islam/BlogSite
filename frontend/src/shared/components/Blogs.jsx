@@ -13,6 +13,7 @@ const Blogs = ({
   fetchBlogs,
   loadedBlogs,
   showStatus = false,
+  userId = null,
 }) => {
   const { role } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,18 +30,16 @@ const Blogs = ({
     // setInputs((prev) => ({ ...prev, status: status }));
     inputs.status = status;
 
-    navigate(`/${role}/blogs/${status}`);
+    userId
+      ? navigate(`/user/${userId}/blogs/${status}`)
+      : navigate(`/admin/blogs/${status}`);
 
     fetchBlogs();
   };
 
   return (
     <main className="page-blogs">
-      <SearchBox
-        inputs={inputs}
-        setInputs={setInputs}
-        fetchBlogs={fetchBlogs}
-      />
+      <SearchBox inputs={inputs} setInputs={setInputs} fetchData={fetchBlogs} />
       {showStatus && (
         <>
           <ul className="status__container">

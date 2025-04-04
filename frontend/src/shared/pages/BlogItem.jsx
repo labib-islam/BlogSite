@@ -90,6 +90,15 @@ const BlogItem = () => {
           )}
           {role === "admin" && (
             <>
+              <p className="blog-status">
+                Status: <span>{blog.status}</span>
+              </p>
+              {blog.feedback && (
+                <section className="feedback__container">
+                  <header>Feedback</header>
+                  <span>{blog.feedback}</span>
+                </section>
+              )}
               <div className="blog-buttons__container">
                 <button className="yellow-button">Archive</button>
                 <button className="green-button">Publish</button>

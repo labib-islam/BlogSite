@@ -5,6 +5,7 @@ const fileUpload = require("../middleware/fileUpload");
 const auth = require("../middleware/auth");
 
 router.get("/", auth("admin"), userController.getAllUsers);
+router.get("/:uid", userController.getUserById);
 
 router.patch(
   "/:uid",

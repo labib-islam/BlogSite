@@ -16,6 +16,7 @@ import UpdateBlog from "./user/pages/UpdateBlog";
 import EditProfile from "./user/pages/EditProfile";
 import AdminBlogs from "./admin/pages/AdminBlogs";
 import UserList from "./admin/pages/UserList";
+import UserPage from "./shared/pages/UserPage";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -40,6 +41,7 @@ const AppRoutes = () => {
         <Route path="auth" element={<Auth />} />
         <Route path="blogs" element={<PublishedBlogs />} />
         <Route path="blogs/:bid" element={<BlogItem />} />
+        <Route path="user/:uid/blogs/:status?" element={<UserPage />} />
 
         {role === "user" && (
           <>

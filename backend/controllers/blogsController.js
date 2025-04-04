@@ -73,11 +73,10 @@ const getBlogById = async (req, res) => {
 };
 
 const getBlogsByUserId = async (req, res) => {
-  const userId = req.params.userId;
-  const status = req.params.status;
+  const uid = req.params.uid;
+  const status = req.query.status;
   const search = req.query.search;
   const category = req.query.cat;
-  let userWithBlogs;
 
   if (req.role !== "admin" && req.userId !== userId) {
     return res
@@ -92,17 +91,13 @@ const getBlogsByUserId = async (req, res) => {
       ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
     };
 
-    userWithBlogs = await User.findById(userId).populate({
-      path: "blogs",
-      match: filter, // 👈 Only filter if status is NOT "all"
-      populate: {
-        path: "author",
-        select: "username imageUrl",
-      },
-    });
+    const blogs = await Blog.find({ author: uid, ...filter }).populate(
+      "author",
+      "username imageUrl"
+    );
 
     res.json({
-      blogs: userWithBlogs.blogs,
+      blogs: blogs,
     });
   } catch (err) {
     console.error(err);

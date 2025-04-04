@@ -26,9 +26,8 @@ const AdminBlogs = () => {
   };
 
   useEffect(() => {
-    if (status) {
-      inputs.status = status;
-    }
+    if (status) inputs.status = status;
+
     fetchBlogs();
   }, []);
 

@@ -6,7 +6,7 @@ import DownArrowIcon from "../../assets/icons/down-arrow-icon.svg?react";
 
 import "./SearchBox.css";
 
-const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
+const SearchBox = ({ inputs, setInputs, fetchData }) => {
   const [loadedCategories, setLoadedCategories] = useState();
 
   const fetchCategories = async () => {
@@ -23,8 +23,10 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
   };
 
   const handleClear = () => {
-    setInputs((prev) => ({ ...prev, searchText: "", category: "all" }));
-    fetchBlogs();
+    // setInputs((prev) => ({ ...prev, searchText: "", category: "all" }));
+    inputs.searchText = "";
+    if (inputs.category) inputs.category = "all";
+    fetchData();
   };
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
 
   return (
     <section className="search-box__container">
-      <form className="search-box__form" onSubmit={fetchBlogs}>
+      <form className="search-box__form" onSubmit={fetchData}>
         <input
           type="text"
           name="searchText"
@@ -41,27 +43,29 @@ const SearchBox = ({ inputs, setInputs, fetchBlogs }) => {
           value={inputs.searchText}
           onChange={handleChange}
         />
-        <div className="select__container">
-          <select
-            name="category"
-            value={inputs.category}
-            onChange={handleChange}
-          >
-            <option key="all" value="all">
-              All
-            </option>
-            {loadedCategories &&
-              loadedCategories.map((cat) => (
-                <option key={cat.category} value={cat.category}>
-                  {cat.category}
-                </option>
-              ))}
-          </select>
-          <div className="down-arrow__container">
-            <DownArrowIcon className="down-arrow" />
+        {inputs.category && (
+          <div className="select__container">
+            <select
+              name="category"
+              value={inputs.category}
+              onChange={handleChange}
+            >
+              <option key="all" value="all">
+                All
+              </option>
+              {loadedCategories &&
+                loadedCategories.map((cat) => (
+                  <option key={cat.category} value={cat.category}>
+                    {cat.category}
+                  </option>
+                ))}
+            </select>
+            <div className="down-arrow__container">
+              <DownArrowIcon className="down-arrow" />
+            </div>
           </div>
-        </div>
-        <div className="search-icon__container" onClick={fetchBlogs}>
+        )}
+        <div className="search-icon__container" onClick={fetchData}>
           <SearchIcon className="search-icon" />
         </div>
         <div className="cross-icon__container" onClick={handleClear}>

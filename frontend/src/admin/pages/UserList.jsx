@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import testImage from "../../assets/images/home-image.jpg";
-import UserIcon from "../../assets/icons/user-icon.svg?react";
 
 import "./UserList.css";
 import axios from "axios";
+import { Link, useNavigate } from "react-router";
+import SearchBox from "../../shared/components/SearchBox";
+import UserTable from "../components/UserTable";
 
 const UserList = () => {
+  const [inputs, setInputs] = useState({
+    searchText: "",
+  });
   const [loadedUsers, setLoadedUsers] = useState();
+  const navigate = useNavigate();
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (e) => {
+    if (e) e.preventDefault();
     try {
-      const responseData = await axios.get("/api/user");
+      const responseData = await axios.get(
+        `/api/user?search=${inputs.searchText}`
+      );
       setLoadedUsers(responseData.data.users);
-      console.log(responseData.data.users);
     } catch (err) {
       console.log(err);
     }
@@ -30,36 +37,13 @@ const UserList = () => {
         {loadedUsers && <span>{loadedUsers.length}</span>}
       </section>
       <hr />
-      <section className="user-table__container">
-        <table className="user-list-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Email</th>
-              <th>Blogs</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loadedUsers &&
-              loadedUsers.map((user) => (
-                <tr key={user._id}>
-                  <td className="username__container">
-                    <figure>
-                      {user.imageUrl ? (
-                        <img src={`/api/${user.imageUrl}`} alt="Not Found" />
-                      ) : (
-                        <UserIcon className="user-icon" />
-                      )}
-                    </figure>
-                    <span>{user.username}</span>
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.blogCount}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </section>
+      <SearchBox inputs={inputs} setInputs={setInputs} fetchData={fetchUsers} />
+
+      {loadedUsers && loadedUsers.length === 0 ? (
+        <span>No Users Found</span>
+      ) : (
+        <UserTable loadedUsers={loadedUsers} />
+      )}
     </main>
   );
 };
