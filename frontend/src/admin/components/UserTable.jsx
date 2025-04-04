@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
 
+import "./UserTable.css";
+
 const UserTable = ({ loadedUsers }) => {
   return (
     <section className="user-table__container">
