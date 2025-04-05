@@ -45,3 +45,63 @@
   background-color: var(--light-gray);
   color: var(--text-gray);
 }
+
+.blog-view-switcher {
+  position: relative;
+  width: 180px;
+  height: 30px;
+  background-color: var(--light-gray);
+  margin-left: var(--margin);
+  border-radius: calc(var(--border-radius) / 2);
+  /* border: 1px solid gray; */
+  display: flex;
+  overflow: hidden;
+}
+
+.blog-view-switcher > div {
+  width: 50%;
+  padding: 5px 8px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-gray);
+  gap: 8px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.blog-view-switcher > div > span {
+  color: var(--text-gray);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.blog-view-switcher .card-view {
+  /* background-color: blueviolet; */
+}
+.blog-view-switcher > div.active {
+  /* background-color: var(--primary-green); */
+  color: white;
+
+}
+
+.blog-view-switcher > span.active-card {
+  /* left: 0; */
+}
+.blog-view-switcher > span.active-table {
+  /* right: 0; */
+  transform: translateX(100%);
+}
+
+
+.blog-view-switcher div.active > span {
+  color: white;
+}
+
+.blog-view-switcher > span {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  background-color: var(--primary-green);
+}

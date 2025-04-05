@@ -94,7 +94,6 @@ const getAllUsers = async (req, res) => {
       },
     ]);
 
-    console.log(users);
     res.json({
       users: users,
     });

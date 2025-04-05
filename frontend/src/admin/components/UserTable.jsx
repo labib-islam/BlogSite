@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
 
 import "./UserTable.css";
 
 const UserTable = ({ loadedUsers }) => {
+  const navigate = useNavigate();
   return (
     <section className="user-table__container">
       <table className="user-list-table">
@@ -18,13 +19,12 @@ const UserTable = ({ loadedUsers }) => {
         <tbody>
           {loadedUsers &&
             loadedUsers.map((user) => (
-              <tr key={user._id}>
-                <td className="username__container">
-                  <Link
-                    to={`/user/${user._id}/blogs`}
-                    state={{ user }}
-                    className="full-width-link"
-                  >
+              <tr
+                key={user._id}
+                onClick={() => navigate(`/user/${user._id}/blogs`)}
+              >
+                <td>
+                  <div className="multi-item__container">
                     <figure>
                       {user.imageUrl ? (
                         <img src={`/api/${user.imageUrl}`} alt="Not Found" />
@@ -32,27 +32,11 @@ const UserTable = ({ loadedUsers }) => {
                         <UserIcon className="user-icon" />
                       )}
                     </figure>
-                    <span>{user.username}</span>
-                  </Link>
+                    <span title={user.username}>{user.username}</span>
+                  </div>
                 </td>
-                <td>
-                  <Link
-                    to={`/user/${user._id}/blogs`}
-                    state={{ user }}
-                    className="full-width-link"
-                  >
-                    {user.email}
-                  </Link>
-                </td>
-                <td>
-                  <Link
-                    to={`/user/${user._id}/blogs`}
-                    state={{ user }}
-                    className="full-width-link"
-                  >
-                    {user.blogCount}
-                  </Link>
-                </td>
+                <td title={user.email}>{user.email}</td>
+                <td>{user.blogCount}</td>
               </tr>
             ))}
         </tbody>

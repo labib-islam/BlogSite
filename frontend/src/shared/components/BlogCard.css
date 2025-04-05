@@ -24,6 +24,7 @@
   text-align: center;
   width: 100%;
   height: 180px;
+  min-height: 180px;
   background-color: rgb(114, 132, 148);
 }
 

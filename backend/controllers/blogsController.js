@@ -86,10 +86,16 @@ const getBlogsByUserId = async (req, res) => {
 
   try {
     const filter = {
-      ...(status && status !== "all" && { status }),
       ...(category && category !== "all" && { category }),
       ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
     };
+
+    // Making sure admin cannot access drafts
+    if (status && status !== "all") {
+      filter.status = status;
+    } else if (req.role === "admin") {
+      filter.status = { $ne: "draft" };
+    }
 
     const blogs = await Blog.find({ author: uid, ...filter }).populate(
       "author",

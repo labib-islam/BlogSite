@@ -7,16 +7,18 @@
 .user-list-table {
   border-collapse: collapse;
   width: 100%;
+  text-align: left;
 }
-
-.user-list-table thead {
-}
-
 
 .user-list-table thead tr {
   background-color: var(--text-gray);
-  color: var(--text-gray);
-  text-align: left;
+  color: white;
+}
+
+.user-list-table tbody tr {
+  border-bottom: 2px solid var(--light-gray);
+  color: rgb(29, 29, 29);
+  cursor: pointer;
 }
 
 .user-list-table tbody tr:nth-of-type(even) {
@@ -27,37 +29,30 @@
   background-color: rgb(205, 223, 220);
 }
 
+.user-list-table .multi-item__container {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+
 .user-list-table th,
 .user-list-table td {
   padding: 10px 15px;
   max-width: 300px;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.user-list-table th,
+.user-list-table td,
+.user-list-table td > div > span {
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.user-list-table td:first-child {
-  padding: 0 !important;
-}
-
-.user-list-table th {
-  color: white;
-}
-
-.user-list-table td {
-  color: rgb(29, 29, 29);
-}
-
-.user-list-table td.username__container a {
-  padding: 10px 15px;
-  display: flex;
-  align-items: center;
-  gap: var(--gap);
-}
-
 .user-list-table td figure {
+  flex-shrink: 0;
   background-color: var(--light-gray);
   width: 50px;
   height: 50px;
@@ -74,12 +69,4 @@
 .user-list-table td figure .user-icon circle,
 .user-list-table td figure .user-icon path {
   fill: gray;
-}
-
-.full-width-link {
-  display: block; /* Makes the link cover the entire cell */
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: inherit;
 }

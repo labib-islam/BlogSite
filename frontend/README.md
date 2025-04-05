@@ -31,3 +31,4 @@
 - vite-plugin-svgr → `npm install vite-plugin-svgr`
 - axios → `npm install axios`
 - editorjs, header, list → `npm install @editorjs/editorjs @editorjs/header @editorjs/list`
+- react-icons → `npm install react-icons`
