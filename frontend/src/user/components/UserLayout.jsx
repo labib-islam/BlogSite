@@ -6,7 +6,8 @@ import AuthContext from "../../shared/contexts/AuthContext";
 import UserCard from "./UserCard";
 
 const UserLayout = () => {
-  const { loggedIn, username, image, getLoggedOut } = useContext(AuthContext);
+  const { loggedIn, username, image, getLoggedOut, userId } =
+    useContext(AuthContext);
 
   return (
     <div className="layout__container">
@@ -24,7 +25,7 @@ const UserLayout = () => {
           {loggedIn ? (
             <>
               <li>
-                <NavLink to="/user/dashboard">dashboard</NavLink>
+                <NavLink to={`/user/${userId}/blogs`}>dashboard</NavLink>
               </li>
               <li>
                 <Link to="/" onClick={getLoggedOut}>

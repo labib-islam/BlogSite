@@ -36,12 +36,12 @@ router.get(
 // router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
 
 // // -- Admin Routes
-// router.patch("/feedback/:bid", auth("admin"), blogsController.setBlogFeedback);
+router.patch("/feedback/:bid", auth("admin"), blogsController.setBlogFeedback);
 
-// router.patch(
-//   "/status/:bid/:status",
-//   auth("admin"),
-//   blogsController.setBlogStatus
-// );
+router.patch(
+  "/status/:bid/:status",
+  auth("admin"),
+  blogsController.setBlogStatus
+);
 
 module.exports = router;

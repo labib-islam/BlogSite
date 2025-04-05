@@ -6,7 +6,7 @@ import "./BlogTable.css";
 import { Link, useNavigate } from "react-router";
 import CategoryCard from "./CategoryCard";
 
-const BlogTable = ({ blogs }) => {
+const BlogTable = ({ blogs, showStatus = false }) => {
   const navigate = useNavigate();
   return (
     <section className="blog-table__container">
@@ -16,7 +16,7 @@ const BlogTable = ({ blogs }) => {
             <th>Title</th>
             <th>Author</th>
             <th>Category</th>
-            <th>Status</th>
+            {showStatus && <th>Status</th>}
           </tr>
         </thead>
         <tbody>
@@ -53,7 +53,7 @@ const BlogTable = ({ blogs }) => {
                 <td>
                   <CategoryCard category={blog.category} />
                 </td>
-                <td>{blog.status}</td>
+                {showStatus && <td>{blog.status}</td>}
               </tr>
             ))}
         </tbody>

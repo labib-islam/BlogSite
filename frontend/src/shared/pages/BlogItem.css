@@ -130,6 +130,8 @@
   min-width: 350px;
   width: 100%;
   background-color: rgb(233, 233, 233);
+  color: var(--text-gray);
+  font-weight: 500;
   border-radius: calc(var(--border-radius) / 2);
   border: none;
   outline: none;

@@ -12,6 +12,7 @@ import AuthContext from "../contexts/AuthContext";
 const BlogItem = () => {
   const { userId, role } = useContext(AuthContext);
   const [blog, setBlog] = useState();
+  const [feedback, setFeedback] = useState();
   const bid = useParams().bid;
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,10 +26,36 @@ const BlogItem = () => {
     }
   };
 
+  const handleStatus = async (status) => {
+    try {
+      const responseData = await axios.patch(
+        `/api/blog/status/${bid}/${status}`
+      );
+      fetchBlog();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleFeedback = async (e) => {
+    if (e) e.preventDefault();
+    try {
+      console.log(feedback);
+      const responseData = await axios.patch(`/api/blog/feedback/${bid}`, {
+        feedback,
+      });
+      fetchBlog();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchBlog = async () => {
     try {
       const responseData = await axios.get(`/api/blog/${bid}`);
       setBlog(responseData.data.blog);
+      responseData.data.blog.feedback &&
+        setFeedback(responseData.data.blog.feedback);
     } catch (err) {
       console.error(err);
     }
@@ -37,6 +64,7 @@ const BlogItem = () => {
   useEffect(() => {
     if (location.state) {
       setBlog(location.state.blog);
+      location.state.blog.feedback && setFeedback(location.state.blog.feedback);
     } else {
       fetchBlog();
     }
@@ -52,6 +80,7 @@ const BlogItem = () => {
             <UserCard
               name={blog.author.username}
               image={blog.author.imageUrl}
+              userId={blog.author._id}
             />
             <span className="date">
               {format(blog.publication_date, "MMM d, yyyy")}
@@ -100,12 +129,33 @@ const BlogItem = () => {
                 </section>
               )}
               <div className="blog-buttons__container">
-                <button className="yellow-button">Archive</button>
-                <button className="green-button">Publish</button>
+                <button
+                  className="yellow-button"
+                  onClick={() => handleStatus("archived")}
+                >
+                  Archive
+                </button>
+                <button
+                  className="green-button"
+                  onClick={() => handleStatus("published")}
+                >
+                  Publish
+                </button>
+                <button
+                  className="red-button"
+                  onClick={() => handleStatus("rejected")}
+                >
+                  Reject
+                </button>
               </div>
-              <form className="feedback-form">
-                <textarea name="" id="" placeholder="Write feedback here..." />
-                <button>Send Feedback</button>
+              <form className="feedback-form" onSubmit={handleFeedback}>
+                <textarea
+                  name="feedback"
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  placeholder="Write feedback here..."
+                />
+                <button onClick={handleFeedback}>Send Feedback</button>
               </form>
             </>
           )}

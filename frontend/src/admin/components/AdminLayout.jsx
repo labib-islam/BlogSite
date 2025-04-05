@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
 
 import "./AdminLayout.css";
 import AuthContext from "../../shared/contexts/AuthContext";
 
 const AdminLayout = () => {
-  const { username, image } = useContext(AuthContext);
+  const { username, image, getLoggedOut } = useContext(AuthContext);
 
   return (
     <div className="admin-layout__container">
@@ -30,6 +30,11 @@ const AdminLayout = () => {
           </li>
           <li>
             <NavLink to="/admin/users">Users</NavLink>
+          </li>
+          <li>
+            <Link to="/" onClick={getLoggedOut}>
+              Logout
+            </Link>
           </li>
         </ul>
       </nav>

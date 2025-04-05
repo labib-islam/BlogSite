@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./UserList.css";
 import axios from "axios";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SearchBox from "../../shared/components/SearchBox";
 import UserTable from "../components/UserTable";
 
@@ -12,6 +12,7 @@ const UserList = () => {
   });
   const [loadedUsers, setLoadedUsers] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchUsers = async (e) => {
     if (e) e.preventDefault();
@@ -26,7 +27,11 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
+    if (location.state) {
+      setLoadedUsers(location.state.loadedUsers);
+    } else {
+      fetchUsers();
+    }
   }, []);
 
   return (

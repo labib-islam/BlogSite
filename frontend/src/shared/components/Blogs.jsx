@@ -44,7 +44,7 @@ const Blogs = ({
     <main className="page-blogs">
       <SearchBox inputs={inputs} setInputs={setInputs} fetchData={fetchBlogs} />
       {showStatus && (
-        <>
+        <section>
           <ul className="status__container">
             {statusList.map((status) => (
               <li
@@ -58,7 +58,7 @@ const Blogs = ({
               </li>
             ))}
           </ul>
-        </>
+        </section>
       )}
       <section className="blog-view-switcher">
         <span
@@ -85,7 +85,7 @@ const Blogs = ({
         ) : isCardsView ? (
           <BlogCards blogs={loadedBlogs} />
         ) : (
-          <BlogTable blogs={loadedBlogs} />
+          <BlogTable blogs={loadedBlogs} showStatus={showStatus} />
         )}
       </section>
     </main>

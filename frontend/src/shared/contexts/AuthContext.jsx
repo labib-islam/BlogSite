@@ -23,6 +23,7 @@ const AuthContextProvider = (props) => {
   };
 
   const getLoggedOut = async () => {
+    setRole(undefined);
     await axios.get("/api/auth/logout");
     getLoggedIn();
   };

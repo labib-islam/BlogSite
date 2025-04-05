@@ -2,13 +2,18 @@
   height: 30px;
   width: fit-content;
   background-color: rgb(235, 235, 235);
-  /* border: 1px solid gray; */
+  border: 2px solid transparent;
   border-radius: 50px;
   overflow: hidden;
   display: flex;
   align-items: center;
   gap: 10px;
   padding-right: 15px;
+  cursor: pointer;
+}
+
+.user-card:hover {
+  border-color: rgb(182, 182, 182);
 }
 
 .user-card > figure {

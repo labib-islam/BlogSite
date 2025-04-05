@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 const Blog = require("../models/Blog");
@@ -78,23 +79,42 @@ const getBlogsByUserId = async (req, res) => {
   const search = req.query.search;
   const category = req.query.cat;
 
-  if (req.role !== "admin" && req.userId !== userId) {
-    return res
-      .status(401)
-      .json({ errorMessage: "You are not authorized to make this request" });
-  }
-
   try {
     const filter = {
       ...(category && category !== "all" && { category }),
       ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
     };
 
-    // Making sure admin cannot access drafts
-    if (status && status !== "all") {
-      filter.status = status;
-    } else if (req.role === "admin") {
-      filter.status = { $ne: "draft" };
+    const token = req.cookies.access_token;
+
+    // Filtering status based on user type
+    if (token) {
+      const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userIdFromToken = verifiedToken.userId;
+      const roleFromToken = verifiedToken.role;
+
+      req.userId = userIdFromToken;
+      req.role = roleFromToken;
+
+      if (roleFromToken === "admin") {
+        if (status === "draft") {
+          return res
+            .status(401)
+            .json({ message: "You are not allowed to make this request." });
+        } else if (status && status !== "all") {
+          filter.status = status;
+        } else {
+          filter.status = { $ne: "draft" }; // Excluding drafts by default for admins
+        }
+      } else if (userIdFromToken === uid) {
+        if (status && status !== "all") {
+          filter.status = status;
+        }
+      } else {
+        filter.status = "published"; // For any other user
+      }
+    } else {
+      filter.status = "published"; // No token means public user
     }
 
     const blogs = await Blog.find({ author: uid, ...filter }).populate(
@@ -260,6 +280,12 @@ const setBlogStatus = async (req, res) => {
     const { bid, status } = req.params;
     const blog = await Blog.findById(bid);
 
+    if (status === "draft" || status === "pending") {
+      res
+        .status(401)
+        .json({ message: "You are allowed to make this request." });
+    }
+
     if (status == "published") {
       blog.set("feedback", undefined, { strict: false });
     }
@@ -280,11 +306,10 @@ const setBlogFeedback = async (req, res) => {
   try {
     const { feedback } = req.body;
     const bid = req.params.bid;
-    console.log(req.body);
+
     const blog = await Blog.findById(bid);
 
     blog.feedback = feedback;
-    blog.status = "rejected";
 
     await blog.save();
 

@@ -23,6 +23,7 @@ const BlogCard = ({ blog }) => {
             <UserCard
               name={blog.author.username}
               image={blog.author.imageUrl}
+              userId={blog.author._id}
             />
             <CategoryCard category={blog.category} />
           </footer>

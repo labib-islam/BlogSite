@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router";
 
 import "./UserPage.css";
 import Blogs from "../components/Blogs";
+import AuthContext from "../contexts/AuthContext";
 
 const UserPage = () => {
+  const { userId, role } = useContext(AuthContext);
   const [inputs, setInputs] = useState({
     searchText: "",
     category: "all",
@@ -20,7 +22,6 @@ const UserPage = () => {
   const fetchUser = async () => {
     try {
       const responseData = await axios.get(`/api/user/${uid}`);
-      console.log(responseData.data.user);
       setLoadedUser(responseData.data.user);
     } catch (err) {
       console.error(err);
@@ -49,7 +50,7 @@ const UserPage = () => {
     }
 
     fetchBlogs();
-  }, []);
+  }, [uid]);
   return (
     <main className="page-user-dashboard">
       <div className="dashboard__container">
@@ -60,17 +61,25 @@ const UserPage = () => {
             </figure>
             <article>
               <header>{loadedUser.username}</header>
-              <span>{loadedUser.email}</span>
+              {loadedUser._id === userId && <span>{loadedUser.email}</span>}
             </article>
           </section>
         )}
+        <Link to="/user/edit-profile" className="user-edit-button">
+          Edit Profile
+        </Link>
+        <Link to="/user/blogs/new" className="new-blog-button">
+          New Blog
+        </Link>
         <hr />
         {loadedBlogs && (
           <Blogs
             inputs={inputs}
             setInputs={setInputs}
             fetchBlogs={fetchBlogs}
-            showStatus={true}
+            showStatus={
+              role === "admin" || loadedUser._id === userId ? true : false
+            }
             loadedBlogs={loadedBlogs}
             userId={uid}
           />
