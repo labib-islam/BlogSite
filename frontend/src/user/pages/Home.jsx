@@ -3,6 +3,7 @@ import homeImage from "../../assets/images/home-image.jpg";
 
 import "./Home.css";
 import axios from "axios";
+import { Link } from "react-router";
 
 const Home = () => {
   const [loadedCategories, setLoadedCategories] = useState();
@@ -29,7 +30,7 @@ const Home = () => {
               A demo blog project showcasing web development using the MERN
               stack
             </h1>
-            <button>Explore Blogs</button>
+            <Link to="/blogs">Explore Blogs</Link>
           </div>
           <div className="home-image__container">
             <img src={homeImage} alt="homepage-image" />
@@ -46,7 +47,9 @@ const Home = () => {
                   key={cat.category}
                   style={{ "--hover-shadow-color": cat.color }}
                 >
-                  {cat.category}
+                  <Link to="/blogs" state={{ category: cat.category }}>
+                    {cat.category}
+                  </Link>
                 </li>
               ))}
           </ul>

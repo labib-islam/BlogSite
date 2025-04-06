@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Blogs from "../components/Blogs";
+import { useLocation } from "react-router";
 
 const PublishedBlogs = () => {
-  const [inputs, setInputs] = useState({ searchText: "", category: "all" });
+  const location = useLocation();
+  const [inputs, setInputs] = useState({
+    searchText: "",
+    category: location.state?.category || "all",
+  });
   const [loadedBlogs, setLoadedBlogs] = useState();
 
   const fetchBlogs = async (e) => {
