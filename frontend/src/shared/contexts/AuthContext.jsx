@@ -12,14 +12,18 @@ const AuthContextProvider = (props) => {
   const [role, setRole] = useState(undefined);
 
   const getLoggedIn = async () => {
-    const loggedInRes = await axios.get("/api/auth/loggedIn");
+    try {
+      const loggedInRes = await axios.get("/api/auth/loggedIn");
 
-    setLoggedIn(loggedInRes.data.verified);
-    setUsername(loggedInRes.data.username);
-    setUserId(loggedInRes.data.userId);
-    setUserEmail(loggedInRes.data.userEmail);
-    setImage(loggedInRes.data.image);
-    setRole(loggedInRes.data.role);
+      setLoggedIn(loggedInRes.data.verified);
+      setUsername(loggedInRes.data.username);
+      setUserId(loggedInRes.data.userId);
+      setUserEmail(loggedInRes.data.userEmail);
+      setImage(loggedInRes.data.image);
+      setRole(loggedInRes.data.role);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const getLoggedOut = async () => {

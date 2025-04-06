@@ -32,7 +32,7 @@ const EditProfile = () => {
       formData.append("image", image.file);
       const res = await axios.patch(`/api/user/${userId}`, formData);
       getLoggedIn();
-      navigate("/user/dashboard");
+      navigate(`/user/${userId}/blogs`);
     } catch (err) {
       console.error(err);
     }

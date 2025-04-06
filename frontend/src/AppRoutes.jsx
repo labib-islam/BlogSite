@@ -45,7 +45,6 @@ const AppRoutes = () => {
 
         {role === "user" && (
           <>
-            <Route path="user/dashboard" element={<Dashboard />} />
             <Route path="user/edit-profile" element={<EditProfile />} />
             <Route path="user/blogs/new" element={<AddBlog />} />
             <Route path="user/blogs/edit/:bid" element={<UpdateBlog />} />

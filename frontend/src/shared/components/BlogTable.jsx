@@ -36,7 +36,14 @@ const BlogTable = ({ blogs, showStatus = false }) => {
                   </div>
                 </td>
                 <td>
-                  <div className="multi-item__container">
+                  <div
+                    className="multi-item__container user__container"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      navigate(`/user/${blog.author._id}/blogs`);
+                    }}
+                  >
                     <figure className="user-image__container">
                       {blog.author.imageUrl ? (
                         <img

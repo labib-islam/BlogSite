@@ -38,6 +38,14 @@
   gap: var(--gap);
 }
 
+.blog-list-table .multi-item__container.user__container {
+  width: fit-content;
+}
+
+.blog-list-table .multi-item__container.user__container:hover > span {
+  color: var(--primary-green);
+}
+
 .blog-list-table th,
 .blog-list-table td {
   padding: 10px 15px;

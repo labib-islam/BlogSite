@@ -15,7 +15,7 @@ router.post(
   blogsController.createBlog
 );
 
-router.get("/user/:uid/blogs", auth(), blogsController.getBlogsByUserId);
+router.get("/user/:uid/blogs", blogsController.getBlogsByUserId);
 
 router.get("/:bid", blogsController.getBlogById);
 
