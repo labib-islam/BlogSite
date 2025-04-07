@@ -6,9 +6,7 @@ import Home from "./user/pages/Home";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminLayout from "./admin/components/AdminLayout";
 import Auth from "./shared/pages/Auth";
-import Blogs from "./shared/components/Blogs";
 import BlogItem from "./shared/pages/BlogItem";
-import Dashboard from "./user/pages/Dashboard";
 import PublishedBlogs from "./shared/pages/PublishedBlogs";
 import UserBlogs from "./user/pages/UserBlogs";
 import AddBlog from "./user/pages/AddBlog";
@@ -17,6 +15,7 @@ import EditProfile from "./user/pages/EditProfile";
 import AdminBlogs from "./admin/pages/AdminBlogs";
 import UserList from "./admin/pages/UserList";
 import UserPage from "./shared/pages/UserPage";
+import Categories from "./admin/pages/Categories";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
@@ -55,6 +54,7 @@ const AppRoutes = () => {
           <>
             <Route path="admin/blogs/:status?" element={<AdminBlogs />} />
             <Route path="admin/users" element={<UserList />} />
+            <Route path="admin/categories" element={<Categories />} />
           </>
         )}
       </Route>

@@ -32,6 +32,9 @@ const AdminLayout = () => {
             <NavLink to="/admin/users">Users</NavLink>
           </li>
           <li>
+            <NavLink to="/admin/categories">Categories</NavLink>
+          </li>
+          <li>
             <Link to="/" onClick={getLoggedOut}>
               Logout
             </Link>

@@ -1,0 +1,95 @@
+.page-categories {
+  margin: var(--margin);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--gap) * 2);
+}
+
+.page-categories > section > header {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-gray);
+}
+
+.page-categories > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.add-category-form {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  height: var(--button-height);
+
+}
+
+.add-category-form input[type=text] {
+  height: 100%;
+  border: none;
+  border-radius: calc(var(--border-radius) /2);
+  outline: none;
+  padding: 15px;
+  color: var(--text-gray);
+  text-transform: capitalize;
+  font-style: italic;
+  font-size: 1rem;
+
+}
+
+.add-category-form input[type=color] {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+} 
+
+.add-category-form .color-picker-label {
+  position: relative;
+  height: 100%;
+  width: 80px;
+  border-radius: calc(var(--border-radius) /2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-gray);
+}
+
+.add-category-form button {
+  height: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: calc(var(--border-radius) /2);
+  background-color: var(--primary-green);
+  color: white;
+}
+
+.category-list {
+  list-style: none;
+  display: flex;
+  gap: var(--gap);
+}
+
+.category-list li {
+  width: fit-content;
+  height: var(--button-height);
+  padding-left: 10px;
+  border-radius: calc(var(--border-radius) /2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  font-style: italic;
+  overflow: hidden;
+}
+
+.category-list li span {
+  margin-left: 10px;
+  padding: 10px;
+  background-color: rgb(236, 236, 236);
+  color: var(--primary-red);
+  font-size: 2rem;
+  font-style: normal;
+  cursor: pointer;
+}
