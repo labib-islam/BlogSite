@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
 import { AiFillEye } from "react-icons/ai";
 import { AiFillEyeInvisible } from "react-icons/ai";
+import { Toaster, toast } from "sonner";
 import axios from "axios";
 
 import "./Auth.css";
@@ -12,6 +13,7 @@ const Auth = () => {
   const { getLoggedIn } = useContext(AuthContext);
   const [isSignup, setIsSignup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
@@ -111,14 +113,23 @@ const Auth = () => {
     }
 
     try {
+      setIsLoading(true);
       const res = await axios.post(
         `/api/auth/${isSignup ? "signup" : "login"}`,
         data
       );
       getLoggedIn();
+      setIsLoading(false);
+      toast.success("Logged In");
       navigate("/");
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      toast.error(
+        err.response?.data
+          ? err.response.data.errorMessage
+          : "Something went wrong."
+      );
     }
   };
 
@@ -159,6 +170,9 @@ const Auth = () => {
                   name="username"
                   placeholder="Username"
                   onChange={handleChange}
+                  style={
+                    errors.username ? { borderColor: "var(--primary-red)" } : {}
+                  }
                 />
                 {errors.username && <p>{errors.username}</p>}
               </div>
@@ -170,6 +184,7 @@ const Auth = () => {
               name="email"
               placeholder="Email Address"
               onChange={handleChange}
+              style={errors.email ? { borderColor: "var(--primary-red)" } : {}}
             />
             {errors.email && <p>{errors.email}</p>}
           </div>
@@ -181,6 +196,9 @@ const Auth = () => {
                 id="password"
                 placeholder="Password"
                 onChange={handleChange}
+                style={
+                  errors.password ? { borderColor: "var(--primary-red)" } : {}
+                }
               />
               <figure onClick={() => setShowPassword((prev) => !prev)}>
                 {showPassword ? (
@@ -192,7 +210,15 @@ const Auth = () => {
             </section>
             {errors.password && <p>{errors.password}</p>}
           </div>
-          <button>{isSignup ? "Signup" : "Login"}</button>
+          <button>
+            {isLoading ? (
+              <span className="loader auth"></span>
+            ) : isSignup ? (
+              "Signup"
+            ) : (
+              "Login"
+            )}
+          </button>
         </form>
 
         <footer className="auth-footer">

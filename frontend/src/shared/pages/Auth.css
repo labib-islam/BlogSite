@@ -100,6 +100,9 @@
   background-color: var(--primary-green);
   color: white;
   font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .auth-footer {
@@ -204,4 +207,11 @@ Signup Styling
 .auth-form .user-icon path, 
 .auth-form .user-icon circle {
   fill: gray;
+}
+
+.loader.auth {
+  border: 3px solid white;
+  border-bottom-color: transparent;
+  width: 20px;
+  height: 20px;
 }
