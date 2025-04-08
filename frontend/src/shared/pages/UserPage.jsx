@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router";
+import UserIcon from "../../assets/icons/user-icon.svg?react";
 
 import "./UserPage.css";
 import Blogs from "../components/Blogs";
@@ -57,7 +58,11 @@ const UserPage = () => {
         {loadedUser && (
           <section className="user-info__container">
             <figure>
-              <img src={`/api/${loadedUser.imageUrl}`} alt="" />
+              {loadedUser.imageUrl ? (
+                <img src={`/api/${loadedUser.imageUrl}`} alt="" />
+              ) : (
+                <UserIcon className="user-icon" />
+              )}
             </figure>
             <article>
               <header>{loadedUser.username}</header>

@@ -6,7 +6,7 @@ const User = require("../models/User");
 const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const image = req.file.path;
+    const image = req.file?.path || "";
 
     // Check for empty fields
     if (!username || !email || !password) {

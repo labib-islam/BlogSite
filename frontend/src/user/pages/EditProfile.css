@@ -12,6 +12,7 @@
 
 .user-info__container.edit > figure {
   border: 2px dashed gray;
+  background: transparent;
 }
 
 .edit-profile__container > .save-button {

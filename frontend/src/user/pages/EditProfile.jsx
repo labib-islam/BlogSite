@@ -14,17 +14,23 @@ const EditProfile = () => {
     userId,
     getLoggedIn,
   } = useContext(AuthContext);
-  const [image, setImage] = useState({
-    name: "default",
-    url: `/api/${userImage}`,
-    file: "default",
+  const [image, setImage] = useState(() => {
+    if (!userImage) {
+      return null;
+    }
+    return {
+      name: "default",
+      url: `/api/${userImage}`,
+      file: "default",
+    };
   });
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!image || image.file == "default") {
-      navigate("/user/dashboard");
+      navigate(`/user/${userId}/blogs`);
       return;
     }
     try {

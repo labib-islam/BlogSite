@@ -17,6 +17,11 @@ const Auth = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -46,24 +51,66 @@ const Auth = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const validate = () => {
+    const newErrors = {
+      username: "",
+      email: "",
+      password: "",
+    };
+
+    // Username validation (only on signup)
+    if (isSignup) {
+      if (!inputs.username) {
+        newErrors.username = "Username is required.";
+      } else if (inputs.username.length < 4) {
+        newErrors.username = "Username must be at least 4 characters.";
+      }
+    }
+
+    // Email validation
+    if (!inputs.email) {
+      newErrors.email = "Email is required.";
+    } else {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regex.test(inputs.email)) {
+        newErrors.email = "Enter a valid email address.";
+      }
+    }
+
+    // Password validation
+    if (!inputs.password) {
+      newErrors.password = "Password is required.";
+    } else if (inputs.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
+    }
+
+    setErrors(newErrors);
+
+    // Return true if no errors
+    return !Object.values(newErrors).some((err) => err !== "");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      let data;
-      if (isSignup) {
-        const formData = new FormData();
-        formData.append("username", inputs.username);
-        formData.append("image", image.file);
-        formData.append("email", inputs.email);
-        formData.append("password", inputs.password);
-        data = formData;
-      } else {
-        data = {
-          email: inputs.email,
-          password: inputs.password,
-        };
-      }
+    const isValid = validate();
+    if (!isValid) return;
 
+    let data;
+    if (isSignup) {
+      const formData = new FormData();
+      formData.append("username", inputs.username);
+      image && formData.append("image", image.file);
+      formData.append("email", inputs.email);
+      formData.append("password", inputs.password);
+      data = formData;
+    } else {
+      data = {
+        email: inputs.email,
+        password: inputs.password,
+      };
+    }
+
+    try {
       const res = await axios.post(
         `/api/auth/${isSignup ? "signup" : "login"}`,
         data
@@ -106,35 +153,44 @@ const Auth = () => {
                   </>
                 )}
               </div>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                onChange={handleChange}
-              />
+              <div className="username__container input__container">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                />
+                {errors.username && <p>{errors.username}</p>}
+              </div>
             </section>
           )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            onChange={handleChange}
-          />
-          <div className="password__container">
+          <div className="input__container">
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              id="password"
-              placeholder="Password"
+              type="text"
+              name="email"
+              placeholder="Email Address"
               onChange={handleChange}
             />
-            <figure onClick={() => setShowPassword((prev) => !prev)}>
-              {showPassword ? (
-                <AiFillEye className="password-eye" />
-              ) : (
-                <AiFillEyeInvisible className="password-eye" />
-              )}
-            </figure>
+            {errors.email && <p>{errors.email}</p>}
+          </div>
+          <div className="input__container">
+            <section className="password__container">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Password"
+                onChange={handleChange}
+              />
+              <figure onClick={() => setShowPassword((prev) => !prev)}>
+                {showPassword ? (
+                  <AiFillEye className="password-eye" />
+                ) : (
+                  <AiFillEyeInvisible className="password-eye" />
+                )}
+              </figure>
+            </section>
+            {errors.password && <p>{errors.password}</p>}
           </div>
           <button>{isSignup ? "Signup" : "Login"}</button>
         </form>
