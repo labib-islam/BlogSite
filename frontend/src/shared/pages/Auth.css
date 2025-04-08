@@ -54,6 +54,33 @@
   outline: none;
 }
 
+.auth-form .password__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-form .password__container input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.auth-form .password__container figure {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  cursor: pointer;
+}
+
+.auth-form .password__container figure .password-eye {
+  width: 100%;
+  height: 100%;
+  color: gray;
+}
+
 .auth-form button {
   height: var(--button-height);
   border: none;

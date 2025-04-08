@@ -1,5 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
+import { AiFillEye } from "react-icons/ai";
+import { AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 
 import "./Auth.css";
@@ -9,6 +11,7 @@ import AuthContext from "../contexts/AuthContext";
 const Auth = () => {
   const { getLoggedIn } = useContext(AuthContext);
   const [isSignup, setIsSignup] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [inputs, setInputs] = useState({
     username: "",
     email: "",
@@ -117,12 +120,22 @@ const Auth = () => {
             placeholder="Email Address"
             onChange={handleChange}
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
+          <div className="password__container">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              id="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
+            <figure onClick={() => setShowPassword((prev) => !prev)}>
+              {showPassword ? (
+                <AiFillEye className="password-eye" />
+              ) : (
+                <AiFillEyeInvisible className="password-eye" />
+              )}
+            </figure>
+          </div>
           <button>{isSignup ? "Signup" : "Login"}</button>
         </form>
 
