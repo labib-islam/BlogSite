@@ -1,5 +1,6 @@
 import React from "react";
 import testImage from "../../assets/images/home-image.jpg";
+import { MdImageNotSupported } from "react-icons/md";
 import { Link } from "react-router";
 
 import "./BlogCard.css";
@@ -15,7 +16,11 @@ const BlogCard = ({ blog }) => {
     >
       <li className="blog-card">
         <figure>
-          <img src={`/api/${blog.imageUrl}`} alt="Image Not Found" />
+          {blog.imageUrl ? (
+            <img src={`/api/${blog.imageUrl}`} alt="Image Not Found" />
+          ) : (
+            <MdImageNotSupported className="no-image-icon" />
+          )}
         </figure>
         <section>
           <header>{blog.title}</header>

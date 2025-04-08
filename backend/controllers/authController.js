@@ -12,14 +12,14 @@ const signup = async (req, res) => {
     if (!username || !email || !password) {
       return res
         .status(400)
-        .json({ errorMessage: "Please enter all required fields." });
+        .json({ message: "Please enter all required fields." });
     }
 
     // Check if email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
-        errorMessage: "An account with this email exists.",
+        message: "An account with this email exists.",
       });
     }
 
@@ -71,13 +71,13 @@ const login = async (req, res) => {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ errorMessage: "Please enter all required fields." });
+        .json({ message: "Please enter all required fields." });
     }
 
     // Check if user exists
     const existingUser = await User.findOne({ email });
     if (!existingUser)
-      return res.status(401).json({ errorMessage: "Wrong email or password" });
+      return res.status(401).json({ message: "Wrong email or password" });
 
     // Password Varification
     const verifyPassword = await bcrypt.compare(
@@ -85,7 +85,7 @@ const login = async (req, res) => {
       existingUser.password
     );
     if (!verifyPassword)
-      return res.status(401).json({ errorMessage: "Wrong email or password" });
+      return res.status(401).json({ message: "Wrong email or password" });
 
     // sign the token
     const token = jwt.sign(

@@ -126,9 +126,7 @@ const Auth = () => {
       console.log(err);
       setIsLoading(false);
       toast.error(
-        err.response?.data
-          ? err.response.data.errorMessage
-          : "Something went wrong."
+        err.response?.data ? err.response.data.message : "Something went wrong."
       );
     }
   };

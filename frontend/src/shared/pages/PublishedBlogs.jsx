@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Blogs from "../components/Blogs";
 import { useLocation } from "react-router";
+import { toast } from "sonner";
 
 const PublishedBlogs = () => {
   const location = useLocation();
@@ -20,6 +21,9 @@ const PublishedBlogs = () => {
       setLoadedBlogs(responseData.data.blogs);
     } catch (err) {
       console.error(err);
+      toast.error(
+        err.response?.data ? err.response.data.message : "Something went wrong."
+      );
     }
   };
 

@@ -25,7 +25,14 @@
   width: 100%;
   height: 180px;
   min-height: 180px;
-  background-color: rgb(114, 132, 148);
+  background-color: var(--light-gray);
+  color: gray;
+}
+
+.blog-card > figure > .no-image-icon {
+  width: 100%;
+  height: 100%;
+  padding: 50px;
 }
 
 .blog-card section {
