@@ -47,6 +47,14 @@ button {
   align-items: center;
 }
 
+.suspense-fallback__container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader {
   width: 48px;
   height: 48px;

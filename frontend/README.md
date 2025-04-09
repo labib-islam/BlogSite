@@ -32,4 +32,5 @@
 - axios → `npm install axios`
 - editorjs, header, list → `npm install @editorjs/editorjs @editorjs/header @editorjs/list`
 - react-icons → `npm install react-icons`
-- sonner → `npm install sonner` <!-- for toast notification -->
+- sonner → `npm install sonner` # Toast Notification
+- react-error-boundary → `npm install react-error-boundary`

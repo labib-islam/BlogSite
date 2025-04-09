@@ -22,7 +22,7 @@ const AuthContextProvider = (props) => {
       setImage(loggedInRes.data.image);
       setRole(loggedInRes.data.role);
     } catch (err) {
-      console.error(err);
+      return new Error("err");
     }
   };
 
