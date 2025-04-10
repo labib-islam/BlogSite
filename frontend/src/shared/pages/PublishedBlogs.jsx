@@ -27,7 +27,7 @@ const PublishedBlogs = () => {
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      setError(err.message);
+      setError(err);
     }
   };
 

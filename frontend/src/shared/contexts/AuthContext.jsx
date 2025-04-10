@@ -25,7 +25,7 @@ const AuthContextProvider = (props) => {
       setRole(loggedInRes.data.role);
       setAuthError(null);
     } catch (err) {
-      setAuthError(err.message);
+      setAuthError(err);
     }
   };
 

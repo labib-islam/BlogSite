@@ -29,3 +29,8 @@ app.use("/api/auth", require("./routers/authRouter"));
 app.use("/api/category", require("./routers/categoryRouter"));
 app.use("/api/blog", require("./routers/blogRouter"));
 app.use("/api/user", require("./routers/userRouter"));
+
+// handle undefined paths (404 Not Found)
+app.use((req, res, next) => {
+  res.status(404).json({ message: "The requested path was not found." });
+});

@@ -11,11 +11,35 @@
   border: 1px solid var(--primary-red);
   border-radius: var(--border-radius);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--gap);
+  padding: 30px;
 }
 
-.error__container > header{
-  color: var(--primary-red);
-  padding: 30px;
+.error-title__container {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
 
+.error-title__container figure {
+  width: 30px;
+  height: 30px;
+  color: var(--primary-red);
+}
+
+.error-title__container figure .error-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.error__container header{
+  color: var(--primary-red);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.error__container p{
+  color: var(--primary-red);
 }
