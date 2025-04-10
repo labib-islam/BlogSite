@@ -43,3 +43,14 @@
 .error__container p{
   color: var(--primary-red);
 }
+
+.error__container button {
+  height: var(--button-height);
+  width: fit-content;
+  padding: 10px;
+  border-radius: calc(var(--border-radius) / 2);
+  border: none;
+  background-color: var(--primary-red);
+  color: white;
+  font-weight: 500;
+}

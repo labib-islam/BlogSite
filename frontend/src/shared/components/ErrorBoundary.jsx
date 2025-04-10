@@ -1,12 +1,16 @@
+import { BiSolidError } from "react-icons/bi";
+import "./ErrorBoundary.css";
+import ErrorCard from "./ErrorCard";
+
 function ErrorFallback({ error, resetErrorBoundary }) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
 
   return (
-    <div role="alert">
-      <p>Something went wrong:</p>
-      <pre style={{ color: "red" }}>{error.message}</pre>
-      <button onClick={resetErrorBoundary}>Try Again</button>
-    </div>
+    <ErrorCard
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      isErrorBoundary={true}
+    />
   );
 }
 

@@ -15,7 +15,7 @@ const auth = (role) => {
 
       if (role && role !== verifiedToken.role) {
         return res.status(401).json({
-          message: "You don't have permission to view this content.",
+          message: "You don't have permission to perform this action.",
         });
       }
 

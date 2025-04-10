@@ -3,7 +3,11 @@ import { BiSolidError } from "react-icons/bi";
 
 import "./ErrorCard.css";
 
-const ErrorCard = ({ error }) => {
+const ErrorCard = ({ error, isErrorBoundary = false, resetErrorBoundary }) => {
+  const handleRetry = () => {
+    window.location.reload(); // Reload the page
+  };
+
   return (
     <main className="page-error">
       <section className="error__container">
@@ -11,13 +15,20 @@ const ErrorCard = ({ error }) => {
           <figure>
             <BiSolidError className="error-icon" />
           </figure>
-          <header>{error.message}</header>
+          <header>
+            {isErrorBoundary ? "Something went wrong" : error.message}
+          </header>
         </div>
-        {error.response?.data.message ? (
+        {isErrorBoundary ? (
+          <p>{error.message}</p>
+        ) : error.response?.data.message ? (
           <p>{error.response?.data.message}</p>
         ) : (
           <p>Something went wrong!</p>
         )}
+        <button onClick={isErrorBoundary ? resetErrorBoundary : handleRetry}>
+          Try Again
+        </button>
       </section>
     </main>
   );

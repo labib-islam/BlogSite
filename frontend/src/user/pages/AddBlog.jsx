@@ -8,11 +8,16 @@ import axios from "axios";
 import DragDropImageUploader from "../components/DragDropImageUploader";
 import { Editor } from "../../shared/components/Editor";
 import { useNavigate } from "react-router";
+import LoadingSpinner from "../../shared/components/LoadingSpinner";
+import ErrorCard from "../../shared/components/ErrorCard";
+import { toast } from "sonner";
 
 const AddBlog = () => {
-  const { username, image: userImage } = useContext(AuthContext);
+  const { username, userId, image: userImage } = useContext(AuthContext);
   const [loadedCategoryList, setLoadedCategoryList] = useState();
   const [categoryColor, setCategoryColor] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   const [inputs, setInputs] = useState({
     title: "",
@@ -49,6 +54,7 @@ const AddBlog = () => {
   const handleSubmit = async (e, status) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append("title", inputs.title);
       formData.append("image", image.file);
@@ -58,18 +64,26 @@ const AddBlog = () => {
         `/api/blog/user/new?status=${status}`,
         formData
       );
-      navigate("/user/dashboard");
+      setIsLoading(false);
+      toast.success("Blog Added");
+      navigate(`/user/${userId}/blogs`);
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
+      setError(err);
     }
   };
 
   const fetchCategories = async () => {
     try {
+      setIsLoading(true);
       const responseData = await axios.get(`/api/category`);
       setLoadedCategoryList(responseData.data.categories);
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
+      setIsLoading(false);
+      setError(err);
     }
   };
 
@@ -78,66 +92,73 @@ const AddBlog = () => {
   }, []);
 
   return (
-    <main className="page-add-blog">
-      <form className="add-blog__container">
-        <textarea
-          type="text"
-          name="title"
-          className="blog-title"
-          placeholder="Title"
-          value={inputs.title}
-          onChange={handleChange}
-          rows={1}
-        />
-        <hr />
-        <div className="user-date__container">
-          <UserCard name={username} image={userImage} />
-          <span className="date">{format(new Date(), "MMM d, yyyy")}</span>
-        </div>
-        <hr />
-        <select
-          className="blog-category-selector"
-          name="category"
-          id="category"
-          onChange={handleChange}
-          defaultValue={""}
-          style={{ backgroundColor: categoryColor }}
-        >
-          <option value="" disabled>
-            Category
-          </option>
-          {loadedCategoryList &&
-            loadedCategoryList.map((cat) => (
-              <option
-                key={cat._id}
-                value={cat.category}
-                style={{ "--cat-color": cat.color }}
-              >
-                {cat.category}
-              </option>
-            ))}
-        </select>
+    <>
+      {isLoading && <LoadingSpinner />}
+      {error && <ErrorCard error={error} />}
 
-        <figure className="blog-image__container input">
-          <DragDropImageUploader image={image} setImage={setImage} />
-        </figure>
-        <Editor handleChange={handleEditorChange} />
-        <div className="blog-buttons__container">
-          <button
-            className="yellow-button"
-            onClick={(e) => handleSubmit(e, "draft")}
-          >
-            Save as Draft
-          </button>
-          <button
-            className="green-button"
-            onClick={(e) => handleSubmit(e, "pending")}
-          >
-            Send For Review
-          </button>
-        </div>
-      </form>
-    </main>
+      {!error && !isLoading && loadedCategoryList && (
+        <main className="page-add-blog">
+          <form className="add-blog__container">
+            <textarea
+              type="text"
+              name="title"
+              className="blog-title"
+              placeholder="Title"
+              value={inputs.title}
+              onChange={handleChange}
+              rows={1}
+            />
+            <hr />
+            <div className="user-date__container">
+              <UserCard name={username} image={userImage} />
+              <span className="date">{format(new Date(), "MMM d, yyyy")}</span>
+            </div>
+            <hr />
+            <select
+              className="blog-category-selector"
+              name="category"
+              id="category"
+              onChange={handleChange}
+              defaultValue={""}
+              style={{ backgroundColor: categoryColor }}
+            >
+              <option value="" disabled>
+                Category
+              </option>
+              {loadedCategoryList &&
+                loadedCategoryList.map((cat) => (
+                  <option
+                    key={cat._id}
+                    value={cat.category}
+                    style={{ "--cat-color": cat.color }}
+                  >
+                    {cat.category}
+                  </option>
+                ))}
+            </select>
+
+            <figure className="blog-image__container input">
+              <DragDropImageUploader image={image} setImage={setImage} />
+            </figure>
+            <Editor handleChange={handleEditorChange} />
+            <div className="blog-buttons__container">
+              <button
+                className="yellow-button"
+                onClick={(e) => handleSubmit(e, "draft")}
+              >
+                Save as Draft
+              </button>
+              <button
+                className="green-button"
+                onClick={(e) => handleSubmit(e, "pending")}
+              >
+                Send For Review
+              </button>
+            </div>
+          </form>
+        </main>
+      )}
+    </>
   );
 };
 
