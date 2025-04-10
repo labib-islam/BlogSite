@@ -1,0 +1,21 @@
+.page-error {
+  width: 100%;
+  display: flex;
+}
+
+.error__container {
+  background-color: rgb(255, 225, 225);
+  margin: var(--margin);
+  min-height: 80px;
+  width: 100%;
+  border: 1px solid var(--primary-red);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+}
+
+.error__container > header{
+  color: var(--primary-red);
+  padding: 30px;
+
+}

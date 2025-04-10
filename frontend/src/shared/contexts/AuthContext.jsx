@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext, useCallback } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ const AuthContextProvider = (props) => {
   const [userEmail, setUserEmail] = useState();
   const [image, setImage] = useState();
   const [role, setRole] = useState(undefined);
+  const [authError, setAuthError] = useState();
 
   const getLoggedIn = async () => {
     try {
@@ -21,8 +23,9 @@ const AuthContextProvider = (props) => {
       setUserEmail(loggedInRes.data.userEmail);
       setImage(loggedInRes.data.image);
       setRole(loggedInRes.data.role);
+      setAuthError(null);
     } catch (err) {
-      return new Error("err");
+      setAuthError(err.message);
     }
   };
 
@@ -45,6 +48,7 @@ const AuthContextProvider = (props) => {
         userEmail,
         image,
         role,
+        authError,
         getLoggedIn,
         getLoggedOut,
       }}

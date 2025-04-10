@@ -6,17 +6,12 @@ import App from "./App.jsx";
 import { AuthContextProvider } from "./shared/contexts/AuthContext.jsx";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./shared/components/ErrorBoundary.jsx";
+import LoadingSpinner from "./shared/components/LoadingSpinner.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
-      <Suspense
-        fallback={
-          <div className="suspense-fallback__container">
-            <span className="loader"></span>
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingSpinner />}>
         <AuthContextProvider>
           <BrowserRouter>
             <App />

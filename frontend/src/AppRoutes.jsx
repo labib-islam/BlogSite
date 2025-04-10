@@ -16,16 +16,11 @@ import AdminBlogs from "./admin/pages/AdminBlogs";
 import UserList from "./admin/pages/UserList";
 import UserPage from "./shared/pages/UserPage";
 import Categories from "./admin/pages/Categories";
+import ErrorCard from "./shared/components/ErrorCard";
+import LoadingSpinner from "./shared/components/LoadingSpinner";
 
 const AppRoutes = () => {
   const { role } = useContext(AuthContext);
-  if (role === undefined) {
-    return (
-      <div className="full-page">
-        <span className="loader"></span>
-      </div>
-    );
-  }
 
   return (
     <Routes>
