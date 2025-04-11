@@ -33,7 +33,7 @@ const Home = () => {
     <>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorCard error={error} />}
-      {loadedCategories && (
+      {!error && !isLoading && loadedCategories && (
         <main className="page-home">
           <section className="landing-page">
             <section className="landing-page__content">
