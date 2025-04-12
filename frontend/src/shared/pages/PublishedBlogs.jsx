@@ -39,7 +39,7 @@ const PublishedBlogs = () => {
     <>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorCard error={error} />}
-      {loadedBlogs && (
+      {!error && !isLoading && loadedBlogs && (
         <Blogs
           inputs={inputs}
           setInputs={setInputs}
