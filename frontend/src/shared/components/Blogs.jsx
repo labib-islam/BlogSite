@@ -8,12 +8,14 @@ import axios from "axios";
 import AuthContext from "../contexts/AuthContext";
 import { useNavigate } from "react-router";
 import BlogTable from "./BlogTable";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Blogs = ({
   inputs,
   setInputs,
   fetchBlogs,
   loadedBlogs,
+  isLoading = false,
   showStatus = false,
   userId = null,
 }) => {
@@ -80,7 +82,9 @@ const Blogs = ({
         </div>
       </section>
       <section className="blogs__container">
-        {loadedBlogs.length === 0 ? (
+        {isLoading ? (
+          <LoadingSpinner fullHeight={false} />
+        ) : loadedBlogs.length === 0 ? (
           <span>No Blogs Found</span>
         ) : isCardsView ? (
           <BlogCards blogs={loadedBlogs} />

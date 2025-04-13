@@ -59,9 +59,14 @@
 .add-category-form button {
   height: 100%;
   padding: 10px;
+  width: 80px;
   border: none;
   border-radius: calc(var(--border-radius) /2);
   background-color: var(--primary-green);
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
 }
 

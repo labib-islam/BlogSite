@@ -210,7 +210,7 @@ const Auth = () => {
           </div>
           <button>
             {isLoading ? (
-              <span className="loader auth"></span>
+              <span className="loader button"></span>
             ) : isSignup ? (
               "Signup"
             ) : (

@@ -2,9 +2,11 @@ import React from "react";
 
 import "./LoadingSpinner.css";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ fullHeight = true, fullWidth = true }) => {
   return (
-    <div className="full-page">
+    <div
+      className={`${fullHeight && "full-height"} ${fullWidth && "full-width"}`}
+    >
       <span className="loader"></span>
     </div>
   );

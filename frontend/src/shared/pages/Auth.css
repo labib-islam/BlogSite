@@ -209,9 +209,3 @@ Signup Styling
   fill: gray;
 }
 
-.loader.auth {
-  border: 3px solid white;
-  border-bottom-color: transparent;
-  width: 20px;
-  height: 20px;
-}

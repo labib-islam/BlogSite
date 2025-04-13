@@ -1,10 +1,23 @@
-.full-page {
-  width: 100%;
+.full-height {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 200px;
+}
+
+.full-width {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader.button {
+  border: 3px solid white;
+  border-bottom-color: transparent;
+  width: 20px;
+  height: 20px;
 }
 
 .loader {

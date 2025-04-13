@@ -19,6 +19,14 @@ const createCategory = async (req, res) => {
       color,
     });
 
+    // Check if category already exists
+    const existingCategory = await Category.findOne({ category });
+    if (existingCategory) {
+      return res.status(400).json({
+        message: "Category already exists.",
+      });
+    }
+
     const savedCategory = await newCategory.save();
 
     res.json({ category: savedCategory });

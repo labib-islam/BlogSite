@@ -63,10 +63,7 @@
 .user-list-table td figure .user-icon {
   width: 100%;
   height: 100%;
-  padding: 25px;
-}
-
-.user-list-table td figure .user-icon circle,
-.user-list-table td figure .user-icon path {
+  padding: 10px;
   fill: gray;
 }
+
