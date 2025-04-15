@@ -10,24 +10,24 @@ router.get("/published", blogsController.getPublishedBlogs);
 // -- Authorized Routes
 router.post(
   "/user/new",
-  auth("user"),
+  auth(["user"]),
   fileUpload.single("image"),
   blogsController.createBlog
 );
 
-router.get("/user/:uid/blogs", blogsController.getBlogsByUserId);
+router.get("/user/:uid/blogs", auth(), blogsController.getBlogsByUserId);
 
-router.get("/:bid", blogsController.getBlogById);
+router.get("/:bid", auth(), blogsController.getBlogById);
 
-router.patch("/user/:bid", auth("user"), blogsController.updateBlog);
+router.patch("/user/:bid", auth(["user"]), blogsController.updateBlog);
 
-router.delete("/:bid", auth("user"), blogsController.deleteBlog);
+router.delete("/:bid", auth(["user"]), blogsController.deleteBlog);
 
-router.get("/admin/blogs", auth("admin"), blogsController.getAllBlogs);
+router.get("/admin/blogs", auth(["admin"]), blogsController.getAllBlogs);
 
 router.get(
   "/admin/count",
-  auth("admin"),
+  auth(["admin"]),
   blogsController.getBlogsCountbyStatus
 );
 
@@ -36,11 +36,15 @@ router.get(
 // router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
 
 // // -- Admin Routes
-router.patch("/feedback/:bid", auth("admin"), blogsController.setBlogFeedback);
+router.patch(
+  "/feedback/:bid",
+  auth(["admin"]),
+  blogsController.setBlogFeedback
+);
 
 router.patch(
   "/status/:bid/:status",
-  auth("admin"),
+  auth(["admin"]),
   blogsController.setBlogStatus
 );
 

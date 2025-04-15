@@ -1,11 +1,17 @@
 const jwt = require("jsonwebtoken");
 
-const auth = (role) => {
+const auth = (allowedRoles = []) => {
   return (req, res, next) => {
     try {
       const token = req.cookies.access_token;
 
+      // Public route — no token needed
       if (!token) {
+        if (allowedRoles.length === 0) {
+          req.userId = null;
+          req.role = "guest";
+          return next();
+        }
         return res.status(401).json({
           message: "You're not authorized. Please log in to continue.",
         });
@@ -13,19 +19,23 @@ const auth = (role) => {
 
       const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-      if (role && role !== verifiedToken.role) {
-        return res.status(401).json({
+      req.userId = verifiedToken.userId;
+      req.role = verifiedToken.role;
+
+      // If route is restricted to specific roles
+      if (
+        allowedRoles.length > 0 &&
+        !allowedRoles.includes(verifiedToken.role)
+      ) {
+        return res.status(403).json({
           message: "You don't have permission to perform this action.",
         });
       }
 
-      req.userId = verifiedToken.userId;
-      req.role = verifiedToken.role;
-
       next();
     } catch (err) {
       console.error(err);
-      res.status(401).json({ message: "Unknown Authentication Error" });
+      return res.status(401).json({ message: "Unknown Authentication Error" });
     }
   };
 };

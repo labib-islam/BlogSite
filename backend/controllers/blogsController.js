@@ -22,7 +22,7 @@ const getPublishedBlogs = async (req, res) => {
       "username imageUrl"
     );
 
-    res.json({ blogs: blogs });
+    return res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -50,7 +50,7 @@ const getAllBlogs = async (req, res) => {
       "username imageUrl"
     );
 
-    res.json({ blogs: blogs });
+    return res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -60,13 +60,28 @@ const getAllBlogs = async (req, res) => {
 const getBlogById = async (req, res) => {
   const bid = req.params.bid;
 
-  let blog;
-
   try {
-    blog = await Blog.findById(bid).populate("author", "username imageUrl");
-    res.json({
-      blog: blog,
-    });
+    const blog = await Blog.findById(bid).populate(
+      "author",
+      "username imageUrl"
+    );
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    const isPublished = blog.status === "published";
+    const notDraft = blog.status !== "draft";
+    const isAuthor = blog.author._id.toString() === req.userId;
+    const isAdmin = req.role === "admin";
+
+    if (isPublished || isAuthor || (isAdmin && notDraft)) {
+      return res.json({ blog: blog });
+    }
+
+    return res
+      .status(403)
+      .json({ message: "You are not authorized to view this blog." });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -85,36 +100,25 @@ const getBlogsByUserId = async (req, res) => {
       ...(search && { title: { $regex: search, $options: "i" } }), // Case-insensitive search in title
     };
 
-    const token = req.cookies.access_token;
-
-    // Filtering status based on user type
-    if (token) {
-      const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const userIdFromToken = verifiedToken.userId;
-      const roleFromToken = verifiedToken.role;
-
-      req.userId = userIdFromToken;
-      req.role = roleFromToken;
-
-      if (roleFromToken === "admin") {
-        if (status === "draft") {
-          return res
-            .status(401)
-            .json({ message: "You are not allowed to make this request." });
-        } else if (status && status !== "all") {
-          filter.status = status;
-        } else {
-          filter.status = { $ne: "draft" }; // Excluding drafts by default for admins
-        }
-      } else if (userIdFromToken === uid) {
-        if (status && status !== "all") {
-          filter.status = status;
-        }
+    // -- Admin
+    if (req.role === "admin") {
+      if (status === "draft") {
+        return res
+          .status(401)
+          .json({ message: "You are not allowed to make this request." });
+      } else if (status && status !== "all") {
+        filter.status = status;
       } else {
-        filter.status = "published"; // For any other user
+        filter.status = { $ne: "draft" }; // Excluding drafts by default for admins
+      }
+    }
+    // -- User: Author
+    else if (req.userId === uid) {
+      if (status && status !== "all") {
+        filter.status = status;
       }
     } else {
-      filter.status = "published"; // No token means public user
+      filter.status = "published"; // For any other user
     }
 
     const blogs = await Blog.find({ author: uid, ...filter }).populate(
@@ -122,7 +126,7 @@ const getBlogsByUserId = async (req, res) => {
       "username imageUrl"
     );
 
-    res.json({
+    return res.json({
       blogs: blogs,
     });
   } catch (err) {
@@ -153,7 +157,7 @@ const createBlog = async (req, res) => {
     await user.save({ session: sess });
     await sess.commitTransaction();
 
-    res.json({ blog: newBlog });
+    return res.json({ blog: newBlog });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message });
@@ -179,7 +183,7 @@ const updateBlog = async (req, res) => {
 
     await blog.save();
 
-    res.json(blog);
+    return res.json(blog);
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -208,7 +212,7 @@ const deleteBlog = async (req, res) => {
     fs.unlink(imagePath, (err) => {
       console.error(err);
     });
-    res.status(200).json({ message: "Blog Deleted" });
+    return res.status(200).json({ message: "Blog Deleted" });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -255,7 +259,7 @@ const getBlogsCountbyStatus = async (req, res) => {
       count: statusMap.get(status) || 0,
     }));
 
-    res.json({
+    return res.json({
       blogsCountbyStatus: finalCounts,
     });
   } catch (err) {
@@ -268,7 +272,7 @@ const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().populate("author", "username imageUrl");
 
-    res.json({ blogs: blogs });
+    return res.json({ blogs: blogs });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -286,7 +290,7 @@ const setBlogStatus = async (req, res) => {
         .json({ message: "You are allowed to make this request." });
     }
 
-    if (status == "published") {
+    if (status === "published") {
       blog.set("feedback", undefined, { strict: false });
     }
 
@@ -294,7 +298,7 @@ const setBlogStatus = async (req, res) => {
 
     await blog.save();
 
-    res.json(blog);
+    return res.json(blog);
   } catch (err) {
     console.error(err);
     res.status(500).send();
