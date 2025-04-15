@@ -60,7 +60,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--gap) / 2);
+  gap: calc(var(--gap) / 1.5);
 }
 
 .admin-nav-list__container li {

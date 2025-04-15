@@ -38,3 +38,7 @@ button {
 .bold {
   font-weight: bold;
 }
+
+.toast-delete-button {
+  background-color: #dc2626 !important;
+}

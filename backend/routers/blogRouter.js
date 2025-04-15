@@ -23,19 +23,19 @@ router.patch("/user/:bid", auth(["user"]), blogsController.updateBlog);
 
 router.delete("/:bid", auth(["user"]), blogsController.deleteBlog);
 
-router.get("/admin/blogs", auth(["admin"]), blogsController.getAllBlogs);
+// -- Admin Routes
+router.get(
+  "/admin/blogs",
+  auth(["admin", "test-admin"]),
+  blogsController.getAllBlogs
+);
 
 router.get(
   "/admin/count",
-  auth(["admin"]),
+  auth(["admin", "test-admin"]),
   blogsController.getBlogsCountbyStatus
 );
 
-// router.get("/", auth("admin"), blogsController.getBlogs);
-
-// router.get("/user/:userId/:status", blogsController.getBlogsByUserId);
-
-// // -- Admin Routes
 router.patch(
   "/feedback/:bid",
   auth(["admin"]),

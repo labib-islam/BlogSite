@@ -1,13 +1,17 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import UserIcon from "../../assets/icons/user-icon.svg?react";
+import { GoTrash } from "react-icons/go";
+import { IoTrashOutline } from "react-icons/io5";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 import "./UserPage.css";
 import Blogs from "../components/Blogs";
 import AuthContext from "../contexts/AuthContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorCard from "../components/ErrorCard";
+import { toast } from "sonner";
 
 const UserPage = () => {
   const { userId, role } = useContext(AuthContext);
@@ -21,6 +25,7 @@ const UserPage = () => {
   const [loadedBlogs, setLoadedBlogs] = useState();
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
+  const navigate = useNavigate();
   const location = useLocation();
   const { uid, status } = useParams();
 
@@ -53,6 +58,35 @@ const UserPage = () => {
     }
   };
 
+  const handleDelete = async () => {
+    console.log("deleted");
+    try {
+      setIsLoading(true);
+      await axios.delete(`/api/user/${loadedUser._id}`);
+      setIsLoading(false);
+      toast.success("User Deleted");
+      navigate(`/admin/users`);
+    } catch (err) {
+      console.error(err);
+      setIsLoading(false);
+      toast.error("Failed to Delete User");
+      setError(err);
+    }
+  };
+
+  const handleDeleteConfirmation = () => {
+    toast.error("Are you sure?", {
+      classNames: {
+        actionButton: "toast-delete-button",
+      },
+      description: `Delete User: ${loadedUser.username}`,
+      action: {
+        label: "Delete",
+        onClick: handleDelete,
+      },
+    });
+  };
+
   useEffect(() => {
     if (status) inputs.status = status;
 
@@ -83,16 +117,33 @@ const UserPage = () => {
                 </figure>
                 <article>
                   <header>{loadedUser.username}</header>
-                  {loadedUser._id === userId && <span>{loadedUser.email}</span>}
+                  {(loadedUser._id === userId || role === "admin") && (
+                    <span>{loadedUser.email}</span>
+                  )}
                 </article>
               </section>
             )}
-            <Link to="/user/edit-profile" className="user-edit-button">
-              Edit Profile
-            </Link>
-            <Link to="/user/blogs/new" className="new-blog-button">
-              New Blog
-            </Link>
+            {userId === loadedUser._id && (
+              <>
+                <Link to="/user/edit-profile" className="user-edit-button">
+                  Edit Profile
+                </Link>
+                <Link to="/user/blogs/new" className="new-blog-button">
+                  New Blog
+                </Link>
+              </>
+            )}
+            {role === "admin" && (
+              <button
+                className="delete-user-button"
+                onClick={handleDeleteConfirmation}
+              >
+                <figure>
+                  <FaRegTrashAlt className="trash-icon" />
+                </figure>
+                <span>Delete User</span>
+              </button>
+            )}
             <hr />
             {loadedBlogs && (
               <Blogs

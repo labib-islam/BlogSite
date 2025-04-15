@@ -38,6 +38,18 @@ const BlogItem = () => {
     }
   };
 
+  const handleDeleteConfirmation = () => {
+    toast.error("Are you sure?", {
+      classNames: {
+        actionButton: "toast-delete-button",
+      },
+      action: {
+        label: "Delete",
+        onClick: handleDelete,
+      },
+    });
+  };
+
   const handleStatus = async (status) => {
     try {
       setIsLoading(true);
@@ -139,7 +151,10 @@ const BlogItem = () => {
                     >
                       Edit
                     </Link>
-                    <button className="red-button" onClick={handleDelete}>
+                    <button
+                      className="red-button"
+                      onClick={handleDeleteConfirmation}
+                    >
                       Delete
                     </button>
                   </div>

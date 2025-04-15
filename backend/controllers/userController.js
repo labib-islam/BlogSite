@@ -1,4 +1,7 @@
 const User = require("../models/User");
+const Blog = require("../models/Blog");
+const mongoose = require("mongoose");
+
 const jwt = require("jsonwebtoken");
 
 const fs = require("fs");
@@ -103,6 +106,52 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const userId = req.params.uid;
+  const sess = await mongoose.startSession();
+
+  try {
+    sess.startTransaction();
+    const user = await User.findById(userId).populate("blogs").session(sess);
+
+    if (!user) {
+      await session.abortTransaction();
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Store blog image paths
+    const imagePaths = user.blogs.map((blog) => blog.imageUrl);
+
+    // Delete blogs
+    await Blog.deleteMany({ _id: { $in: user.blogs } }).session(sess);
+
+    // Delete user
+    await User.findByIdAndDelete(userId).session(sess);
+
+    // Commit the transaction
+    await sess.commitTransaction();
+
+    // Delete images AFTER committing transaction (so DB changes are guaranteed)
+    imagePaths.forEach((imagePath) => {
+      fs.unlink(imagePath, (err) => {
+        if (err) {
+          console.warn(`Could not delete image: ${imagePath}`, err.message);
+        }
+      });
+    });
+
+    res
+      .status(200)
+      .json({ message: "User and their blogs deleted successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete user." });
+  } finally {
+    sess.endSession();
+  }
+};
+
 exports.updateProfileImage = updateProfileImage;
 exports.getUserById = getUserById;
 exports.getAllUsers = getAllUsers;
+exports.deleteUser = deleteUser;

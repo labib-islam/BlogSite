@@ -210,9 +210,11 @@ const deleteBlog = async (req, res) => {
     await sess.commitTransaction();
 
     fs.unlink(imagePath, (err) => {
-      console.error(err);
+      if (err) {
+        console.warn(`Failed to delete image at ${imagePath}`, err.message);
+      }
     });
-    return res.status(200).json({ message: "Blog Deleted" });
+    res.status(200).json({ message: "Blog Deleted" });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -268,17 +270,6 @@ const getBlogsCountbyStatus = async (req, res) => {
   }
 };
 
-const getBlogs = async (req, res) => {
-  try {
-    const blogs = await Blog.find().populate("author", "username imageUrl");
-
-    return res.json({ blogs: blogs });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send();
-  }
-};
-
 const setBlogStatus = async (req, res) => {
   try {
     const { bid, status } = req.params;
@@ -327,7 +318,6 @@ const setBlogFeedback = async (req, res) => {
 exports.getPublishedBlogs = getPublishedBlogs;
 exports.getAllBlogs = getAllBlogs;
 exports.createBlog = createBlog;
-exports.getBlogs = getBlogs;
 exports.getBlogById = getBlogById;
 exports.getBlogsByUserId = getBlogsByUserId;
 exports.updateBlog = updateBlog;
