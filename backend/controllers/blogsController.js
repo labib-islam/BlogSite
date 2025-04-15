@@ -101,7 +101,7 @@ const getBlogsByUserId = async (req, res) => {
     };
 
     // -- Admin
-    if (req.role === "admin") {
+    if (req.role === "admin" || req.role === "test-admin") {
       if (status === "draft") {
         return res
           .status(401)

@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./Categories.css";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import ErrorCard from "../../shared/components/ErrorCard";
 import { toast } from "sonner";
+import AuthContext from "../../shared/contexts/AuthContext";
 
 const Categories = () => {
+  const { role } = useContext(AuthContext);
   const [loadedCategories, setLoadedCategories] = useState();
   const [inputs, setInputs] = useState({
     category: "",
@@ -22,6 +24,10 @@ const Categories = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (role === "test-admin") {
+      toast.error("This feature is disabled for test admin accounts.");
+      return;
+    }
     try {
       setIsLoadingSubmit(true);
       const res = await axios.post("/api/category/new", inputs);
@@ -54,6 +60,10 @@ const Categories = () => {
   };
 
   const handleDelete = async (categoryId) => {
+    if (role === "test-admin") {
+      toast.error("This feature is disabled for test admin accounts.");
+      return;
+    }
     try {
       setIsLoadingFetch(true);
       await axios.delete(`/api/category/${categoryId}`);

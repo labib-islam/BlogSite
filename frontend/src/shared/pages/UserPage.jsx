@@ -123,7 +123,7 @@ const UserPage = () => {
                 </article>
               </section>
             )}
-            {userId === loadedUser._id && (
+            {userId === loadedUser._id && role === "user" && (
               <>
                 <Link to="/user/edit-profile" className="user-edit-button">
                   Edit Profile

@@ -51,6 +51,10 @@ const BlogItem = () => {
   };
 
   const handleStatus = async (status) => {
+    if (role === "test-admin") {
+      toast.error("This feature is disabled for test admin accounts.");
+      return;
+    }
     try {
       setIsLoading(true);
       const responseData = await axios.patch(
@@ -67,6 +71,12 @@ const BlogItem = () => {
 
   const handleFeedback = async (e) => {
     if (e) e.preventDefault();
+
+    if (role === "test-admin") {
+      toast.error("This feature is disabled for test admin accounts.");
+      return;
+    }
+
     try {
       setIsLoading(true);
       const responseData = await axios.patch(`/api/blog/feedback/${bid}`, {
@@ -132,7 +142,7 @@ const BlogItem = () => {
                 <img src={`/api/${blog.imageUrl}`} alt="" />
               </figure>
               <Editor readOnly={true} content={blog.content.blocks} />
-              {userId === blog.author._id && (
+              {userId === blog.author._id && role === "user" && (
                 <>
                   <p className="blog-status">
                     Status: <span>{blog.status}</span>
@@ -160,7 +170,7 @@ const BlogItem = () => {
                   </div>
                 </>
               )}
-              {role === "admin" && (
+              {(role === "admin" || role === "test-admin") && (
                 <>
                   <p className="blog-status">
                     Status: <span>{blog.status}</span>

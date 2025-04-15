@@ -19,9 +19,9 @@
 }
 
 .user-navigation header {
+  font-family: 'Times New Roman', Times, serif !important;
   font-size: 1.5rem;
   font-style: italic;
-  font-family: 'Times New Roman', Times, serif;
 }
 
 .user-navigation .nav-list__container {

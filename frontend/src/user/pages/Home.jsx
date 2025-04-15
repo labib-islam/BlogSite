@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import homeImage from "../../assets/images/home-image.jpg";
+import { MdAdminPanelSettings } from "react-icons/md";
 
 import "./Home.css";
 import axios from "axios";
 import { Link } from "react-router";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import ErrorCard from "../../shared/components/ErrorCard";
+import AuthContext from "../../shared/contexts/AuthContext";
 
 const Home = () => {
+  const { role, switchRole } = useContext(AuthContext);
   const [loadedCategories, setLoadedCategories] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -25,6 +28,10 @@ const Home = () => {
     }
   };
 
+  const handleRoleSwitch = async () => {
+    await switchRole();
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -35,6 +42,17 @@ const Home = () => {
       {error && <ErrorCard error={error} />}
       {!error && !isLoading && loadedCategories && (
         <main className="page-home">
+          {role === "user" && (
+            <section
+              className="admin-panel-switch__container"
+              onClick={handleRoleSwitch}
+            >
+              <figure>
+                <MdAdminPanelSettings className="admin-panel-icon" />
+              </figure>
+              <span>View Admin Panel</span>
+            </section>
+          )}
           <section className="landing-page">
             <section className="landing-page__content">
               <div className="home-text__container">

@@ -24,11 +24,23 @@ const AppRoutes = () => {
     <Routes>
       <Route
         path="/"
-        element={role === "admin" ? <AdminLayout /> : <UserLayout />}
+        element={
+          role === "admin" || role === "test-admin" ? (
+            <AdminLayout />
+          ) : (
+            <UserLayout />
+          )
+        }
       >
         <Route
           index
-          element={role === "admin" ? <AdminDashboard /> : <Home />}
+          element={
+            role === "admin" || role === "test-admin" ? (
+              <AdminDashboard />
+            ) : (
+              <Home />
+            )
+          }
         />
         <Route path="auth" element={<Auth />} />
         <Route path="blogs" element={<PublishedBlogs />} />
@@ -43,7 +55,7 @@ const AppRoutes = () => {
             {/* <Route path="user/blogs/:status?" element={<UserBlogs />} /> */}
           </>
         )}
-        {role === "admin" && (
+        {(role === "admin" || role === "test-admin") && (
           <>
             <Route path="admin/blogs/:status?" element={<AdminBlogs />} />
             <Route path="admin/users" element={<UserList />} />

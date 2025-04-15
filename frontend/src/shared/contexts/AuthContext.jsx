@@ -35,6 +35,16 @@ const AuthContextProvider = (props) => {
     getLoggedIn();
   };
 
+  const switchRole = async () => {
+    try {
+      await axios.get("/api/auth/switch-role");
+      toast.success("Role Switched");
+      getLoggedIn();
+    } catch (err) {
+      setAuthError(err);
+    }
+  };
+
   useEffect(() => {
     getLoggedIn();
   }, []);
@@ -51,6 +61,7 @@ const AuthContextProvider = (props) => {
         authError,
         getLoggedIn,
         getLoggedOut,
+        switchRole,
       }}
     >
       {props.children}

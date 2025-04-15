@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { FaUserShield } from "react-icons/fa6";
 import "./AdminDashboard.css";
 import axios from "axios";
 import { Link } from "react-router";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import ErrorCard from "../../shared/components/ErrorCard";
+import AuthContext from "../../shared/contexts/AuthContext";
 
 const AdminDashboard = () => {
+  const { switchRole, role } = useContext(AuthContext);
   const [blogsCountbyStatus, setBlogsCountbyStatus] = useState();
   const [loadedUsers, setLoadedUsers] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +41,10 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleRoleSwitch = async () => {
+    await switchRole();
+  };
+
   useEffect(() => {
     fetchBlogsCountbyStatus();
     fetchUsers();
@@ -48,6 +54,17 @@ const AdminDashboard = () => {
     <>
       {isLoading && <LoadingSpinner />}
       {error && <ErrorCard error={error} />}
+      {role === "test-admin" && (
+        <section
+          className="admin-panel-switch__container"
+          onClick={handleRoleSwitch}
+        >
+          <figure>
+            <FaUserShield className="admin-panel-icon" />
+          </figure>
+          <span>Go Back to User Panel</span>
+        </section>
+      )}
 
       {!error && !isLoading && (
         <main className="page-admin-dashboard">

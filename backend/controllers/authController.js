@@ -154,7 +154,53 @@ const isLoggedIn = (req, res) => {
   }
 };
 
+const switchRole = (req, res) => {
+  try {
+    const token = req.cookies.access_token;
+    if (!token) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Switch role logic
+    let newRole;
+    if (verifiedToken.role === "user") {
+      newRole = "test-admin";
+    } else if (verifiedToken.role === "test-admin") {
+      newRole = "user";
+    } else {
+      return res.status(400).json({ message: "Role cannot be switched" });
+    }
+
+    // Create new token with modified role
+    const newToken = jwt.sign(
+      {
+        username: verifiedToken.username,
+        userId: verifiedToken.userId,
+        userEmail: verifiedToken.userEmail,
+        image: verifiedToken.image,
+        role: newRole,
+      },
+      process.env.JWT_SECRET
+    );
+
+    // send the token in a HTTP-only cookie
+    res
+      .cookie("access_token", newToken, {
+        httpOnly: true,
+      })
+      .send();
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ message: "Something went wrong during role switch." });
+  }
+};
+
 exports.signup = signup;
 exports.login = login;
 exports.logout = logout;
 exports.isLoggedIn = isLoggedIn;
+exports.switchRole = switchRole;
