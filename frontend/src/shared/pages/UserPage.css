@@ -9,13 +9,14 @@
 }
 
 .dashboard__container {
-  margin: var(--margin);
   display: flex;
   flex-direction: column;
   gap: var(--gap);
 }
 
 .user-info__container {
+  margin: var(--margin);
+  margin-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap);
@@ -55,6 +56,14 @@
 .user-info__container > article > span {
   font-size: 0.9rem;
   color: var(--text-gray);
+}
+
+.user-action-buttons__container {
+  margin: 0 var(--margin);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
 }
 
 .user-edit-button {

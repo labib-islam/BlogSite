@@ -85,6 +85,10 @@
   border-radius: var(--border-radius);
 }
 
+.home-image__container img {
+  object-position: bottom;
+}
+
 
 .category-page {
   width: 100%;
@@ -157,4 +161,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 1119px) {
+  .home-image__container {
+    aspect-ratio: 1/0.8;
+  }
+
+  
 }

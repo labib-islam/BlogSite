@@ -4,7 +4,6 @@
 }
 
 .edit-profile__container {
-  margin: var(--margin);
   display: flex;
   flex-direction: column;
   gap: var(--gap);
@@ -16,6 +15,7 @@
 }
 
 .edit-profile__container > .save-button {
+  margin: 0 var(--margin);
   padding: 0px 10px;
   height: var(--button-height);
   border: none;

@@ -42,3 +42,9 @@ button {
 .toast-delete-button {
   background-color: #dc2626 !important;
 }
+
+@media (max-width: 425px) {
+  :root {
+    --margin: 20px
+  }  
+}

@@ -123,27 +123,29 @@ const UserPage = () => {
                 </article>
               </section>
             )}
-            {userId === loadedUser._id && role === "user" && (
-              <>
-                <Link to="/user/edit-profile" className="user-edit-button">
-                  Edit Profile
-                </Link>
-                <Link to="/user/blogs/new" className="new-blog-button">
-                  New Blog
-                </Link>
-              </>
-            )}
-            {role === "admin" && (
-              <button
-                className="delete-user-button"
-                onClick={handleDeleteConfirmation}
-              >
-                <figure>
-                  <FaRegTrashAlt className="trash-icon" />
-                </figure>
-                <span>Delete User</span>
-              </button>
-            )}
+            <section className="user-action-buttons__container">
+              {userId === loadedUser._id && role === "user" && (
+                <>
+                  <Link to="/user/edit-profile" className="user-edit-button">
+                    Edit Profile
+                  </Link>
+                  <Link to="/user/blogs/new" className="new-blog-button">
+                    New Blog
+                  </Link>
+                </>
+              )}
+              {role === "admin" && (
+                <button
+                  className="delete-user-button"
+                  onClick={handleDeleteConfirmation}
+                >
+                  <figure>
+                    <FaRegTrashAlt className="trash-icon" />
+                  </figure>
+                  <span>Delete User</span>
+                </button>
+              )}
+            </section>
             <hr />
             {loadedBlogs && (
               <Blogs

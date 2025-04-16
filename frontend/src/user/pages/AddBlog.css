@@ -13,6 +13,7 @@
 }
 
 .blog-title {
+  width: 100%;
   color: var(--text-gray);
   font-size: 2rem;
   font-weight: 800; 

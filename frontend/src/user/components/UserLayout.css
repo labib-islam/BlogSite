@@ -24,9 +24,15 @@
   font-style: italic;
 }
 
+.user-navigation > section {
+  display: flex;
+  gap: var(--gap);
+}
+
 .user-navigation .nav-list__container {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: var(--gap);
 }
 
@@ -51,4 +57,116 @@
   color: var(--primary-green);
 }
 
+.user-navigation .expand-icon__container {
+  width: 40px;
+  height: 40px;
+  color: var(--text-gray);
+}
+.user-navigation .expand-icon__container .expand-icon {
+  width: 100%;
+  height: 100%;
+}
 
+.user-navigation .side-bar-list__container {
+  display: none;
+}
+
+.user-navigation .side-bar-list__container {
+  display: block;
+  position: absolute;
+  right: var(--margin);
+  top: calc(var(--navbar-height) + 10px);
+  border: 1px solid gray;
+  border-radius: var(--border-radius);
+  box-shadow: var(--primary-shadow);
+  background-color: white;
+  overflow: hidden;
+}
+
+
+
+.user-navigation .side-bar-list__container li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.user-navigation .side-bar-list__container li a {
+  color: var(--text-gray);
+  text-decoration: none;
+  padding: 15px 40px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.user-navigation .side-bar-list__container li:not(:last-child) a {
+  border-bottom: 1px solid gray;
+}
+
+.user-navigation .side-bar-list__container li a:hover {
+  color: var(--primary-green);
+}
+
+.user-navigation .side-bar-list__container li a.active {
+  background-color: var(--primary-green);
+  color: white;
+}
+
+.side-bar-list__container.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+
+}
+.side-bar-list__container.inactive {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+}
+
+.side-bar-list__container .mobile-view {
+  display: none !important;
+}
+
+.scroll-to-top__container {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  right: var(--margin);
+  bottom: var(--margin);
+  width: 40px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: var(--border-radius);
+  background-color: white;
+  color: var(--text-gray);
+  cursor: pointer;
+  z-index: 99;
+}
+.scroll-to-top__container.show {
+  opacity: 1;
+  pointer-events: auto;
+  
+}
+
+.scroll-to-top__container .up-arrow-icon {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+
+  .user-navigation .nav-list__container {
+    display: none;
+  }
+
+  .side-bar-list__container .mobile-view {
+    display: flex !important;
+  }
+
+}
