@@ -7,10 +7,12 @@
 .search-box__form {
   display: flex;
   gap: calc(var(--gap) / 2);
-  height: var(--button-height);
+  flex-wrap: wrap;
 }
 
 .search-box__form input {
+  height: var(--button-height);
+  min-width: 250px;
   width: 100%;
   max-width: 400px;
   padding: 0px 10px;
@@ -19,9 +21,18 @@
   border-radius: calc(var(--border-radius) / 2);
 }
 
+.second-row__container {
+  display: flex;
+  gap: calc(var(--gap) / 2);
+  min-width: 250px;
+  max-width: 400px;
+  width: 100%;
+}
+
 .search-box__form .select__container {
   position: relative;
   height: var(--button-height);
+  width: 100%;
 }
 
 .select__container .down-arrow__container {
@@ -51,6 +62,7 @@
 
 .search-box__form select {
   height: 100%;
+  width: 100%;
   padding: 0px 80px 0px 10px;
   border: 1px solid var(--text-gray);
   outline: none;
@@ -62,7 +74,7 @@
 
 .search-icon__container,
 .cross-icon__container {
-  height: 100%;
+  height: var(--button-height);
   aspect-ratio: 1/1;
   border: 1px solid var(--text-gray);
   border-radius: calc(var(--border-radius) / 2);

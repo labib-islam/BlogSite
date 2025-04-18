@@ -20,13 +20,12 @@
 .add-category-form {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--gap);
-  height: var(--button-height);
-
 }
 
 .add-category-form input[type=text] {
-  height: 100%;
+  height: var(--button-height);
   border: none;
   border-radius: calc(var(--border-radius) /2);
   outline: none;
@@ -47,7 +46,7 @@
 
 .add-category-form .color-picker-label {
   position: relative;
-  height: 100%;
+  height: var(--button-height);
   width: 80px;
   border-radius: calc(var(--border-radius) /2);
   display: flex;
@@ -73,11 +72,12 @@
 .category-list {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--gap);
 }
 
 .category-list li {
-  width: fit-content;
+  min-width: fit-content;
   height: var(--button-height);
   padding-left: 10px;
   border-radius: calc(var(--border-radius) /2);

@@ -43,33 +43,35 @@ const SearchBox = ({ inputs, setInputs, fetchData }) => {
           value={inputs.searchText}
           onChange={handleChange}
         />
-        {inputs.category && (
-          <div className="select__container">
-            <select
-              name="category"
-              value={inputs.category}
-              onChange={handleChange}
-            >
-              <option key="all" value="all">
-                All
-              </option>
-              {loadedCategories &&
-                loadedCategories.map((cat) => (
-                  <option key={cat.category} value={cat.category}>
-                    {cat.category}
-                  </option>
-                ))}
-            </select>
-            <div className="down-arrow__container">
-              <DownArrowIcon className="down-arrow" />
+        <div className="second-row__container">
+          {inputs.category && (
+            <div className="select__container">
+              <select
+                name="category"
+                value={inputs.category}
+                onChange={handleChange}
+              >
+                <option key="all" value="all">
+                  All
+                </option>
+                {loadedCategories &&
+                  loadedCategories.map((cat) => (
+                    <option key={cat.category} value={cat.category}>
+                      {cat.category}
+                    </option>
+                  ))}
+              </select>
+              <div className="down-arrow__container">
+                <DownArrowIcon className="down-arrow" />
+              </div>
             </div>
+          )}
+          <div className="search-icon__container" onClick={fetchData}>
+            <SearchIcon className="search-icon" />
           </div>
-        )}
-        <div className="search-icon__container" onClick={fetchData}>
-          <SearchIcon className="search-icon" />
-        </div>
-        <div className="cross-icon__container" onClick={handleClear}>
-          <CrossIcon className="cross-icon" />
+          <div className="cross-icon__container" onClick={handleClear}>
+            <CrossIcon className="cross-icon" />
+          </div>
         </div>
       </form>
     </section>

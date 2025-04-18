@@ -7,6 +7,7 @@
   border-right: 1px solid rgb(202, 202, 202);
   box-shadow: var(--primary-shadow);
   height: 100%;
+  overflow-y: auto;
   width: var(--admin-navbar-width);
   position: fixed;
   display: flex;
@@ -84,4 +85,54 @@
 }
 .admin-nav-list__container a:not(.active):hover {
   background-color: rgba(31, 138, 120, 0.308);
+}
+
+.admin-navbar {
+  display: none;
+  
+}
+
+.admin-menu-icon__container {
+  margin: 20px var(--margin);
+  width: 30px;
+  height: 30px;
+}
+
+.admin-menu-icon {
+  width: 100%;
+  height: 100%;
+  color: var(--text-gray);
+}
+
+@media (max-width: 768px) {
+  .admin-navigation {
+    width: calc(var(--admin-navbar-width) - 50px);
+  }
+
+  .admin-navigation.hide {
+    transform: translateX(calc(-1 * var(--admin-navbar-width)));
+  }
+  .admin-navigation.show {
+    transform: translateX(0);
+  }
+
+  .admin-layout__container > main {
+    margin-left: 0;
+    margin-top: var(--navbar-height);
+    overflow: hidden;
+  }
+
+  .admin-navbar {
+    display: block;
+    background-color: white;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    width: 100%;
+    height: var(--navbar-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+  }
 }
