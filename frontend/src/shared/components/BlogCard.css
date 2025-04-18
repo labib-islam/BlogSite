@@ -1,9 +1,12 @@
 .blog-card__link {
   text-decoration: none;
+  
 }
 
 .blog-card {
-  width: 350px;
+  min-width: 200px;
+  width: 100%;
+  max-width: 350px;
   height: 400px;
   background-color: rgb(250, 250, 250);
   border-radius: var(--border-radius);

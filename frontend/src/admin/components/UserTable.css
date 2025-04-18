@@ -1,6 +1,7 @@
 .user-table__container {
   border-radius: var(--border-radius);
   overflow: hidden;
+  overflow-x: auto;
   border: 2px solid  var(--text-gray); /* Move border to wrapper */
 }
 

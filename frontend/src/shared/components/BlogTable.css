@@ -1,6 +1,7 @@
 .blog-table__container {
   border-radius: calc(var(--border-radius) / 2) calc(var(--border-radius) / 2) 0 0;
   overflow: hidden;
+  overflow-x: auto;
 }
 
 .blog-list-table {
@@ -52,6 +53,11 @@
   max-width: 300px;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.blog-list-table th:first-child,
+.blog-list-table td:first-child {
+  min-width: 500px;
 }
 
 .blog-list-table th,
