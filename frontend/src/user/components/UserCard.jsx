@@ -17,7 +17,7 @@ const UserCard = ({ name, image, userId }) => {
     >
       <figure>
         {image ? (
-          <img src={`/api/${image}`} alt="" />
+          <img src={image} alt="" />
         ) : (
           <UserIcon className="user-icon" />
         )}

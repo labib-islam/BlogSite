@@ -106,7 +106,7 @@ const AddBlog = () => {
               placeholder="Title"
               value={inputs.title}
               onChange={handleChange}
-              // rows={1}
+              rows={1}
             />
             <hr />
             <div className="user-date__container">

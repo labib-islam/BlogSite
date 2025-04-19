@@ -23,7 +23,7 @@ const EditProfile = () => {
     }
     return {
       name: "default",
-      url: `/api/${userImage}`,
+      url: userImage,
       file: "default",
     };
   });

@@ -27,7 +27,7 @@ const BlogTable = ({ blogs, showStatus = false }) => {
                   <div className="multi-item__container">
                     <figure className="blog-image__container">
                       {blog.imageUrl ? (
-                        <img src={`/api/${blog.imageUrl}`} alt="Not Found" />
+                        <img src={blog.imageUrl} alt="Not Found" />
                       ) : (
                         <CiImageOff className="no-image-icon" />
                       )}
@@ -46,10 +46,7 @@ const BlogTable = ({ blogs, showStatus = false }) => {
                   >
                     <figure className="user-image__container">
                       {blog.author.imageUrl ? (
-                        <img
-                          src={`/api/${blog.author.imageUrl}`}
-                          alt="Not Found"
-                        />
+                        <img src={blog.author.imageUrl} alt="Not Found" />
                       ) : (
                         <UserIcon className="user-icon" />
                       )}

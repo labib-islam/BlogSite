@@ -1,12 +1,31 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const cloudinary = require("../utils/cloudinary");
 
 // -- Signup
 const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const image = req.file?.path || "";
+    let result;
+
+    if (req.file) {
+      // Upload image to Cloudinary
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          {
+            folder: "users",
+            resource_type: "image",
+            transformation: [{ quality: "auto", fetch_format: "auto" }],
+          },
+          (error, result) => {
+            if (error) return reject(error);
+            resolve(result);
+          }
+        );
+        stream.end(req.file.buffer); // Send buffer from multer's memoryStorage
+      });
+    }
 
     // Check for empty fields
     if (!username || !email || !password) {
@@ -31,7 +50,8 @@ const signup = async (req, res) => {
     const newUser = new User({
       username,
       email,
-      imageUrl: image,
+      imageUrl: result?.secure_url || "",
+      imagePublicId: result?.public_id || "",
       password: hashedPassword,
       role: "user",
       blogs: [],

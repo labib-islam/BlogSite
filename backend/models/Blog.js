@@ -4,6 +4,7 @@ const blogSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: Object, required: true },
   imageUrl: { type: String, required: true },
+  imagePublicId: { type: String, required: true }, // Cloudinary public ID
   category: { type: String, required: true },
   author: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   publication_date: { type: Date, required: true },

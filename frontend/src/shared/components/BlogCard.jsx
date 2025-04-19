@@ -17,7 +17,7 @@ const BlogCard = ({ blog }) => {
       <li className="blog-card">
         <figure>
           {blog.imageUrl ? (
-            <img src={`/api/${blog.imageUrl}`} alt="Image Not Found" />
+            <img src={blog.imageUrl} alt="Image Not Found" />
           ) : (
             <MdImageNotSupported className="no-image-icon" />
           )}

@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Blog = require("../models/Blog");
 const mongoose = require("mongoose");
+const cloudinary = require("../utils/cloudinary");
 
 const jwt = require("jsonwebtoken");
 
@@ -17,13 +18,33 @@ const updateProfileImage = async (req, res) => {
 
   const user = await User.findById(uid);
 
-  const oldImagePath = user.imageUrl;
-  user.imageUrl = req.file.path;
+  // Upload image to Cloudinary
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "users",
+        resource_type: "image",
+        transformation: [{ quality: "auto", fetch_format: "auto" }],
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result);
+      }
+    );
+    stream.end(req.file.buffer); // Send buffer from multer's memoryStorage
+  });
+
+  const oldImagePublicId = user.imagePublicId;
+  user.imageUrl = result.secure_url;
+  user.imagePublicId = result.public_id;
 
   await user.save();
 
-  fs.unlink(oldImagePath, (err) => {
-    console.error(err);
+  // Delete image from Cloudinary
+  cloudinary.uploader.destroy(oldImagePublicId, (error, result) => {
+    if (error) {
+      console.warn("Failed to delete image from Cloudinary:", error.message);
+    }
   });
 
   // Creating new JWT with updated image path
@@ -119,8 +140,9 @@ const deleteUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Store blog image paths
-    const imagePaths = user.blogs.map((blog) => blog.imageUrl);
+    // Store blog image public IDs
+    const imagePublicIds = user.blogs.map((blog) => blog.imagePublicId);
+    imagePublicIds.push(user.imagePublicId);
 
     // Delete blogs
     await Blog.deleteMany({ _id: { $in: user.blogs } }).session(sess);
@@ -131,11 +153,15 @@ const deleteUser = async (req, res) => {
     // Commit the transaction
     await sess.commitTransaction();
 
-    // Delete images AFTER committing transaction (so DB changes are guaranteed)
-    imagePaths.forEach((imagePath) => {
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.warn(`Could not delete image: ${imagePath}`, err.message);
+    // Delete images AFTER committing transaction
+    imagePublicIds.forEach((imagePublicId) => {
+      // Delete image from Cloudinary
+      cloudinary.uploader.destroy(imagePublicId, (error, result) => {
+        if (error) {
+          console.warn(
+            "Failed to delete image from Cloudinary:",
+            error.message
+          );
         }
       });
     });

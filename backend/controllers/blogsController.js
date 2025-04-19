@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 const Blog = require("../models/Blog");
+const cloudinary = require("../utils/cloudinary");
 
 const fs = require("fs");
 
@@ -137,27 +138,47 @@ const getBlogsByUserId = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    const { title, image, content, category } = req.body;
-    const newBlog = new Blog({
-      title,
-      content: JSON.parse(content),
-      imageUrl: req.file.path,
-      category,
-      author: req.userId,
-      publication_date: Date.now(),
-      status: req.query.status,
-    });
+    const { title, content, category } = req.body;
 
-    const user = await User.findById(req.userId);
+    // Upload image to Cloudinary
+    const uploadedImage = await cloudinary.uploader.upload_stream(
+      {
+        folder: "blogs",
+        resource_type: "image",
+        transformation: [{ quality: "auto", fetch_format: "auto" }],
+      },
+      async (error, result) => {
+        if (error) {
+          console.error("Cloudinary upload failed:", error);
+          return res.status(500).json({ message: "Image upload failed" });
+        }
 
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    await newBlog.save({ session: sess });
-    user.blogs.push(newBlog);
-    await user.save({ session: sess });
-    await sess.commitTransaction();
+        const newBlog = new Blog({
+          title,
+          content: JSON.parse(content),
+          imageUrl: result.secure_url,
+          imagePublicId: result.public_id,
+          category,
+          author: req.userId,
+          publication_date: Date.now(),
+          status: req.query.status,
+        });
 
-    return res.json({ blog: newBlog });
+        const user = await User.findById(req.userId);
+
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await newBlog.save({ session: sess });
+        user.blogs.push(newBlog);
+        await user.save({ session: sess });
+        await sess.commitTransaction();
+
+        return res.json({ blog: newBlog });
+      }
+    );
+
+    // Write the buffer to the Cloudinary upload stream
+    uploadedImage.end(req.file.buffer);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message });
@@ -200,7 +221,7 @@ const deleteBlog = async (req, res) => {
       res.json({ message: "You are not allowed to edit this blog." });
     }
 
-    const imagePath = blog.imageUrl;
+    const imagePublicId = blog.imagePublicId;
 
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -209,11 +230,13 @@ const deleteBlog = async (req, res) => {
     await blog.author.save({ session: sess });
     await sess.commitTransaction();
 
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        console.warn(`Failed to delete image at ${imagePath}`, err.message);
+    // Delete image from Cloudinary
+    cloudinary.uploader.destroy(imagePublicId, (error, result) => {
+      if (error) {
+        console.warn("Failed to delete image from Cloudinary:", error.message);
       }
     });
+
     res.status(200).json({ message: "Blog Deleted" });
   } catch (err) {
     console.error(err);

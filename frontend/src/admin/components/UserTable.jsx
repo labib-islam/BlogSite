@@ -27,7 +27,7 @@ const UserTable = ({ loadedUsers }) => {
                   <div className="multi-item__container">
                     <figure>
                       {user.imageUrl ? (
-                        <img src={`/api/${user.imageUrl}`} alt="Not Found" />
+                        <img src={user.imageUrl} alt="Not Found" />
                       ) : (
                         <UserIcon className="user-icon" />
                       )}

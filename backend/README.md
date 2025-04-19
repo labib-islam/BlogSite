@@ -14,3 +14,4 @@
 - bcrypt → `npm install bcrypt`
 - multer → `npm install multer`
 - uuid → `npm install uuid`
+- cloudinary → `npm install cloudinary multer-storage-cloudinary`

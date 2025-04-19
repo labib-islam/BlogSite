@@ -61,6 +61,7 @@
   width: 40px;
   height: 40px;
   color: var(--text-gray);
+  cursor: pointer;
 }
 .user-navigation .expand-icon__container .expand-icon {
   width: 100%;

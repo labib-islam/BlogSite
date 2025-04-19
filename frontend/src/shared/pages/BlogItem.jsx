@@ -139,7 +139,7 @@ const BlogItem = () => {
               <hr />
               <CategoryCard category={blog.category} />
               <figure className="blog-image__container">
-                <img src={`/api/${blog.imageUrl}`} alt="" />
+                <img src={blog.imageUrl} alt="" />
               </figure>
               <Editor readOnly={true} content={blog.content.blocks} />
               {userId === blog.author._id && role === "user" && (

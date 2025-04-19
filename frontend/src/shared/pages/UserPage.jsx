@@ -110,7 +110,7 @@ const UserPage = () => {
               <section className="user-info__container">
                 <figure>
                   {loadedUser.imageUrl ? (
-                    <img src={`/api/${loadedUser.imageUrl}`} alt="" />
+                    <img src={loadedUser.imageUrl} alt="" />
                   ) : (
                     <UserIcon className="user-icon" />
                   )}
