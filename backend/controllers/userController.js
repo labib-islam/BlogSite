@@ -61,7 +61,11 @@ const updateProfileImage = async (req, res) => {
 
   // Sending the new token in the cookie
   res
-    .cookie("access_token", newToken, { httpOnly: true })
+    .cookie("access_token", newToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none", // required for cross-origin
+    })
     .status(200)
     .json({ message: "Profile Updated" });
 };

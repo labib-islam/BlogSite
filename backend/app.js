@@ -12,10 +12,7 @@ const port = process.env.PORT || 8800;
 // Allow requests from frontend
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://labib-islam.github.io/BlogSite_MERN/",
-    ],
+    origin: ["http://localhost:3000", "https://labib-islam.github.io"],
     credentials: true, // allow cookies
   })
 );

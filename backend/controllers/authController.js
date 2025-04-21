@@ -75,6 +75,8 @@ const signup = async (req, res) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none", // required for cross-origin
       })
       .send();
   } catch (err) {
@@ -123,6 +125,8 @@ const login = async (req, res) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none", // required for cross-origin
       })
       .send();
   } catch (err) {
@@ -135,6 +139,8 @@ const logout = (req, res) => {
   res
     .cookie("access_token", "", {
       httpOnly: true,
+      secure: true,
+      sameSite: "none", // required for cross-origin
       expires: new Date(0),
     })
     .send();
@@ -209,6 +215,8 @@ const switchRole = (req, res) => {
     res
       .cookie("access_token", newToken, {
         httpOnly: true,
+        secure: true,
+        sameSite: "none", // required for cross-origin
       })
       .send();
   } catch (err) {
