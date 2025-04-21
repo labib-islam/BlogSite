@@ -4,14 +4,15 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/BlogSite_MERN",
   plugins: [react(), svgr()],
   server: {
     port: 3000,
-    proxy: {
-      "/api": {
-        target: "http://localhost:8800",
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "http://localhost:8800",
+    //     changeOrigin: true,
+    //   },
+    // },
   },
 });

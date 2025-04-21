@@ -7,7 +7,12 @@ import ErrorFallback from "./shared/components/ErrorBoundary";
 import AuthContext from "./shared/contexts/AuthContext";
 import ErrorCard from "./shared/components/ErrorCard";
 import LoadingSpinner from "./shared/components/LoadingSpinner";
+import axios from "axios";
 // const AppRoutes = React.lazy(() => import("./AppRoutes"));
+
+// Set base URL
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_API_URL;
+axios.defaults.withCredentials = true;
 
 function App() {
   const { role, authError } = useContext(AuthContext);

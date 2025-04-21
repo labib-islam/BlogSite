@@ -1,12 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 require("dotenv").config();
 
 // Server Setup
 const app = express();
 const port = process.env.PORT || 8800;
+
+// Allow requests from frontend
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://labib-islam.github.io/BlogSite_MERN/",
+    ],
+    credentials: true, // allow cookies
+  })
+);
 
 // Connect to Database [MongoDB]
 mongoose

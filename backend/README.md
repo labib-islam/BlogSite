@@ -16,3 +16,4 @@
 - uuid → `npm install uuid`
 - cloudinary → `npm install cloudinary multer-storage-cloudinary`
 - vercel → `npm install -g vercel` [to test before deployment]
+- cors → `npm install cors` [When backend and frontend are on different origins]
