@@ -15,3 +15,4 @@
 - multer → `npm install multer`
 - uuid → `npm install uuid`
 - cloudinary → `npm install cloudinary multer-storage-cloudinary`
+- vercel → `npm install -g vercel` [to test before deployment]

@@ -11,7 +11,7 @@ const signup = async (req, res) => {
 
     if (req.file) {
       // Upload image to Cloudinary
-      const result = await new Promise((resolve, reject) => {
+      result = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           {
             folder: "users",

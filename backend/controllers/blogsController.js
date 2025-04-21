@@ -141,44 +141,42 @@ const createBlog = async (req, res) => {
     const { title, content, category } = req.body;
 
     // Upload image to Cloudinary
-    const uploadedImage = await cloudinary.uploader.upload_stream(
-      {
-        folder: "blogs",
-        resource_type: "image",
-        transformation: [{ quality: "auto", fetch_format: "auto" }],
-      },
-      async (error, result) => {
-        if (error) {
-          console.error("Cloudinary upload failed:", error);
-          return res.status(500).json({ message: "Image upload failed" });
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          folder: "blogs",
+          resource_type: "image",
+          transformation: [{ quality: "auto", fetch_format: "auto" }],
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
         }
+      );
+      stream.end(req.file.buffer); // Send buffer from multer's memoryStorage
+    });
 
-        const newBlog = new Blog({
-          title,
-          content: JSON.parse(content),
-          imageUrl: result.secure_url,
-          imagePublicId: result.public_id,
-          category,
-          author: req.userId,
-          publication_date: Date.now(),
-          status: req.query.status,
-        });
+    const newBlog = new Blog({
+      title,
+      content: JSON.parse(content),
+      imageUrl: result.secure_url,
+      imagePublicId: result.public_id,
+      category,
+      author: req.userId,
+      publication_date: Date.now(),
+      status: req.query.status,
+    });
 
-        const user = await User.findById(req.userId);
+    const user = await User.findById(req.userId);
 
-        const sess = await mongoose.startSession();
-        sess.startTransaction();
-        await newBlog.save({ session: sess });
-        user.blogs.push(newBlog);
-        await user.save({ session: sess });
-        await sess.commitTransaction();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await newBlog.save({ session: sess });
+    user.blogs.push(newBlog);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
 
-        return res.json({ blog: newBlog });
-      }
-    );
-
-    // Write the buffer to the Cloudinary upload stream
-    uploadedImage.end(req.file.buffer);
+    return res.json({ blog: newBlog });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: err.message });
