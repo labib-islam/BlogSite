@@ -12,7 +12,7 @@ const port = process.env.PORT || 8800;
 mongoose
   .connect(process.env.DB_CONNECTION)
   .then(() => {
-    // app.listen(port);
+    app.listen(port);
     console.log("Connected to Database");
   })
   .catch((err) => {
@@ -34,5 +34,3 @@ app.use("/api/user", require("./routers/userRouter"));
 app.use((req, res, next) => {
   res.status(404).json({ message: "The requested path was not found." });
 });
-
-module.exports = app;
