@@ -4,7 +4,7 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/BlogSite_MERN",
+  // base: "/BlogSite_MERN",
   plugins: [react(), svgr()],
   server: {
     port: 3000,
