@@ -216,7 +216,7 @@ const switchRole = (req, res) => {
       .cookie("access_token", newToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "none", // required for cross-origin
+        sameSite: "None", // required for cross-origin
       })
       .send();
   } catch (err) {

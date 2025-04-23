@@ -55,7 +55,7 @@ const AdminLayout = () => {
         <section className="admin-profile__container">
           <figure>
             {image ? (
-              <img src={`/api/${image}`} alt="Not Found" />
+              <img src={image} alt="Not Found" />
             ) : (
               <UserIcon className="user-icon" />
             )}
