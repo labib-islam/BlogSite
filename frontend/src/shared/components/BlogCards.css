@@ -1,6 +1,13 @@
 .blogcards__container {
+  --blogcard-width: 350px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 350px);
+  grid-template-columns: repeat(auto-fit, var(--blogcard-width));
   gap: calc(var(--gap) * 2);
-  /* justify-content: center; */
+  justify-content: center;
+}
+
+@media (max-width: 400px) {
+  .blogcards__container {
+    --blogcard-width: 100%;
+  }
 }

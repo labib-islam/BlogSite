@@ -43,7 +43,7 @@ button {
   background-color: #dc2626 !important;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 768px) {
   :root {
     --margin: 20px
   }  
