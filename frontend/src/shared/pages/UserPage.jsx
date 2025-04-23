@@ -59,7 +59,10 @@ const UserPage = () => {
   };
 
   const handleDelete = async () => {
-    console.log("deleted");
+    if (role === "test-admin") {
+      toast.error("This feature is disabled for test admin accounts.");
+      return;
+    }
     try {
       setIsLoading(true);
       await axios.delete(`/api/user/${loadedUser._id}`);
@@ -134,7 +137,7 @@ const UserPage = () => {
                   </Link>
                 </>
               )}
-              {role === "admin" && (
+              {(role === "admin" || role === "test-admin") && (
                 <button
                   className="delete-user-button"
                   onClick={handleDeleteConfirmation}

@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 const auth = (allowedRoles = []) => {
   return (req, res, next) => {
     try {
-      const token = req.cookies.access_token;
+      const token = req.headers.authorization.split(" ")[1];
 
       // Public route — no token needed
-      if (!token) {
+      if (token === "null") {
         if (allowedRoles.length === 0) {
           req.userId = null;
           req.role = "guest";

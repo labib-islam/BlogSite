@@ -118,6 +118,10 @@ const Auth = () => {
         `/api/auth/${isSignup ? "signup" : "login"}`,
         data
       );
+      localStorage.setItem("authToken", res.data.token);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${res.data.token}`;
       getLoggedIn();
       setIsLoading(false);
       toast.success("Logged In");

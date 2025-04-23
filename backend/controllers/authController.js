@@ -71,14 +71,7 @@ const signup = async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    // send the token in a HTTP-only cookie
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none", // required for cross-origin
-      })
-      .send();
+    res.json({ token });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -121,14 +114,7 @@ const login = async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    // send the token in a HTTP-only cookie
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none", // required for cross-origin
-      })
-      .send();
+    res.json({ token });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -136,14 +122,7 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res
-    .cookie("access_token", "", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none", // required for cross-origin
-      expires: new Date(0),
-    })
-    .send();
+  res.json({ token: "null" });
 };
 
 const isLoggedIn = (req, res) => {
@@ -157,9 +136,9 @@ const isLoggedIn = (req, res) => {
   };
 
   try {
-    const token = req.cookies.access_token;
+    const token = req.headers.authorization.split(" ")[1];
 
-    if (!token) {
+    if (token === "null") {
       return res.json(nonVerifiedData);
     }
 
@@ -182,8 +161,8 @@ const isLoggedIn = (req, res) => {
 
 const switchRole = (req, res) => {
   try {
-    const token = req.cookies.access_token;
-    if (!token) {
+    const token = req.headers.authorization.split(" ")[1];
+    if (token === "null") {
       return res.status(401).json({ message: "Not authenticated" });
     }
 
@@ -211,14 +190,7 @@ const switchRole = (req, res) => {
       process.env.JWT_SECRET
     );
 
-    // send the token in a HTTP-only cookie
-    res
-      .cookie("access_token", newToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None", // required for cross-origin
-      })
-      .send();
+    res.json({ newToken });
   } catch (err) {
     console.error(err);
     res

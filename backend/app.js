@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -12,7 +11,7 @@ const port = process.env.PORT || 8800;
 // Allow requests from frontend
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://blogsite-mern.onrender.com"],
+    origin: ["http://localhost:3000", "https://labib-islam.github.io"],
     credentials: true, // allow cookies
   })
 );
@@ -30,7 +29,6 @@ mongoose
 
 // Middleware Setup
 app.use(express.json()); // Parses incoming JSON requests
-app.use(cookieParser()); // Parses cookies from the request headers
 
 // Routes
 app.get("/", (req, res) => res.send("Blogsite-mern"));

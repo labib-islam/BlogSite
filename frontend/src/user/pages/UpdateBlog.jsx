@@ -49,7 +49,7 @@ const UpdateBlog = () => {
       );
       setIsLoading(false);
       toast.success("Blog Updated");
-      navigate("/blogs");
+      navigate(`/user/${userId}/blogs`);
     } catch (err) {
       console.log(err);
       setIsLoading(false);
@@ -119,7 +119,7 @@ const UpdateBlog = () => {
               <hr />
               <CategoryCard category={blog.category} />
               <figure className="blog-image__container">
-                <img src={`/api/${blog.imageUrl}`} alt="" />
+                <img src={blog.imageUrl} alt="" />
               </figure>
               <Editor
                 handleChange={handleEditorChange}

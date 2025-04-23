@@ -13,6 +13,9 @@ import axios from "axios";
 // Set base URL
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_API_URL;
 axios.defaults.withCredentials = true;
+axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
+  "authToken"
+)}`;
 
 function App() {
   const { role, authError } = useContext(AuthContext);

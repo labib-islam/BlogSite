@@ -32,12 +32,20 @@ const AuthContextProvider = (props) => {
   const getLoggedOut = async () => {
     setRole(undefined);
     await axios.get("/api/auth/logout");
+    localStorage.clear("authToken");
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("authToken")}`;
     getLoggedIn();
   };
 
   const switchRole = async () => {
     try {
-      await axios.get("/api/auth/switch-role");
+      const res = await axios.get("/api/auth/switch-role");
+      localStorage.setItem("authToken", res.data.newToken);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${res.data.newToken}`;
       toast.success("Role Switched");
       getLoggedIn();
     } catch (err) {
