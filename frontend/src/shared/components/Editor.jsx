@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import EditorjsList from "@editorjs/list";
+import EditorjsTable from "@editorjs/table";
 
 import "./Editor.css";
 
@@ -17,6 +18,7 @@ export const Editor = ({ handleChange, content, readOnly = false }) => {
     tools: {
       header: Header,
       list: EditorjsList,
+      table: EditorjsTable,
     },
 
     onChange: async (api, event) => {

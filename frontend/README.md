@@ -30,7 +30,7 @@
 - react-router → `npm install react-router`
 - vite-plugin-svgr → `npm install vite-plugin-svgr`
 - axios → `npm install axios`
-- editorjs, header, list → `npm install @editorjs/editorjs @editorjs/header @editorjs/list`
+- editorjs, header, list, table → `npm install @editorjs/editorjs @editorjs/header @editorjs/list @editorjs/table`
 - react-icons → `npm install react-icons`
 - sonner → `npm install sonner` # Toast Notification
 - react-error-boundary → `npm install react-error-boundary`
