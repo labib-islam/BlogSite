@@ -53,6 +53,26 @@ const AddBlog = () => {
 
   const handleSubmit = async (e, status) => {
     e.preventDefault();
+    let messages = [];
+
+    if (!inputs.title) messages.push("• Title");
+    if (!image) messages.push("• Image");
+    if (inputs.content.blocks.length === 0) messages.push("• Blog Content");
+    if (!inputs.category) messages.push("• Category");
+
+    if (messages.length > 0) {
+      toast.error(
+        <>
+          <b>The following field(s) cannot be empty:</b>
+          <br />
+          {messages.map((msg, idx) => (
+            <div key={idx}>{msg}</div>
+          ))}
+        </>
+      );
+      return;
+    }
+
     try {
       setIsLoading(true);
       const formData = new FormData();
